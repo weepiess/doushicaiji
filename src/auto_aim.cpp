@@ -3,9 +3,13 @@
 #include <iostream>
 #include <algorithm>
 
-const String fileName = "/home/wyx/图片/pic/my_photo-1.jpg";
+const String fileName = "/home/wyx/图片/pic/my_photo-23.jpg";
 
 const float AutoAim::max_offset_angle = 30;
+
+AutoAim::AutoAim(){}
+
+AutoAim::~AutoAim(){}
 
 //排序得到的椭圆，使得角度近似、高度近似的点邻近
 bool cmp(RotatedRect &x, RotatedRect &y){
@@ -26,7 +30,7 @@ void AutoAim::setImage(Mat &img, Mat &mask){
     split(img,channel);
 
     //黑帽运算，分离比邻近点暗的点，Size的参数待调
-    morphologyEx(channel[0]-channel[2], mask, MORPH_BLACKHAT, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3), cv::Point(-1, -1)));
+    morphologyEx(channel[0]-channel[2], mask, MORPH_BLACKHAT, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(21, 21), cv::Point(-1, -1)));
 
     //开运算消除小物块，平滑物体的边界
     morphologyEx(mask, mask, MORPH_OPEN, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5), cv::Point(-1, -1)));
@@ -34,12 +38,13 @@ void AutoAim::setImage(Mat &img, Mat &mask){
     Canny(mask, mask, 3, 9, 3);
 }
 
-void findLamp(Mat &mask, vector<RotatedRect> &lamps){
+void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
+    imshow("mask", mask);
     lamps.clear();
     vector<vector<Point>> contours;
     vector<Vec4i> hierarcy;
     //寻找轮廓，将满足条件的轮廓放入待确定的数组中去
-    findContours(mask, contours, hierarcy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+    findContours(mask, contours, hierarcy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
     RotatedRect temp;
     vector<RotatedRect> pre_lamps;
     cout<<"contours.size: "<<contours.size()<<endl;
@@ -47,7 +52,7 @@ void findLamp(Mat &mask, vector<RotatedRect> &lamps){
         if(contours[i].size()>5){
             temp = minAreaRect(contours[i]);
             float theta=temp.angle;
-            if(abs(180-theta)<30||(theta-0)<30){
+            if(abs(180-theta)<30||abs(theta)<30){
 
                 //判断是否放入的条件 
                 if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*2)
@@ -59,7 +64,6 @@ void findLamp(Mat &mask, vector<RotatedRect> &lamps){
                 //putText(img, to_string(i), temp.center, FONT_HERSHEY_SIMPLEX,1, Scalar(255,23,0), 2, 8);
                 //ellipse(img, temp, Scalar(255, 0, 0), 2, 8);
                 pre_lamps.push_back(temp);
-                cout<<"theta: "<<theta<<endl;
             }
         }
     }
@@ -75,9 +79,13 @@ void findLamp(Mat &mask, vector<RotatedRect> &lamps){
     int size = pre_lamps.size();
     float *diff = new float(size);
     float *best_match_index = new float(size);
-    for(int i=0; i<size; i++)
+    for(int i=0; i<size; i++){
         diff[i] = 0x3f3f3f3f;
-    memset(best_match_index, -1, sizeof(best_match_index));
+        best_match_index[i] = -1;
+
+        cout<<"angle: "<<pre_lamps[i].angle;
+        cout<<" length: "<<pre_lamps[i].size.height<<endl;
+    }
     
     //中心点间距离，平均高度，角度差，高度差
     float dist, avg_height, diff_angle, diff_height, ratio, totalDiff;
@@ -97,7 +105,8 @@ void findLamp(Mat &mask, vector<RotatedRect> &lamps){
             dist = distPoint(compare.center, current.center);
             avg_height = (compare.size.height + current.size.height) / 2;
             ratio = dist / avg_height;
-            if(ratio < 1.8 || ratio > 2.3) continue;
+            cout<<"ratio: "<<ratio<<endl;
+            if(ratio < 1.5 || ratio > 4.0) continue;
             
             totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height;
             if(totalDiff < currDiff){
@@ -106,11 +115,12 @@ void findLamp(Mat &mask, vector<RotatedRect> &lamps){
             }
         }
         //一对灯管肯定花费是最少的，所以如果当前花费比两个的花费都要少，就记录是最优
-        if(currDiff < diff[i] && currDiff < diff[i+j]){
+        if(currIndex==-1) continue;
+        if(currDiff < diff[i] && currDiff < diff[currIndex]){
             diff[i] = currDiff;
-            diff[i+j] = currDiff;
-            best_match_index[i] = i+j;
-            best_match_index[i+j] = i;
+            diff[currIndex] = currDiff;
+            best_match_index[i] = currIndex;
+            best_match_index[currIndex] = i;
         }
     }
 
@@ -118,6 +128,8 @@ void findLamp(Mat &mask, vector<RotatedRect> &lamps){
     int count = 0;
     for(i=0; i<size; i++){
         int index = best_match_index[i];
+        cout<<"best_match_index: "<<index;
+        cout<<" diff: "<<diff[i]<<endl;
         if(index == -1) continue;
         //找到匹配对
         if(i == best_match_index[index]){
@@ -126,5 +138,16 @@ void findLamp(Mat &mask, vector<RotatedRect> &lamps){
             ++count;
         }
     }
-    cout<<"lamps counts: "<<count<<endl;
+    cout<<"lamps counts: "<<count/2<<endl;
+}
+
+int main(int argc, char const *argv[]){
+    Mat src = imread(fileName);
+    AutoAim autoAim;
+    Mat mask;
+    autoAim.setImage(src, mask);
+    vector<RotatedRect> lamps;
+    autoAim.findLamp(mask, lamps);
+    waitKey(0);
+    return 0;
 }
