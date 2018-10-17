@@ -12,7 +12,7 @@ public:
     ~AutoAim();
 
     void setImage(Mat &src, Mat &mask);
-    void findLamp(Mat &mask, vector<RotatedRect> &lamps);
+    void findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src);
 
 public:
     const static float max_offset_angle;

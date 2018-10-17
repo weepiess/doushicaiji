@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include "time.h"
-const String fileName = "../res/pic2/my_photo-153.jpg";
+const String fileName = "../res/pic-final/my_photo-193.jpg";
 const Scalar Bluelow(100,43,46);
 const Scalar Bluehigh(124,255,255);
 const float AutoAim::max_offset_angle = 30;
@@ -33,13 +33,13 @@ float distPoint(Point2f center1, Point2f center2){
 void AutoAim::setImage(Mat &img, Mat &mask){
     Mat hsv;
     Mat channel[3];
-    //GaussianBlur(img,img,Size(5,5),0,0);
+    GaussianBlur(img,img,Size(5,5),0,0);
     split(img,channel); 
     //dilate(mask,mask,cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5),cv::Point(-1, -1)));
     threshold(channel[2]-channel[0], mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
-    morphologyEx(mask, mask, MORPH_OPEN, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(9,9), cv::Point(-1, -1))); //开运算消除小物块，平滑物体的边界
+    //morphologyEx(mask, mask, MORPH_OPEN, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(9,9), cv::Point(-1, -1))); //开运算消除小物块，平滑物体的边界
     Canny(mask, mask, 3, 9, 3);
-    //imshow("mask", mask);                                             
+    imshow("mask", mask);                                             
 }
 void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src){
     
@@ -72,9 +72,7 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src){
 			            continue;
                     if(temp.size.width<8||temp.size.height<10)
                         continue;              
-                                      ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
-                    putText(src, to_string(i), temp.center, FONT_HERSHEY_SIMPLEX,1, Scalar(255,23,0), 2, 8);
-                    cout<<i<<" : "<<temp.size.width<<" "<<temp.size.height<<" "<<temp.angle<<endl;
+
                     //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
                     
                     //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
@@ -199,7 +197,7 @@ int main(int argc, char const *argv[]){
         cout<<i<<" "<<lamps[i].center.x<<endl;
         circle(src,lamps[i].center,20,(0,0,255),5);
     }
-    //imshow("src",src);
+    imshow("src",src);
     finish=clock();
     time_tol=double(finish-start)/CLOCKS_PER_SEC;
     cout<<time_tol<<endl;
