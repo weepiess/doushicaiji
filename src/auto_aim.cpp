@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include "time.h"
-const String fileName = "/home/wyx/图片/pic2/my_photo-148.jpg";
+const String fileName = "/home/wyx/图片/pic-final/my_photo-193.jpg";
 const float AutoAim::max_offset_angle = 30;
 
 AutoAim::AutoAim(){}
