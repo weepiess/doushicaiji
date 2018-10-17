@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include "time.h"
-
+using namespace std;
 const String fileName = "../res/pic-final/my_photo-193.jpg";
 
 const float AutoAim::max_offset_angle = 30;
