@@ -3,9 +3,9 @@
 #include <iostream>
 #include <algorithm>
 #include "time.h"
+
 const String fileName = "../res/pic-final/my_photo-193.jpg";
-const Scalar Bluelow(100,43,46);
-const Scalar Bluehigh(124,255,255);
+
 const float AutoAim::max_offset_angle = 30;
 
 AutoAim::AutoAim(){}
@@ -53,35 +53,36 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src){
     
     cout<<"contours.size: "<<contours.size()<<endl;
     if(contours.size()<40){
-    for(int i=0;i<contours.size();i++){
-        if(i%2==0)
-        {
-
+        for(int i=0;i<contours.size();i++){
             if(contours[i].size()>5){
-                 temp =fitEllipseAMS(Mat(contours[i]));
-            
-                float theta=temp.angle;
-                if(theta>95)
-                    theta=abs(180-theta);
+                temp =fitEllipse(Mat(contours[i]));
 
-                if(theta<40){
-                    
-                    
-                //判断是否放入的条件 
-                    if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*1.2)
-			            continue;
-                    if(temp.size.width<8||temp.size.height<10)
-                        continue;              
+                //去掉重复拟合同一幅图片的情况
+                if(fabs(lastCenterX - temp.center.x) + fabs(lastCenterY - temp.center.y) > 10){
 
-                    //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
-                    
-                    //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
-                    //putText(src, to_string(i), temp.center, FONT_HERSHEY_SIMPLEX,1, Scalar(255,23,0), 2, 8);
-                    //cout<<i<<" : "<<temp.size.width<<" "<<temp.size.height<<" "<<temp.angle<<endl;
-                    //ellipse(src, temp, Scalar(255, 0, 0), 2, 8);
-                    pre_lamps.push_back(temp);
+                    float theta=temp.angle;
+                    if(theta>95)
+                        theta=abs(180-theta);
 
-                
+                    if(theta<40){
+                        //判断是否放入的条件 
+                        if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*1.2)
+			                continue;
+                        //if(temp.size.width<8||temp.size.height<10)
+                            //continue;              
+
+                        ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 0, 255), 3, 8);    
+                        //putText(src, to_string(i), temp.center, FONT_HERSHEY_SIMPLEX,1, Scalar(255,23,0), 2, 8);
+                        cout<<i<<" : "<<temp.size.width<<" "<<temp.size.height<<" "<<temp.angle<<endl;
+                        //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
+
+                        //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
+                        //putText(src, to_string(count++), temp.center, FONT_HERSHEY_SIMPLEX,1, Scalar(255,23,0), 2, 8);
+                        //cout<<i<<" : "<<temp.size.width<<" "<<temp.size.height<<" "<<temp.angle<<endl;
+                        //ellipse(src, temp, Scalar(255, 0, 0), 2, 8);
+                        pre_lamps.push_back(temp);
+                    }
+
                 }
             }
         } 
