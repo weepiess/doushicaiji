@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
-#include "time.h"
 
 const String fileName = "/home/wyx/图片/pic-final/my_photo-199.jpg";
 const float AutoAim::max_offset_angle = 30;
@@ -188,7 +187,7 @@ void AutoAim::findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps){
 }
 
 
-void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter){
+void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed, clock_t &start){
     /*
     int lowerIndex = -1;
     int lowerY = 0;
@@ -217,6 +216,11 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter){
             lowerIndex = i;
         }
     }
+
+    bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
+    bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2;
+
+    /*
     //找到当前匹配点的最近点
     if(lowerIndex != -1){
         bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
@@ -248,12 +252,20 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter){
             lastFitPoint.y = bestCenter.y;
         }
     }
+    */
+
+    clock_t finish=clock();
+    double time =double(finish-start)/CLOCKS_PER_SEC*1000;
+
+    posAndSpeed.push_back(bestCenter);
+    float speedX = abs(lastFitPoint.x - bestCenter.x) / time;
+    float speedY = abs(lastFitPoint.y - bestCenter.y) / time;
+    posAndSpeed.push_back(Point2f(speedX, speedY));
 }
 
 void test(){
     clock_t start, finish;
-    double time_tol;
-
+    //double time_tol;
     VideoCapture cap(1);
     if(!cap.isOpened()) return;
     cap.set(CAP_PROP_FRAME_WIDTH, 1280);
@@ -274,14 +286,13 @@ void test(){
         //cout<<lamps.size()<<endl;
 
         bestCenter.x = -1;
-        autoAim.findBestArmor(lamps, bestCenter);
+        vector<Point2f> posAndSpeed;
+        autoAim.findBestArmor(lamps, bestCenter, posAndSpeed, start);
 
         //cout<<i<<" "<<centerPoints[i].x<<" "<<centerPoints[i].y<<endl;
         if(bestCenter.x!=-1) circle(src, bestCenter, 20, Scalar(255,255,255), 5);
-        finish=clock();
-        time_tol=double(finish-start)/CLOCKS_PER_SEC;
         //cout<<time_tol<<endl;
-        putText(src, to_string(1.0/time_tol), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
+        //putText(src, to_string(1.0/time_tol), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
         imshow("src", src);
         char c = waitKey(1);
         if((char)c == 27) break;
