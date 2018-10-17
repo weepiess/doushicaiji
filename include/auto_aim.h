@@ -13,6 +13,7 @@ public:
 
     void setImage(Mat &src, Mat &mask);
     void findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src);
+    void findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps);
 
 public:
     const static float max_offset_angle;
