@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
-project(zimiao)
+
+SET(OpenCV_DIR /usr/local/opencv/3.4.3/share/OpenCV)
+project(Aim)
 
 set(CMAKE_CXX_STANDARD 11)
 

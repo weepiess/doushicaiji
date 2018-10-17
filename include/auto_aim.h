@@ -13,6 +13,7 @@ public:
     ~AutoAim();
 
     void setImage(Mat &src, Mat &mask);
+    void findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src);
     void findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps);
     void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed, clock_t &start);
 
