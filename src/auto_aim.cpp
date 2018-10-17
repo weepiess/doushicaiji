@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include "time.h"
-const String fileName = "/home/wyx/图片/pic-final/my_photo-193.jpg";
+const String fileName = "/home/wyx/图片/pic-final/my_photo-199.jpg";
 const float AutoAim::max_offset_angle = 30;
 
 AutoAim::AutoAim(){}
@@ -58,7 +58,6 @@ void AutoAim::findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps){
 
                 //去掉重复拟合同一幅图片的情况
                 if(fabs(lastCenterX - temp.center.x) + fabs(lastCenterY - temp.center.y) > 10){
-                    ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 0, 255), 3, 8);
 
                     float theta=temp.angle;
                     if(theta>95)
@@ -68,10 +67,10 @@ void AutoAim::findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps){
                         //判断是否放入的条件 
                         if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*1.2)
 			                continue;
-                        if(temp.size.width<8||temp.size.height<10)
-                            continue;              
+                        //if(temp.size.width<8||temp.size.height<10)
+                            //continue;              
 
-
+                        ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 0, 255), 3, 8);    
                         //putText(src, to_string(i), temp.center, FONT_HERSHEY_SIMPLEX,1, Scalar(255,23,0), 2, 8);
                         cout<<i<<" : "<<temp.size.width<<" "<<temp.size.height<<" "<<temp.angle<<endl;
                         //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
