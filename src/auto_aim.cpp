@@ -3,9 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include "time.h"
-using namespace std;
-const String fileName = "../res/pic-final/my_photo-193.jpg";
-
+const String fileName = "../res/pic-final/my_photo-197.jpg";
 const float AutoAim::max_offset_angle = 30;
 
 AutoAim::AutoAim(){}
@@ -27,31 +25,37 @@ bool cmp(RotatedRect &x, RotatedRect &y){
 
 //两点距离
 float distPoint(Point2f center1, Point2f center2){
-    return abs(center1.x-center2.x);//sqrt((center1.x-center2.x)*(center1.x-center2.x) + (center1.y-center2.y)*(center1.y-center2.y));
+    return abs(center1.x-center2.x) + abs(center1.y-center2.y);//sqrt((center1.x-center2.x)*(center1.x-center2.x) + (center1.y-center2.y)*(center1.y-center2.y));
 }
 
-void AutoAim::setImage(Mat &img, Mat &mask){
-    Mat hsv;
+void AutoAim::setImage(Mat &img, Mat &mask , bool is_red){
     Mat channel[3];
-    GaussianBlur(img,img,Size(5,5),0,0);
-    split(img,channel); 
+    Mat armor_color;
+    if(is_red)
+        armor_color=channel[2]-channel[0];
+    else
+        armor_color=channel[0]-channel[2];
+    //bilateralFilter(img,mask, 5, 5, 5);
+    GaussianBlur(img, mask, Size(5,5), 0, 0);
+    split(mask,channel); 
     //dilate(mask,mask,cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5),cv::Point(-1, -1)));
-    threshold(channel[2]-channel[0], mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
+    threshold(armor_color, mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
     //morphologyEx(mask, mask, MORPH_OPEN, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(9,9), cv::Point(-1, -1))); //开运算消除小物块，平滑物体的边界
-    Canny(mask, mask, 3, 9, 3);
+    Canny(mask, mask, 2, 5, 3);
     imshow("mask", mask);                                             
 }
-void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src){
+void AutoAim::findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps){
     
     lamps.clear();
     vector<vector<Point> > contours;
     vector<Vec4i> hierarcy;
     //寻找轮廓，将满足条件的轮廓放入待确定的数组中去
-    findContours(mask, contours, hierarcy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+    findContours(mask, contours, hierarcy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
     RotatedRect temp;
     vector<RotatedRect> pre_lamps;
     
     cout<<"contours.size: "<<contours.size()<<endl;
+    float lastCenterX = 0, lastCenterY = 0;
     if(contours.size()<40){
         for(int i=0;i<contours.size();i++){
             if(contours[i].size()>5){
@@ -82,15 +86,20 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src){
                         //ellipse(src, temp, Scalar(255, 0, 0), 2, 8);
                         pre_lamps.push_back(temp);
                     }
-
                 }
+
+                lastCenterX = temp.center.x;
+                lastCenterY = temp.center.y;
             }
-        } 
-    }
+        }
     }
 
     //排序lamp找到满足比例条件的灯管
     sort(pre_lamps.begin(), pre_lamps.end(), cmp);
+
+    for(int i=0; i<pre_lamps.size(); i++){
+        cout<<i<<" "<<pre_lamps[i].center.x<<" "<<pre_lamps[i].center.y<<endl;
+    }
     
     //角度和高度的权重，角度更加重要，所以角度的偏差使得结果的值偏差更大
     int angle_diff_weight = 2;
@@ -146,7 +155,7 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src){
             avg_height = (compare.size.height + current.size.height) / 2;
             ratio = dist / avg_height;
             cout<<"ratio: "<<ratio<<endl;
-            if(ratio > 15) continue;
+            if(ratio > 10 || ratio < 1) continue;
             
             totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height+0.5*dist;
             if(totalDiff < currDiff){
@@ -167,7 +176,7 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src){
     //遍历，将满足条件的灯管储存
     for(i=0; i<size; i++){
         int index = best_match_index[i];
-        cout<<"best_match_index: "<<index;
+        cout<<"i: "<<i<<" best_match_index: "<<index;
         cout<<" diff: "<<diff[i]<<endl;
         if(index == -1 || index <= i) continue;
         //找到匹配对
@@ -187,16 +196,20 @@ int main(int argc, char const *argv[]){
     AutoAim autoAim;
     Mat mask;
     start=clock();
-    autoAim.setImage(src, mask);
+    autoAim.setImage(src, mask,red);
      
     vector<RotatedRect> lamps;
     
-    autoAim.findLamp(mask, lamps,src);
+    autoAim.findLamp(src, mask, lamps);
     cout<<lamps.size()<<endl;
-    for(int i=0;i<lamps.size();i++)
+    for(int i=0;i<lamps.size();i+=2)
     {
-        cout<<i<<" "<<lamps[i].center.x<<endl;
-        circle(src,lamps[i].center,20,(0,0,255),5);
+        cout<<i<<" "<<lamps[i].center.x<<" "<<lamps[i].center.y<<endl;
+        Point armor;
+        armor.x=(lamps[i].center.x+lamps[i+1].center.x)*0.5; 
+        armor.y=(lamps[i].center.y+lamps[i+1].center.y)*0.5; 
+        int radius=(lamps[i].center.x-lamps[i+1].center.x)*0.5;
+        circle(src,armor,radius,(0,0,255),5);
     }
     imshow("src",src);
     finish=clock();
