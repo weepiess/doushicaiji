@@ -6,22 +6,28 @@
 
 using namespace cv;
 using namespace std;
-
 class AutoAim{
 public:
     AutoAim();
+    AutoAim(int width, int height);
     ~AutoAim();
 
-    void setImage(Mat &src, Mat &mask);
-    void findLamp(Mat &mask, vector<RotatedRect> &lamps,Mat &src);
-    void findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps);
-    void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed, clock_t &start);
+    enum Color{
+        red, blue
+    };
+
+    void setImage(Mat &src, Mat &mask , Color enemyColor);
+    void findLamp(Mat &mask, vector<RotatedRect> &lamps);
+    void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter);
+    bool resizeROI(Rect &origin, Rect &current);
+    Rect rectROI;
 
 private:
     const static float max_offset_angle;
-    Point lastFitPoint;
-    int lostFrameCount;
-    int ensureFrameCount;
+    int IMG_WIDTH;
+    int IMG_HEIGHT;
+    int resizeCount;
+    bool hasROI;
 };
 
 #endif
