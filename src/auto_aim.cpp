@@ -6,10 +6,11 @@
 const String fileName = "/home/wyx/图片/pic-final/my_photo-199.jpg";
 const float AutoAim::max_offset_angle = 30;
 
-AutoAim::AutoAim(){
-    this->lastFitPoint = Point(-1,-1);
-    this->lostFrameCount = 0;
-    this->ensureFrameCount = 0;
+AutoAim::AutoAim(int width, int height){
+    this->IMG_WIDTH = width;
+    this->IMG_HEIGHT = height;
+    hasROI = false;
+    resizeCount = 0;
 }
 
 AutoAim::~AutoAim(){}
@@ -29,22 +30,24 @@ bool cmp(RotatedRect &x, RotatedRect &y){
 
 //两点距离
 float distPoint(Point2f center1, Point2f center2){
-    return abs(center1.x-center2.x) + abs(center1.y-center2.y);//sqrt((center1.x-center2.x)*(center1.x-center2.x) + (center1.y-center2.y)*(center1.y-center2.y));
+    return abs(center1.x-center2.x) + abs(center1.y-center2.y);
 }
 
-void AutoAim::setImage(Mat &img, Mat &mask){
+void AutoAim::setImage(Mat &img, Mat &mask, Color enemyColor){
     Mat channel[3];
-    //bilateralFilter(img,mask, 5, 5, 5);
-    GaussianBlur(img, mask, Size(5,5), 0, 0);
+    if(hasROI){
+        mask = img(Rect(rectROI));
+        GaussianBlur(mask, mask, Size(5,5), 0, 0);
+    } else {
+        GaussianBlur(img, mask, Size(5,5), 0, 0);
+    }
     split(mask,channel); 
-    //dilate(mask,mask,cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5),cv::Point(-1, -1)));
-    threshold(channel[2]-channel[0], mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
-    //morphologyEx(mask, mask, MORPH_OPEN, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(9,9), cv::Point(-1, -1))); //开运算消除小物块，平滑物体的边界
+    threshold(enemyColor==red ? (channel[2]-channel[0]) : (channel[0] - channel[2]), mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
     Canny(mask, mask, 3, 9, 3);
-    imshow("mask", mask);                                             
+    //imshow("mask", mask);                                             
 }
 
-void AutoAim::findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps){
+void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
     
     lamps.clear();
     vector<vector<Point> > contours;
@@ -73,12 +76,7 @@ void AutoAim::findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps){
                         if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*1.2)
 			                continue;
                         //if(temp.size.width<8||temp.size.height<10)
-                            //continue;              
-
-                        ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 0, 255), 3, 8);    
-                        //putText(src, to_string(i), temp.center, FONT_HERSHEY_SIMPLEX,1, Scalar(255,23,0), 2, 8);
-                        //cout<<i<<" : "<<temp.size.width<<" "<<temp.size.height<<" "<<temp.angle<<endl;
-                        //ellipse(src, temp.center, Size(temp.size.width/2, temp.size.height/2), temp.angle, 0, 360, Scalar(0, 255, 0), 1, 8);
+                            //continue;
                         pre_lamps.push_back(temp);
                     }
                 }
@@ -186,8 +184,7 @@ void AutoAim::findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps){
     //cout<<"lamps counts: "<<lamps.size()/2<<endl;
 }
 
-
-void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed, clock_t &start){
+void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter){
 
     int lowerIndex = -1;
     int lowerY = 0;
@@ -201,74 +198,53 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
         }
     }
 
-    /*
     if(lowerIndex == -1){
-        bestCenter.x = -1;
-        return;
-    }
-
-    bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
-    bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2;    
-
-    if(lastFitPoint.x == -1){
-        lastFitPoint.x = bestCenter.x;
-        lastFitPoint.y = bestCenter.y;
+        if(hasROI){
+            hasROI = resizeROI(rectROI, rectROI);
+        }
     } else {
-        if( (abs(lastFitPoint.x - bestCenter.x) < 10 && abs(lastFitPoint.y - bestCenter.y) > 30) 
-            || (abs(lastFitPoint.x - bestCenter.x) > 30 && abs(lastFitPoint.y - bestCenter.y) < 10) ){
-            bestCenter.x = lastFitPoint.x;
-            bestCenter.y = lastFitPoint.y;
-            //bestCenter.x = -1;
-        } else {
-            lastFitPoint.x = bestCenter.x;
-            lastFitPoint.y = bestCenter.y;
-        }
-    }
-    */
-    
-    //找到当前匹配点的最近点
-    if(lowerIndex != -1){
-        bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
-        bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2;
-        //如果当前最近点离之前的匹配点较远，则放弃该次匹配
-        //cout<<"lastPoint"<<lastFitPoint.x<<endl;
-        if(lastFitPoint.x != -1){
-            diff = distPoint(bestCenter, lastFitPoint);
-            if(diff < 5){ //在误差允许范围以内
-                lostFrameCount = 0;
-                if(ensureFrameCount < 1){
-                    ++ensureFrameCount;
-                    bestCenter.x = -1;
-                }
-            } else { //跳到误差以外
-                ensureFrameCount = 0;
-                if(lostFrameCount < 1){
-                    ++lostFrameCount;
-                    bestCenter.x = lastFitPoint.x;
-                    bestCenter.y = lastFitPoint.y;
-                } else {
-                    lastFitPoint.x = -1;
-                    lastFitPoint.y = -1;
-                    lostFrameCount = 0;
-                }
+        if(!hasROI){
+            hasROI = true;
+            rectROI.x = lamps[lowerIndex].center.x - lamps[lowerIndex].size.width;
+            rectROI.y = lamps[lowerIndex].center.y - lamps[lowerIndex].size.height/2;
+            rectROI.width = abs(lamps[lowerIndex].center.x - lamps[lowerIndex+1].center.x) + lamps[lowerIndex].size.width + 
+                                lamps[lowerIndex+1].size.width;
+            rectROI.height =  lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height - fabs(lamps[lowerIndex].center.y - 
+                                lamps[lowerIndex+1].center.y);                   
+            if(rectROI.height < 0 || rectROI.x < 0 || rectROI.y < 0){
+                rectROI.x = rectROI.y = rectROI.width = rectROI.height = 0;
             }
+            bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2 + rectROI.x;
+            bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
         } else {
-            ensureFrameCount = 0;
-            lostFrameCount = 0;
-            lastFitPoint.x = bestCenter.x;
-            lastFitPoint.y = bestCenter.y;
+            int height = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
+            if(height > 15){
+                bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2 + rectROI.x;
+                bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
+            } else hasROI = false;
         }
     }
+    
+}
 
-   /*
-    clock_t finish=clock();
-    double time =double(finish-start)/CLOCKS_PER_SEC*1000;
-
-    posAndSpeed.push_back(bestCenter);
-    float speedX = abs(lastFitPoint.x - bestCenter.x) / time;
-    float speedY = abs(lastFitPoint.y - bestCenter.y) / time;
-    posAndSpeed.push_back(Point2f(speedX, speedY));
-    */
+bool AutoAim::resizeROI(Rect &origin, Rect &current){ 
+    //记录调用resize的次数
+    if(resizeCount==2){
+ 	    resizeCount=0;//清零
+        return false;
+    }	
+    
+    //将ROI区域扩大
+    current.x=origin.x-origin.height/2;
+    current.y=origin.y-origin.width/2;
+    current.height=origin.height+origin.height;
+    current.width=origin.width+origin.width;
+    
+    //判断ROI是否越界
+    if(IMG_WIDTH-1-rectROI.x<rectROI.width||IMG_HEIGHT-1-rectROI.y<rectROI.height)
+        return false;
+    ++resizeCount;
+    return true;
 }
 
 void test(){
@@ -280,27 +256,30 @@ void test(){
     cap.set(CAP_PROP_FRAME_HEIGHT, 720);
     Mat src;
 
-    AutoAim autoAim;
+    AutoAim autoAim(1280, 720);
     Point bestCenter;
     while(1){
         start=clock();
         cap>>src;
         if(src.empty()) break;
         Mat mask;
-        autoAim.setImage(src, mask);
+        autoAim.setImage(src, mask, autoAim.red);
 
         vector<RotatedRect> lamps;
-        autoAim.findLamp(src, mask, lamps);
+        autoAim.findLamp(mask, lamps);
         //cout<<lamps.size()<<endl;
 
         bestCenter.x = -1;
         vector<Point2f> posAndSpeed;
-        autoAim.findBestArmor(lamps, bestCenter, posAndSpeed, start);
+        autoAim.findBestArmor(lamps, bestCenter);
 
         //cout<<i<<" "<<centerPoints[i].x<<" "<<centerPoints[i].y<<endl;
+        rectangle(src, autoAim.rectROI, Scalar(255,255,255), 7);
         if(bestCenter.x!=-1) circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        finish = clock();
         //cout<<time_tol<<endl;
-        //putText(src, to_string(1.0/time_tol), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
+        time_tol = (double)(finish - start)/ CLOCKS_PER_SEC;
+        putText(src, to_string(1.0/time_tol), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
         imshow("src", src);
         char c = waitKey(1);
         if((char)c == 27) break;
