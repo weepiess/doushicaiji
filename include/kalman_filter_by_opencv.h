@@ -44,7 +44,11 @@ kf.measurementMatrix=(Mat_<float>(4, 4) <<
             1,0,0,0,   
             0,1,0,0,   
             0,0,1,0,   
+<<<<<<< HEAD
             0,0,0,1 );
+=======
+            0,0,0,1 );  
+>>>>>>> ce0e0c7f5c84b877bdeaad99c65a529e9ca3ca59
 kf.measurementNoiseCov(Mat_<float>(4, 4) <<   
             2000,0,0,0,   
             0,2000,0,0,   

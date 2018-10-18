@@ -308,63 +308,22 @@ void test(){
     Mat src;
 
     AutoAim autoAim(1280, 720);
+
     
     Mat measurement = Mat::zeros(4, 1, CV_32F);
     Mat best_lamps = Mat::zeros(8, 1, CV_32F);  
     Mat state(4, 1, CV_32F);
-    Mat processNoise(2, 1, CV_32F);
-    float dt=1/40;
-    autoAim.kf.transitionMatrix=(Mat_<float>(4, 4) <<   
-            1,0,dt,0,   
             0,1,0,dt,   
-            0,0,1,0,   
-            0,0,0,1 );
-    autoAim.kf.measurementMatrix=(Mat_<float>(4, 4) <<   
-            1,0,0,0,   
             0,1,0,0,   
-            0,0,1,0,   
-            0,0,0,1 );  
-    autoAim.kf.measurementNoiseCov=(Mat_<float>(4, 4) <<   
-            2000,0,0,0,   
             0,2000,0,0,   
             0,0,10000,0,   
             0,0,0,10000 );
-    autoAim.kf.init(4,1,0);
-    Point bestCenter;
-    PNPSolver pnpsolver(1242.230744,1245.580702,704.384156
-    ,368.265589,0.002554, 0.140210, -0.001525, 0.004035, 0.000000);
-    
     while(1){
-        start=clock();
         cap>>src;
-        if(src.empty()) break;
-        Mat mask;
-        autoAim.setImage(src, mask, autoAim.red);
 
-        vector<RotatedRect> lamps;
-        autoAim.findLamp(mask, lamps);
-        //cout<<lamps.size()<<endl;
-
-        bestCenter.x = -1;
-        vector<Point2f> posAndSpeed;
-        autoAim.findBestArmor(lamps, bestCenter,best_lamps);
-
-        //cout<<i<<" "<<centerPoints[i].x<<" "<<centerPoints[i].y<<endl;
-        rectangle(src, autoAim.rectROI, Scalar(255,255,255), 7);
-        pnpsolver.Points3D.push_back(cv::Point3f(0, 0, 0));     //P1三维坐标的单位是毫米
-        pnpsolver.Points3D.push_back(cv::Point3f(0, 55, 0));   //P2
         pnpsolver.Points3D.push_back(cv::Point3f(135, 0, 0));   //P3
-        //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
-        pnpsolver.Points3D.push_back(cv::Point3f(135, 55, 0)); //P5
-        int x1=0,y1=0,z1=0;
-        Point2f point;
 
-        if(bestCenter.x!=-1) 
-        {
-            int xc1=best_lamps.at<float>(0);//first center x
-            int yc1=best_lamps.at<float>(1);//first center y
-            int h1=best_lamps.at<float>(2);//first hight   
-            int a1=best_lamps.at<float>(3);//first angle
+            pnpsolver.Points3D.push_back(cv::Point3f(0, 55, 0));   //P2
             int xc2=best_lamps.at<float>(4);//第二个灯条 x
             int yc2=best_lamps.at<float>(5);//第二个灯条 y
             int h2=best_lamps.at<float>(6);   //第二个灯条 hight
@@ -399,18 +358,5 @@ void test(){
         finish = clock();
         //cout<<time_tol<<endl;
         time_tol = (double)(finish - start)/ CLOCKS_PER_SEC;
-        putText(src, to_string(1.0/time_tol), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
         imshow("src", sryou
-        char c = waitKey(1);
-        if((char)c == 27) break;
-    }
-    cap.release();
-}
-
-
-int main(int argc, char const *argv[]){
-    //Mat src = imread(fileName);
-    
-    test();
-    return 0;
 }
