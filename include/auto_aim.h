@@ -16,6 +16,7 @@ public:
         red, blue
     };
 
+    bool checkBorder();
     void setImage(Mat &src, Mat &mask , Color enemyColor);
     void findLamp(Mat &mask, vector<RotatedRect> &lamps);
     void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter);
