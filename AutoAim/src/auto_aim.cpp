@@ -5,6 +5,8 @@
 const String fileName = "/home/wyx/图片/pic-final/my_photo-199.jpg";
 const float AutoAim::max_offset_angle = 30;
 
+AutoAim::AutoAim(){}
+
 AutoAim::AutoAim(int width, int height){
     this->IMG_WIDTH = width;
     this->IMG_HEIGHT = height;
@@ -298,7 +300,12 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up)
         }
         
     }
-void test(){
+
+    return point;
+    
+
+}
+void AutoAim::test(){
     clock_t start;
     //double time_tol;
     VideoCapture cap(1);
@@ -307,28 +314,28 @@ void test(){
     cap.set(CAP_PROP_FRAME_HEIGHT, 720);
     Mat src;
 
-    AutoAim autoAim(1280, 720);
+    //AutoAim autoAim(1280, 720);
     Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
-     Mat measurement = Mat::zeros(4, 1, CV_32F); 
+    Mat measurement = Mat::zeros(4, 1, CV_32F); 
     Mat state(4, 1, CV_32F);
     Mat processNoise(2, 1, CV_32F);
     float dt=1/40;
-    autoAim.kf.transitionMatrix=(Mat_<float>(4, 4) <<   
+    this->kf.transitionMatrix=(Mat_<float>(4, 4) <<   
             1,0,dt,0,   
             0,1,0,dt,   
             0,0,1,0,   
             0,0,0,1 );
-    autoAim.kf.measurementMatrix=(Mat_<float>(4, 4) <<   
+    this->kf.measurementMatrix=(Mat_<float>(4, 4) <<   
             1,0,0,0,   
             0,1,0,0,   
             0,0,1,0,   
             0,0,0,1 );  
-    autoAim.kf.measurementNoiseCov=(Mat_<float>(4, 4) <<   
+    this->kf.measurementNoiseCov=(Mat_<float>(4, 4) <<   
             2000,0,0,0,   
             0,2000,0,0,   
             0,0,10000,0,   
             0,0,0,10000 );
-    autoAim.kf.init(4,10000,0);
+    this->kf.init(4,10000,0);
     Point bestCenter;
     vector<Point3f> Points3D;
     vector<Point2f> Points2D;
@@ -348,16 +355,16 @@ void test(){
         cap>>src;
         if(src.empty()) break;
         Mat mask;
-        autoAim.setImage(src, mask, autoAim.red);
+        setImage(src, mask, this->red);
 
         vector<RotatedRect> lamps;
-        autoAim.findLamp(mask, lamps);
+        findLamp(mask, lamps);
 
         bestCenter.x = -1;
         vector<Point2f> posAndSpeed;
-        autoAim.findBestArmor(src, lamps, bestCenter,posAndSpeed, best_lamps,start);
+        findBestArmor(src, lamps, bestCenter,posAndSpeed, best_lamps,start);
 
-        rectangle(src, autoAim.rectROI, Scalar(255,0,0), 7);
+        rectangle(src, this->rectROI, Scalar(255,0,0), 7);
         if(bestCenter.x!=-1) 
         {
   
@@ -382,18 +389,21 @@ void test(){
                 Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,0));//P2
                 Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P3
                 Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P4
-                cout<<tvec<<"      tver"<<endl;
-                Points2D.clear();
-                Mat Predict =autoAim.kf.predict();
-                cout<<"1"<<endl;
-                measurement.at<float>(0)= (float)posAndSpeed[0].x;
-                measurement.at<float>(1) = (float)posAndSpeed[0].y;  
-                measurement.at<float>(2)= (float)posAndSpeed[1].x;  
-                measurement.at<float>(3) = (float)posAndSpeed[1].y;
-                cout<<"2"<<endl;
-                autoAim.kf.correct(measurement);
-                circle(src,Point2f(Predict.at<float>(0),Predict.at<float>(1)),20,Scalar(255,255,0),5);
-                circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+            }
+
+            solvePnP(Points3D, Points2D, CameraMatrix, DistortionCoef, rvec, tvec, false, CV_P3P); 
+            cout<<tvec<<"      tver"<<endl;
+            Points2D.clear();
+            Mat Predict = this->kf.predict();
+            cout<<"1"<<endl;
+            measurement.at<float>(0)= (float)posAndSpeed[0].x;
+            measurement.at<float>(1) = (float)posAndSpeed[0].y;  
+            measurement.at<float>(2)= (float)posAndSpeed[1].x;  
+            measurement.at<float>(3) = (float)posAndSpeed[1].y;
+            cout<<"2"<<endl;
+            this->kf.correct(measurement);
+            circle(src,Point2f(Predict.at<float>(0),Predict.at<float>(1)),20,Scalar(255,255,0),5);
+            circle(src, bestCenter, 20, Scalar(255,255,255), 5);
         }
         //finish = clock();
         //time_tol = (double)(finish - start)/ CLOCKS_PER_SEC;
@@ -403,10 +413,4 @@ void test(){
         if((char)c == 27) break;
     }
     cap.release();
-}
-
-int main(int argc, char const *argv[]){
-    
-    test();
-    return 0;
 }
