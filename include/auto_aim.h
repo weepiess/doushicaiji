@@ -32,6 +32,6 @@ private:
     int IMG_HEIGHT;
     int resizeCount;
     bool hasROI;
-};
+};                                                                                                                                  
 
 #endif
