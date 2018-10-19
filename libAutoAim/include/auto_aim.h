@@ -4,13 +4,14 @@
 #include <opencv2/opencv.hpp>
 #include "time.h"
 #include "kalman_filter_by_opencv.h"
+#include "usb_capture_with_opencv.h"
 
 using namespace cv;
 using namespace std;
 class AutoAim{
 public:
     AutoAim();
-    AutoAim(int width, int height);
+    AutoAim(std::string videoPath,int width, int height);
     ~AutoAim();
 
     enum Color{
@@ -22,8 +23,10 @@ public:
     void findLamp(Mat &mask, vector<RotatedRect> &lamps);
     void findBestArmor(Mat &src, vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start);
     bool resizeROI(Rect &origin, Rect &current);
+    void test();
     Rect rectROI;
     Kalman_filter kf;
+    Point2f aim(int is_red,int is_predict);
 
 private:
     const static float max_offset_angle;
@@ -32,6 +35,24 @@ private:
     int IMG_HEIGHT;
     int resizeCount;
     bool hasROI;
+    Mat camera_matrix;
+    Mat distortion_coef;
+    Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
+    Mat temp = Mat::zeros(8, 1, CV_32F);
+    Mat measurement = Mat::zeros(4, 1, CV_32F);
+    Mat rvec;
+    Mat tvec;
+    Mat rvec_last;
+    Mat tvec_last;
+    vector<Point3d> Points3D;
+
+    Point bestCenter;
+    double time_delay;
+    UsbCaptureWithOpenCV camera_capture;
+    vector<RotatedRect> lamps;
+    vector<Point2f> posAndSpeed;
+    int camera_is_open;
+    Point2f calPitchAndYaw(float x, float y, float z);
 };                                                                                                                                  
 
 #endif

@@ -17,6 +17,7 @@ void Kalman_filter::init( int measureParams, double Noise ,int controlParams)
 
 Mat Kalman_filter::predict()
 {
+    Kf.statePost=statePost;
     return Kf.predict();
 }
 
