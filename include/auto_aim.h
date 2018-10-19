@@ -2,30 +2,36 @@
 #define AUTO_AIM_H
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/highgui.hpp>
-// #include <opencv2/video/tracking.hpp>
-// #include <opencv2/core/utility.hpp>
-
+#include "time.h"
+#include "kalman_filter_by_opencv.h"
 
 using namespace cv;
 using namespace std;
-#define red      1
-#define blue     0
 class AutoAim{
 public:
     AutoAim();
+    AutoAim(int width, int height);
     ~AutoAim();
 
-    void setImage(Mat &src, Mat &mask);
-    void findLamp(Mat &src, Mat &mask, vector<RotatedRect> &lamps);
-    void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter);
-    bool resize(Rect &origin, Rect &current);
+    enum Color{
+        red, blue
+    };
+
+    bool checkBorder();
+    void setImage(Mat &src, Mat &mask , Color enemyColor);
+    void findLamp(Mat &mask, vector<RotatedRect> &lamps);
+    void findBestArmor(Mat &src, vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start);
+    bool resizeROI(Rect &origin, Rect &current);
+    Rect rectROI;
+    Kalman_filter kf;
 
 private:
     const static float max_offset_angle;
-    Point lastFitPoint;
-    int lostFrameCount;
-    int ensureFrameCount;
+    Point2f lastPoint;
+    int IMG_WIDTH;
+    int IMG_HEIGHT;
+    int resizeCount;
+    bool hasROI;
 };
 
 #endif
