@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include "pnp_solver.h"
 
-const String fileName = "/home/wyx/图片/pic-final/my_photo-199.jpg";
 const float AutoAim::max_offset_angle = 30;
 
 AutoAim::AutoAim(int width, int height){
@@ -11,6 +11,8 @@ AutoAim::AutoAim(int width, int height){
     this->IMG_HEIGHT = height;
     hasROI = false;
     resizeCount = 0;
+    lastPoint.x = 0;
+    lastPoint.y = 0;
 }
 
 AutoAim::~AutoAim(){}
@@ -109,7 +111,7 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
     }
     
     //中心点间距离，平均高度，角度差，高度差
-    float dist, avg_height, diff_angle, diff_height, ratio, totalDiff;
+    float dist, avg_height, diff_angle, diff_height, ratio, totalDiff, theta_compare, diff_y;
     int i,j;
     for(i=0; i<size; i++){
         float currDiff = 0x3f3f3f3f;
@@ -122,7 +124,7 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
         for(j=1; j<=4 || (i+j)<size; j++){
             //计算比例，筛选灯管
             const RotatedRect &compare = pre_lamps[i+j];
-            float theta_compare=abs(compare.angle);
+            theta_compare=abs(compare.angle);
             if(theta_compare>95)
                     theta_compare=-(180-theta_compare);
             diff_angle = abs(theta_compare - theta_current);
@@ -131,7 +133,7 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
             diff_height = abs(compare.size.height - current.size.height);
             if(diff_height>30) continue;
 
-            float diff_y = abs(compare.center.y - current.center.y);
+            diff_y = abs(compare.center.y - current.center.y);
             if(diff_y > 30) continue;
             
             dist = distPoint(compare.center, current.center);
@@ -168,7 +170,7 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
     }
 }
 
-void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter){
+void AutoAim::findBestArmor(Mat &src, vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start){
 
     int lowerIndex = -1;
     int lowerY = 0;
@@ -207,7 +209,27 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter){
             } else hasROI = false;
         }
     }
-    
+
+    if(bestCenter.x!=-1){
+        clock_t finish = clock();
+        double time = (double)(finish-start)/CLOCKS_PER_SEC;
+        putText(src, to_string(1.0/time), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
+        posAndSpeed.push_back(bestCenter);
+        Point speed;
+        speed.x = (bestCenter.x - lastPoint.x)/time*1000;
+        speed.y = (bestCenter.y - lastPoint.y)/time*1000;
+        posAndSpeed.push_back(speed);
+        lastPoint.x = bestCenter.x;
+        lastPoint.y = lastPoint.y;
+        best_lamps.at<float>(0)=lamps[lowerIndex].center.x;
+        best_lamps.at<float>(1)=lamps[lowerIndex].center.y;
+        best_lamps.at<float>(2)=lamps[lowerIndex].size.height;
+        best_lamps.at<float>(3)=lamps[lowerIndex].angle;
+        best_lamps.at<float>(4)=lamps[lowerIndex+1].center.x;
+        best_lamps.at<float>(5)=lamps[lowerIndex+1].center.y;
+        best_lamps.at<float>(6)=lamps[lowerIndex+1].size.height;
+        best_lamps.at<float>(7)=lamps[lowerIndex+1].angle;
+    }
 }
 
 bool AutoAim::resizeROI(Rect &origin, Rect &current){ 
@@ -231,9 +253,49 @@ bool AutoAim::resizeROI(Rect &origin, Rect &current){
     return isSuccess;
 }
 
+Point2f cal_x_y(int x,int y,int H,float angle,int is_up)
+{
+    float theta;
+    Point2f point;
+    if(angle>90&&angle<=180){
+        theta=(180-angle);
+        if(is_up){
+            point.x=x-sin(theta)*H/2;
+            point.y=y-cos(theta)*H/2;
+        }else{
+            point.x=x+sin(theta)*H/2;
+            point.y=y+cos(theta)*H/2;
+        }
+    }
+    else if(angle>180){
+        theta=-(180-angle);
+        if(is_up){
+            point.x=x+sin(theta)*H/2;
+            point.y=y-cos(theta)*H/2;
+        }else{
+            point.x=x-sin(theta)*H/2;
+            point.y=y+cos(theta)*H/2;
+        }
+    }
+    else
+    { 
+        theta=angle;
+        if(is_up){
+            point.x=x+sin(theta)*H/2;
+            point.y=y-cos(theta)*H/2;
+        }else{
+            point.x=x-sin(theta)*H/2;
+            point.y=y+cos(theta)*H/2;
+        }
+        
+    }
+    return point;
+    
+
+}
 void test(){
-    clock_t start, finish;
-    double time_tol;
+    clock_t start;
+    //double time_tol;
     VideoCapture cap(1);
     if(!cap.isOpened()) return;
     cap.set(CAP_PROP_FRAME_WIDTH, 1280);
@@ -241,8 +303,31 @@ void test(){
     Mat src;
 
     AutoAim autoAim(1280, 720);
+    Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
+    Mat measurement = Mat::zeros(4, 1, CV_32F); 
+    Mat state(4, 1, CV_32F);
+    Mat processNoise(2, 1, CV_32F);
+    float dt=1/40;
+    autoAim.kf.transitionMatrix=(Mat_<float>(4, 4) <<   
+            1,0,dt,0,   
+            0,1,0,dt,   
+            0,0,1,0,   
+            0,0,0,1 );
+    autoAim.kf.measurementMatrix=(Mat_<float>(4, 4) <<   
+            1,0,0,0,   
+            0,1,0,0,   
+            0,0,1,0,   
+            0,0,0,1 );  
+    autoAim.kf.measurementNoiseCov=(Mat_<float>(4, 4) <<   
+            2000,0,0,0,   
+            0,2000,0,0,   
+            0,0,10000,0,   
+            0,0,0,10000 );
+    autoAim.kf.init(4,10000,0);
     Point bestCenter;
+    
     while(1){
+        PNPSolver pnpsolver(1242.230744,1245.580702,704.384156,368.265589,0.002554, 0.140210, -0.001525, 0.004035, 0.000000);
         start=clock();
         cap>>src;
         if(src.empty()) break;
@@ -254,13 +339,53 @@ void test(){
 
         bestCenter.x = -1;
         vector<Point2f> posAndSpeed;
-        autoAim.findBestArmor(lamps, bestCenter);
+        autoAim.findBestArmor(src, lamps, bestCenter,posAndSpeed, best_lamps,start);
 
         rectangle(src, autoAim.rectROI, Scalar(255,0,0), 7);
-        if(bestCenter.x!=-1) circle(src, bestCenter, 20, Scalar(255,255,255), 5);
-        finish = clock();
-        time_tol = (double)(finish - start)/ CLOCKS_PER_SEC;
-        putText(src, to_string(1.0/time_tol), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
+        if(bestCenter.x!=-1) 
+        {
+            pnpsolver.Points3D.push_back(cv::Point3f(0, 0, 0));     //P1三维坐标的单位是毫米
+            pnpsolver.Points3D.push_back(cv::Point3f(0, 55, 0));   //P2
+            pnpsolver.Points3D.push_back(cv::Point3f(135, 0, 0));   //P3
+        //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
+            pnpsolver.Points3D.push_back(cv::Point3f(135, 55, 0));
+            int xc1=best_lamps.at<float>(0);//first center x
+            int yc1=best_lamps.at<float>(1);//first center y
+            int h1=best_lamps.at<float>(2);//first hight   
+            int a1=best_lamps.at<float>(3);//first angle
+            int xc2=best_lamps.at<float>(4);//第二个灯条 x
+            int yc2=best_lamps.at<float>(5);//第二个灯条 y
+            int h2=best_lamps.at<float>(6);   //第二个灯条 hight
+            int a2=best_lamps.at<float>(7);//第二个灯条 angle
+            //判断灯条为左灯条还是右灯条
+            if(best_lamps.at<float>(4)-best_lamps.at<float>(0)>0)
+            {    
+                pnpsolver.Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P1
+                pnpsolver.Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P3
+                pnpsolver.Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,1));//P2
+                pnpsolver.Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,0));//P4
+            }else{
+                pnpsolver.Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,1));//P1
+                pnpsolver.Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,0));//P2
+                pnpsolver.Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P3
+                pnpsolver.Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P4
+            }
+            if (pnpsolver.Solve(PNPSolver::METHOD::CV_P3P_) == 0)
+                 cout << "test2:CV_P3P方法:  相机位姿→" << "Oc坐标=" << pnpsolver.Position_OcInW << "    相机旋转=" << pnpsolver.Theta_W2C << endl;
+            Mat Predict =autoAim.kf.predict();
+            cout<<"1"<<endl;
+            measurement.at<float>(0)= (float)posAndSpeed[0].x;
+            measurement.at<float>(1) = (float)posAndSpeed[0].y;  
+            measurement.at<float>(2)= (float)posAndSpeed[1].x;  
+            measurement.at<float>(3) = (float)posAndSpeed[1].y;
+            cout<<"2"<<endl;
+            autoAim.kf.correct(measurement);
+            circle(src,Point2f(Predict.at<float>(0),Predict.at<float>(1)),20,Scalar(255,255,0),5);
+            circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        }
+        //finish = clock();
+        //time_tol = (double)(finish - start)/ CLOCKS_PER_SEC;
+        //putText(src, to_string(1.0/time_tol), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
         imshow("src", src);
         char c = waitKey(1);
         if((char)c == 27) break;
