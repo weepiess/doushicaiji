@@ -96,6 +96,7 @@ public:
         camera_matrix.ptr<double>(1)[2] = v0;
         camera_matrix.ptr<double>(2)[2] = 1.0f;
     }
+    
     //设置畸变系数矩阵
     void SetDistortionCoefficients(double k_1, double  k_2, double  p_1, double  p_2, double k_3)
     {

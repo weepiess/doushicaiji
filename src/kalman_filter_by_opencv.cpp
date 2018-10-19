@@ -2,7 +2,7 @@
 Kalman_filter::Kalman_filter(){}
 Kalman_filter::~Kalman_filter(){}
 
-void Kalman_filter::init( int measureParams, double Noise,float dt,int controlParams)
+void Kalman_filter::init( int measureParams, double Noise ,int controlParams)
 {
     Kf.init(4,measureParams,controlParams);
     Kf.transitionMatrix = transitionMatrix;

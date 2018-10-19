@@ -267,8 +267,7 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up)
     // cout<<H<<"   H"<<endl;
     // cout<<angle<<"    angle"<<endl;
     if(angle>90&&angle<=180){
-
-        theta=(180-angle);
+        theta=(180-angle)*CV_PI/180;
         if(is_up){
             point.x=x-sin(theta)*H/2;
             point.y=y-cos(theta)*H/2;
@@ -278,7 +277,7 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up)
         }
     }
     else if(angle>180){
-        theta=-(180-angle);
+        theta=-(180-angle)*CV_PI/180;
         if(is_up){
             point.x=x+sin(theta)*H/2;
             point.y=y-cos(theta)*H/2;
@@ -289,7 +288,7 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up)
     }
     else
     { 
-        theta=angle;
+        theta=angle*CV_PI/180;
         if(is_up){
             point.x=x+sin(theta)*H/2;
             point.y=y-cos(theta)*H/2;
@@ -299,13 +298,6 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up)
         }
         
     }
-    //cout<<point.x<<"   point.x"<<endl;
-    //cout<<point.y<<"   point.y"<<endl;
-
-    return point;
-    
-
-}
 void test(){
     clock_t start;
     //double time_tol;
@@ -340,24 +332,18 @@ void test(){
     Point bestCenter;
     vector<Point3f> Points3D;
     vector<Point2f> Points2D;
-    Mat CameraMatrix=(Mat_<float>(3,3)<<
-            1.3208066637770651e+03, 0., 6.9574256310009389e+02, 0.,
-       1.3208066637770651e+03, 3.8882901742677126e+02, 0., 0., 1.);
-    Mat DistortionCoef=(Mat_<float>(5,1)<<
-            5.8916889533234002e-03, 2.6985708340533621e-01,
-       2.6558836066820873e-03, 9.0360124192892192e-03,
+    Mat CameraMatrix=(Mat_<float>(3,3)<<1.3208066637770651e+03, 0., 6.9574256310009389e+02, 0.,1.3208066637770651e+03, 3.8882901742677126e+02, 0., 0., 1.);
+    Mat DistortionCoef=(Mat_<float>(5,1)<<5.8916889533234002e-03, 2.6985708340533621e-01,2.6558836066820873e-03, 9.0360124192892192e-03,
        -3.9395899698771614e-01);
     Mat rvec;
     Mat tvec;
-              Points3D.push_back(cv::Point3f(0, 0, 0));     //P1三维坐标的单位是毫米
-            Points3D.push_back(cv::Point3f(0, 55, 0));   //P2
-            Points3D.push_back(cv::Point3f(135, 0, 0));   //P3
-        //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
-            Points3D.push_back(cv::Point3f(135, 55, 0));
+    Points3D.push_back(cv::Point3f(0, 0, 0));     //P1三维坐标的单位是毫米
+    Points3D.push_back(cv::Point3f(0, 55, 0));   //P2
+    Points3D.push_back(cv::Point3f(135, 0, 0));   //P3
+    //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
+    Points3D.push_back(cv::Point3f(135, 55, 0));
     
     while(1){
-    //     PNPSolver pnpsolver(1242.230744,1245.580702,704.384156
-    // ,368.265589,0.002554, 0.140210, -0.001525, 0.004035, 0.000000);
         start=clock();
         cap>>src;
         if(src.empty()) break;
@@ -383,58 +369,31 @@ void test(){
             int yc2=best_lamps.at<float>(5);//第二个灯条 y
             int h2=best_lamps.at<float>(6);   //第二个灯条 hight
             int a2=best_lamps.at<float>(7);//第二个灯条 angle
-            // int xc1=50;//first center x
-            // int yc1=50;//first center y
-            // int h1=50;//first hight   
-            // int a1=5;//first angle
-            // int xc2=80;//第二个灯条 x
-            // int yc2=50;//第二个灯条 y
-            // int h2=50;   //第二个灯条 hight
-            // int a2=5;//第二个灯条 angle
-        //判断灯条为左灯条还是右灯条
-                cout<<yc1<<"  yc1"<<endl;
-                cout<<yc2<<"  yc2"<<endl;
+            //判断灯条为左灯条还是右灯条
             if(best_lamps.at<float>(4)-best_lamps.at<float>(0)>0)
             {    
-                //cout<<"wyx = shit"<<endl;
                 Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P1
                 Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P3
                 Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,1));//P2
                 Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,0));//P4
-                // pnpsolver.Points2D.push_back(Point2f(30,50));//P1
-                // pnpsolver.Points2D.push_back(Point2f(30,100));//P3
-                // pnpsolver.Points2D.push_back(Point2f(50,50));//P2
-                // pnpsolver.Points2D.push_back(Point2f(50,100));//P4
-                // cout<<cal_x_y(xc1,yc1,h1,a1,1)<<"   cal_x_y(xc1,yc1,h1,a1,1)"<<endl;
-                // cout<<cal_x_y(xc1,yc1,h1,a1,0)<<"   cal_x_y(xc1,yc1,h1,a1,0)"<<endl;
-                // cout<<cal_x_y(xc2,yc2,h2,a2,1)<<"   cal_x_y(xc2,yc2,h2,a2,1)"<<endl;
-                // cout<<cal_x_y(xc2,yc2,h2,a2,0)<<"   cal_x_y(xc2,yc2,h2,a2,0)"<<endl;
             }else{
                
                 Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,1));//P1
                 Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,0));//P2
                 Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P3
                 Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P4
-
-                // cout<<cal_x_y(xc1,yc1,h1,a1,1)<<"R   cal_x_y(xc1,yc1,h1,a1,1)"<<endl;
-                // cout<<cal_x_y(xc1,yc1,h1,a1,0)<<"R   cal_x_y(xc1,yc1,h1,a1,0)"<<endl;
-                // cout<<cal_x_y(xc2,yc2,h2,a2,1)<<"R   cal_x_y(xc2,yc2,h2,a2,1)"<<endl;
-                // cout<<cal_x_y(xc2,yc2,h2,a2,0)<<"R   cal_x_y(xc2,yc2,h2,a2,0)"<<endl;
-            }
-
-            solvePnP(Points3D, Points2D, CameraMatrix, DistortionCoef, rvec, tvec, false, CV_P3P); 
-            cout<<tvec<<"      tver"<<endl;
-            Points2D.clear();
-            Mat Predict =autoAim.kf.predict();
-            cout<<"1"<<endl;
-            measurement.at<float>(0)= (float)posAndSpeed[0].x;
-            measurement.at<float>(1) = (float)posAndSpeed[0].y;  
-            measurement.at<float>(2)= (float)posAndSpeed[1].x;  
-            measurement.at<float>(3) = (float)posAndSpeed[1].y;
-            cout<<"2"<<endl;
-            autoAim.kf.correct(measurement);
-            circle(src,Point2f(Predict.at<float>(0),Predict.at<float>(1)),20,Scalar(255,255,0),5);
-            circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+                cout<<tvec<<"      tver"<<endl;
+                Points2D.clear();
+                Mat Predict =autoAim.kf.predict();
+                cout<<"1"<<endl;
+                measurement.at<float>(0)= (float)posAndSpeed[0].x;
+                measurement.at<float>(1) = (float)posAndSpeed[0].y;  
+                measurement.at<float>(2)= (float)posAndSpeed[1].x;  
+                measurement.at<float>(3) = (float)posAndSpeed[1].y;
+                cout<<"2"<<endl;
+                autoAim.kf.correct(measurement);
+                circle(src,Point2f(Predict.at<float>(0),Predict.at<float>(1)),20,Scalar(255,255,0),5);
+                circle(src, bestCenter, 20, Scalar(255,255,255), 5);
         }
         //finish = clock();
         //time_tol = (double)(finish - start)/ CLOCKS_PER_SEC;
