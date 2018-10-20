@@ -13,7 +13,7 @@ class Kalman_filter
         int controlParams;
         //Mat transitionMatrix;
         Mat statePre;           //!< predicted state (x'(k)): x(k)=A*x(k-1)+B*u(k)  
-        Mat statePost;          //!< corrected state (x(k)): x(k)=x'(k)+K(k)*(z(k)-H*x'(k))  
+        Mat statePost;         //!< corrected state (x(k)): x(k)=x'(k)+K(k)*(z(k)-H*x'(k))  
         Mat transitionMatrix;   //!< state transition matrix (A)  
         Mat controlMatrix;      //!< control matrix (B) (not used if there is no control)  
         Mat measurementMatrix;  //!< measurement matrix (H)  

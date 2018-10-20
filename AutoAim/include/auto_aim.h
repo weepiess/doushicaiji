@@ -26,6 +26,7 @@ public:
     Point2f calPitchAndYaw(float x, float y, float z);
     Rect rectROI;
     Kalman_filter kf;
+    bool hasROI;
 
 private:
     const static float max_offset_angle;
@@ -33,7 +34,7 @@ private:
     int IMG_WIDTH;
     int IMG_HEIGHT;
     int resizeCount;
-    bool hasROI;
+    
 };                                                                                                                                  
 
 #endif

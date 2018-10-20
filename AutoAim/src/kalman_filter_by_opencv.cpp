@@ -12,11 +12,11 @@ void Kalman_filter::init( int measureParams, double Noise ,int controlParams)
     setIdentity(Kf.processNoiseCov, Scalar::all(Noise)); 
     //setIdentity(Kf.measurementNoiseCov, Scalar::all(NoisevCov));  
     setIdentity(Kf.errorCovPost, Scalar::all(1)); 
-    randn(Kf.statePost, Scalar::all(0), Scalar::all(0.1)); 
 }
 
 Mat Kalman_filter::predict()
 {
+    Kf.statePost=statePost;
     return Kf.predict();
 }
 

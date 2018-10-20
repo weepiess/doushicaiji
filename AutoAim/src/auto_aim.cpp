@@ -217,11 +217,20 @@ void AutoAim::findBestArmor(Mat &src, vector<RotatedRect> &lamps, Point &bestCen
         putText(src, to_string(1.0/time), Point(10,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(255,255,255), 2, 8);
         posAndSpeed.push_back(bestCenter);
         Point speed;
-        speed.x = (bestCenter.x - lastPoint.x)/time*1000;
-        speed.y = (bestCenter.y - lastPoint.y)/time*1000;
+        if(hasROI && lastPoint.x !=0){
+            rectROI.x += bestCenter.x - lastPoint.x;
+            rectROI.y += bestCenter.y - lastPoint.y;
+            if(!checkBorder()){
+                bestCenter.x = -1;
+                hasROI = false;
+                return;
+            }
+        }
+        speed.x = (bestCenter.x - lastPoint.x)/time;
+        speed.y = (bestCenter.y - lastPoint.y)/time;
         posAndSpeed.push_back(speed);
         lastPoint.x = bestCenter.x;
-        lastPoint.y = lastPoint.y;
+        lastPoint.y = bestCenter.y;
         if(!hasROI){
             best_lamps.at<float>(0)=lamps[lowerIndex].center.x;
             best_lamps.at<float>(1)=lamps[lowerIndex].center.y;
@@ -248,8 +257,8 @@ bool AutoAim::resizeROI(Rect &origin, Rect &current){
     }	
     
     //将ROI区域扩大
-    current.x=origin.x-origin.height/2 ;
-    current.y=origin.y-origin.width/2 ;
+    current.x=origin.x-origin.width/2 ;
+    current.y=origin.y-origin.height/2 ;
     current.height=origin.height+origin.height ;
     current.width=origin.width+origin.width ;
     
@@ -325,7 +334,7 @@ void AutoAim::test(){
     Mat measurement = Mat::zeros(4, 1, CV_32F); 
     Mat state(4, 1, CV_32F);
     Mat processNoise(2, 1, CV_32F);
-    float dt=1/40;
+    float dt=1/50;
     this->kf.transitionMatrix=(Mat_<float>(4, 4) <<   
             1,0,dt,0,   
             0,1,0,dt,   
@@ -341,7 +350,7 @@ void AutoAim::test(){
             0,2000,0,0,   
             0,0,10000,0,   
             0,0,0,10000 );
-    this->kf.init(4,10000,0);
+    this->kf.init(4,20000,0);
     Point bestCenter;
     vector<Point3f> Points3D;
     vector<Point2f> Points2D;
@@ -400,6 +409,7 @@ void AutoAim::test(){
             solvePnP(Points3D, Points2D, CameraMatrix, DistortionCoef, rvec, tvec, false, CV_P3P); 
             cout<<tvec<<"      tver"<<endl;
             Points2D.clear();
+            this->kf.statePost=(Mat_<float>(4,1)<<bestCenter.x, bestCenter.y,posAndSpeed[1].x, posAndSpeed[1].y);
             Mat Predict = this->kf.predict();
             cout<<"1"<<endl;
             measurement.at<float>(0)= (float)posAndSpeed[0].x;
@@ -407,8 +417,10 @@ void AutoAim::test(){
             measurement.at<float>(2)= (float)posAndSpeed[1].x;  
             measurement.at<float>(3) = (float)posAndSpeed[1].y;
             cout<<"2"<<endl;
+            clock_t finish = clock();
+            double time = (double)(finish - start)/CLOCKS_PER_SEC;
             this->kf.correct(measurement);
-            circle(src,Point2f(Predict.at<float>(0),Predict.at<float>(1)),20,Scalar(255,255,0),5);
+            circle(src,Point2f(Predict.at<float>(0)+Predict.at<float>(2)*time,Predict.at<float>(1)+Predict.at<float>(3)*time),20,Scalar(255,255,0),5);
             circle(src, bestCenter, 20, Scalar(255,255,255), 5);
         }
         //finish = clock();
