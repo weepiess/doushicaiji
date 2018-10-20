@@ -11,7 +11,7 @@ using namespace std;
 class AutoAim{
 public:
     AutoAim();
-    AutoAim(std::string videoPath,int width, int height);
+    AutoAim(int width, int height);
     ~AutoAim();
 
     enum Color{
@@ -26,7 +26,7 @@ public:
     void test();
     Rect rectROI;
     Kalman_filter kf;
-    Point2f aim(int is_red,int is_predict);
+    Point2f aim(Mat &src, int is_red,int is_predict);
 
 private:
     const static float max_offset_angle;
@@ -48,7 +48,6 @@ private:
 
     Point bestCenter;
     double time_delay;
-    UsbCaptureWithOpenCV camera_capture;
     vector<RotatedRect> lamps;
     vector<Point2f> posAndSpeed;
     int camera_is_open;
