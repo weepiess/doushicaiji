@@ -26,7 +26,7 @@ public:
     void test();
     Rect rectROI;
     Kalman_filter kf;
-    Point2f aim(Mat &src, int is_red,int is_predict);
+    Point2f aim(Mat &src, int is_red,int is_predict,double time_delay);
 
 private:
     const static float max_offset_angle;
@@ -42,12 +42,10 @@ private:
     Mat measurement = Mat::zeros(4, 1, CV_32F);
     Mat rvec;
     Mat tvec;
-    Mat rvec_last;
-    Mat tvec_last;
     vector<Point3d> Points3D;
 
     Point bestCenter;
-    double time_delay;
+    
     vector<RotatedRect> lamps;
     vector<Point2f> posAndSpeed;
     int camera_is_open;
