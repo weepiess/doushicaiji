@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(zimiao)
-SET(OpenCV_DIR /usr/local/opencv/3.4.3/share/OpenCV)
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -24,5 +23,5 @@ target_link_libraries(example pthread)
 target_link_libraries(example libAutoAim)
 
 
-find_package(OpenCV  REQUIRED)
+find_package(OpenCV REQUIRED)
 target_link_libraries(example ${OpenCV_LIBS})

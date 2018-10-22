@@ -14,19 +14,18 @@ public:
     AutoAim(int width, int height);
     ~AutoAim();
 
-    enum Color{
-        red, blue
-    };
-
     bool checkBorder();
-    void setImage(Mat &src, Mat &mask , Color enemyColor);
+    void setImage(Mat &src, Mat &mask , int enemyColor);
     void findLamp(Mat &mask, vector<RotatedRect> &lamps);
-    void findBestArmor(Mat &src, vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start);
+    void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start);
     bool resizeROI(Rect &origin, Rect &current);
-    void test();
+    Point2f aim(Mat &src, int color,int is_predict,double time_delay);
+
+public:
     Rect rectROI;
     Kalman_filter kf;
-    Point2f aim(Mat &src, int is_red,int is_predict,double time_delay);
+    const static int color_red = 0;
+    const static int color_blue = 1;
 
 private:
     const static float max_offset_angle;

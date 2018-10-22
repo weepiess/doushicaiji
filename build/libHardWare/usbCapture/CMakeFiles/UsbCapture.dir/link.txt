@@ -1,0 +1,2 @@
+/usr/bin/ar qc libUsbCapture.a  CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o
+/usr/bin/ranlib libUsbCapture.a

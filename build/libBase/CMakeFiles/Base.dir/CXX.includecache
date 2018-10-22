@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libBase/include/base_thread.h
+unistd.h
+-
+iostream
+-
+pthread.h
+-
+
+../libBase/include/basic_tool.h
+sys/time.h
+-
+
+../libBase/include/image_tool.h
+opencv2/opencv.hpp
+../libBase/include/opencv2/opencv.hpp
+sys/time.h
+../libBase/include/sys/time.h
+time.h
+../libBase/include/time.h
+
+/home/four/RM2019/wyx/doushicaiji/libBase/src/base_thread.cpp
+base_thread.h
+/home/four/RM2019/wyx/doushicaiji/libBase/src/base_thread.h
+
+/home/four/RM2019/wyx/doushicaiji/libBase/src/basic_tool.cpp
+basic_tool.h
+/home/four/RM2019/wyx/doushicaiji/libBase/src/basic_tool.h
+iostream
+/home/four/RM2019/wyx/doushicaiji/libBase/src/iostream
+
+/home/four/RM2019/wyx/doushicaiji/libBase/src/image_tool.cpp
+image_tool.h
+/home/four/RM2019/wyx/doushicaiji/libBase/src/image_tool.h
+

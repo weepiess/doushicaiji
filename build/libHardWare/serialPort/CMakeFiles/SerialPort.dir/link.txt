@@ -1,0 +1,2 @@
+/usr/bin/ar qc libSerialPort.a  CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o CMakeFiles/SerialPort.dir/src/serial_port.cpp.o CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o
+/usr/bin/ranlib libSerialPort.a

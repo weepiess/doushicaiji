@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBase.a  CMakeFiles/Base.dir/src/base_thread.cpp.o CMakeFiles/Base.dir/src/basic_tool.cpp.o CMakeFiles/Base.dir/src/image_tool.cpp.o
+/usr/bin/ranlib libBase.a
