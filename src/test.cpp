@@ -15,19 +15,20 @@ int main(int agrc, char *argv[]){
     AutoAim autoAim(width,height);
     SerialInterface sInterface;
     sInterface.init("/dev/ttyUSB0");
-    SerialInterface::Point2f pitAndYaw;
+    SerialPacket recvPacket;
+    float pitch, yaw;
     Mat src;
     while(cap.isOpened() && sInterface.isOpen()){
        //clock_t start = clock();
        Point2f angle;
        //if(CAP.getImg(src)!=0) break;
        cap>>src;
-       pitAndYaw = sInterface.getAbsYunTaiDelta();
-       if(pitAndYaw.pitch == 180.0f && pitAndYaw.yaw == 180.0f){
-           cout<<"get absolute pitch and yaw failed!!!"<<endl;
-           break;
-       }
-       angle=autoAim.aim(src,AutoAim::color_red,0,0,pitAndYaw.pitch, pitAndYaw.yaw);
+       sInterface.getAbsYunTaiDelta();
+       while(sInterface.dataRecv(recvPacket)!=0){}
+       pitch = recvPacket.getFloatInBuffer(2);
+       yaw = recvPacket.getFloatInBuffer(6);
+	cout<<"hahaha "<<pitch<<" "<<yaw<<endl;
+       angle=autoAim.aim(src,AutoAim::color_red,pitch,yaw,0,0);
        cout<<angle<<endl;
        if(angle.x==180 && angle.y==180) continue;
        sInterface.YunTaiDeltaSet(angle.x, angle.y);

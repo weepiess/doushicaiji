@@ -91,7 +91,7 @@ public:
     /* 获取云台的绝对角度
     *　@return: Point2f，云台的pitch和yaw轴的角度　
     */
-    SerialInterface::Point2f getAbsYunTaiDelta();
+    void getAbsYunTaiDelta();
 
    
     /** 车云台射击函数

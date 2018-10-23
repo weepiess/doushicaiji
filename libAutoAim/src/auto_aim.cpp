@@ -14,11 +14,11 @@ AutoAim::AutoAim(int width, int height){
     resizeCount = 0;
     lastPoint.x = 0;
     lastPoint.y = 0;
-    Points3D.push_back(cv::Point3f(-64.5, -20, 0));     //P1三维坐标的单位是毫米
-    Points3D.push_back(cv::Point3f(-64.5, 20, 0));   //P2
-    Points3D.push_back(cv::Point3f(70.5, -20, 0));   //P3
+    Points3D.push_back(cv::Point3f(-70.5, -18, 10));     //P1三维坐标的单位是毫米
+    Points3D.push_back(cv::Point3f(-70.5, 18, -10));   //P2
+    Points3D.push_back(cv::Point3f(64.5, -18, 10));   //P3
     //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
-    Points3D.push_back(cv::Point3f(70.5,20, 0));
+    Points3D.push_back(cv::Point3f(64.5,18, -10));
     float dt=1/50;
     this->kf.transitionMatrix=(Mat_<float>(4, 4) <<   
             1,0,dt,0,   
@@ -79,6 +79,9 @@ void AutoAim::setImage(Mat &img, Mat &mask, int enemyColor){
     }
     split(mask,channel); 
     threshold(enemyColor==AutoAim::color_red ? (channel[2]-channel[0]) : (channel[0] - channel[2]), mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
+	Mat element = getStructuringElement(MORPH_ELLIPSE,Size(3,3));  
+	dilate(mask,mask,element);
+ 	dilate(mask,mask,element);
     Canny(mask, mask, 3, 9, 3);                                       
 }
 
@@ -353,8 +356,8 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up){
 Point2f AutoAim::calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw){   
     Point2f angle;
     
-    angle.y = -atanf((x+30)/(z+180))*180/CV_PI;   //yaw
-    angle.x = gravityKiller((z+180)/ 100.0, (y-75)/100.0, 15, currPitch); //pitch
+    angle.y = -atanf((x+30)/(z+170))*180/CV_PI;   //yaw
+    angle.x = gravityKiller((z+170)/ 1000.0, (y-60)/1000.0, 15, currPitch); //pitch
 
     return angle;
 }
@@ -437,10 +440,8 @@ Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is
         solvePnP(Points3D, Points2D, camera_matrix, distortion_coef, rvec, tvec, false, CV_ITERATIVE);
         //cout<<Points3D<<"        Points3D"<<endl;
         cout<<Points2D<<"        Ponints2D"<<endl;
-	    cout<<"tvec"<<tvec<<endl;
+	cout<<"tvec"<<tvec<<endl;
         angle=calPitchAndYaw(tvec.at<double>(0),tvec.at<double>(1),tvec.at<double>(2), currPitch, currYaw);
         return angle;
-    }else{
-        return Point2f(180,180);
-}
+    }else return Point2f(180,180);
 }
