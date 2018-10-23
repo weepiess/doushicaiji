@@ -70,6 +70,13 @@ void SerialInterface::YunTaiDeltaSet(float pitch,float yaw){
 }
 
 
+SerialInterface::Point2f SerialInterface::getAbsYunTaiDelta(){
+    SerialPacket recvPacket;
+    recvPacket.creatPacket(CMD_SERIAL_ABS_YUNTAI_DELTA);
+    if(dataRecv(recvPacket) == -1) return Point2f(180.0f,180.0f);
+    return Point2f(recvPacket.getFloatInBuffer(2), recvPacket.getFloatInBuffer(6));
+}
+
 
 void SerialInterface::YunTaiShoot(unsigned char num){
     SerialPacket sendPacket;

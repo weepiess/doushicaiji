@@ -19,7 +19,8 @@ public:
     void findLamp(Mat &mask, vector<RotatedRect> &lamps);
     void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start);
     bool resizeROI(Rect &origin, Rect &current);
-    Point2f aim(Mat &src, int color,int is_predict,double time_delay);
+    double gravityKiller(double z_distance,double y_distance,double bullet_speed,float current_pitch);
+    Point2f aim(Mat &src, int color, float currPitch, float currYaw, int is_predict,double time_delay);
 
 public:
     Rect rectROI;
@@ -48,7 +49,7 @@ private:
     vector<RotatedRect> lamps;
     vector<Point2f> posAndSpeed;
     int camera_is_open;
-    Point2f calPitchAndYaw(float x, float y, float z);
+    Point2f calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw);
 };                                                                                                                                  
 
 #endif

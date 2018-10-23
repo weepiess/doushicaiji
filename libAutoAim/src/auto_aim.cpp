@@ -280,10 +280,6 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             best_lamps.at<float>(4)=lamps[lowerIndex+1].center.x + rectROI.x;
             best_lamps.at<float>(5)=lamps[lowerIndex+1].center.y + rectROI.y;
         }
-		cout<<best_lamps.at<float>(0)<<"     left x"<<endl;
-		cout<<best_lamps.at<float>(1)<<"     left.y"<<endl;
-		cout<<best_lamps.at<float>(4)<<"     right.x"<<endl;
-		cout<<best_lamps.at<float>(5)<<"     right.y"<<endl;
         best_lamps.at<float>(2)=lamps[lowerIndex].size.height;
         best_lamps.at<float>(3)=lamps[lowerIndex].angle;
         best_lamps.at<float>(2)=lamps[lowerIndex].size.height;
@@ -354,17 +350,32 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up){
     return point;
 }
 
-Point2f AutoAim::calPitchAndYaw(float x, float y, float z)
-{   
+Point2f AutoAim::calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw){   
     Point2f angle;
     
-    angle.x=atanf((y-75)/(z+180))*180/CV_PI;   //pitch
-    //cout<<y<<" emmm "<<atan(y/z)<<" 233 "<<atan(x/z)<<endl;
-    angle.y=-atanf((x+30)/(z+180))*180/CV_PI;   //yaw
+    angle.y = -atanf((x+30)/(z+180))*180/CV_PI;   //yaw
+    angle.x = gravityKiller((z+180)/ 100.0, (y-75)/100.0, 15, currPitch); //pitch
+
     return angle;
 }
 
-Point2f AutoAim::aim(Mat &src, int color,int is_predict,double time_delay){
+double AutoAim::gravityKiller(double z_distance,double y_distance,double bullet_speed,float current_pitch){
+
+    constexpr double GRAVITY = 9.7913;
+    double alpha = current_pitch*CV_PI/180;
+
+    double v = bullet_speed;
+    double m = 2*((y_distance*GRAVITY+v*v)-sqrt((y_distance*GRAVITY+v*v)*(y_distance*GRAVITY+v*v)-GRAVITY*GRAVITY*(y_distance*y_distance +z_distance*z_distance)))/(GRAVITY*GRAVITY);
+    double time = sqrt(m);
+    double beta = asin((2*y_distance-GRAVITY*time*time)/(2*v*time))*180/CV_PI;
+    double offset = beta - current_pitch;
+
+    //cout<<"Z_distance:"<<z_distance<<"---BulletFlyWeight:"<<x<<"---BulletFlyHeight:"<<y<<"---Time:"<<time<<"---Beta:"<<beta<<"---Offset:"<<offset<<endl;
+    return offset;
+}
+
+
+Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is_predict,double time_delay){
     clock_t start = clock();
     Mat mask;
     vector<Point2f> Points2D;
@@ -422,21 +433,14 @@ Point2f AutoAim::aim(Mat &src, int color,int is_predict,double time_delay){
            Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P3
            Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P4
         }
-	//Points2D.push_back(Point2f(597.2,53.78));
-	//Points2D.push_back(Point2f(597.72,107.15));
-	//Points2D.push_back(Point2f(710.27,52.84));
-        //Points2D.push_back(Point2f(710.72,106.21));
 
         solvePnP(Points3D, Points2D, camera_matrix, distortion_coef, rvec, tvec, false, CV_ITERATIVE);
         //cout<<Points3D<<"        Points3D"<<endl;
         cout<<Points2D<<"        Ponints2D"<<endl;
-        //cout<<"camera_matrix "<<camera_matrix<<endl;
-        //cout<<"dis   "<<distortion_coef<<endl;
-	cout<<"tvec"<<tvec<<endl;
-        angle=calPitchAndYaw(tvec.at<double>(0),tvec.at<double>(1),tvec.at<double>(2));
+	    cout<<"tvec"<<tvec<<endl;
+        angle=calPitchAndYaw(tvec.at<double>(0),tvec.at<double>(1),tvec.at<double>(2), currPitch, currYaw);
         return angle;
     }else{
-        //printf("camera error %d",camera_is_open);
         return Point2f(180,180);
 }
 }
