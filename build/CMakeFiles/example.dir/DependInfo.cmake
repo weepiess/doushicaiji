@@ -15,6 +15,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../libHardWare/serialPort/include"
   "../libHardWare/usbCapture/include"
   "../libAutoAim/include"
+  "../libTools/include"
   "/usr/local/include"
   "/usr/local/include/opencv"
   )
@@ -25,6 +26,7 @@ set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake"
   "/home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake"
   "/home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/DependInfo.cmake"
+  "/home/wyx/程序/wyx/doushicaiji/build/libTools/CMakeFiles/libTools.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

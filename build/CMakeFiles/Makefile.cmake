@@ -16,6 +16,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../libHardWare/CMakeLists.txt"
   "../libHardWare/serialPort/CMakeLists.txt"
   "../libHardWare/usbCapture/CMakeLists.txt"
+  "../libTools/CMakeLists.txt"
   "/opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
@@ -55,6 +56,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "libHardWare/serialPort/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libHardWare/usbCapture/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libAutoAim/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libTools/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -64,4 +66,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake"
   "libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake"
   "libAutoAim/CMakeFiles/libAutoAim.dir/DependInfo.cmake"
+  "libTools/CMakeFiles/libTools.dir/DependInfo.cmake"
   )

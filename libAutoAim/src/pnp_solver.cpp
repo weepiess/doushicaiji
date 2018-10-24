@@ -34,7 +34,7 @@ void PNPSolver::clearPoints2D(){
     Points2D.clear();
 }
 
-void PNPSolver::solvePnP(bool useExtrinsicGuess=false, int flags = 0){
+void PNPSolver::solvePnP(bool useExtrinsicGuess, int flags){
     assert(!camera_matrix.empty() && !distortion_coef.empty());
     if(Points3D.size()==0){
         cout<<"Points3D has not initialized."<<endl;
@@ -49,10 +49,7 @@ void PNPSolver::solvePnP(bool useExtrinsicGuess=false, int flags = 0){
 
 Point3d PNPSolver::getRvec(){
     Point3d temp;
-    if(rvec.empty()){
-        cout<<"rvec is empty."<<endl;
-        return;
-    }
+    assert(!rvec.empty());
     temp.x = rvec.at<double>(0);
     temp.y = rvec.at<double>(1);
     temp.z = rvec.at<double>(2);

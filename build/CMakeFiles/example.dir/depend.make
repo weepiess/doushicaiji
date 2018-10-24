@@ -3,12 +3,14 @@
 
 CMakeFiles/example.dir/src/test.cpp.o: ../libAutoAim/include/auto_aim.h
 CMakeFiles/example.dir/src/test.cpp.o: ../libAutoAim/include/kalman_filter_by_opencv.h
+CMakeFiles/example.dir/src/test.cpp.o: ../libAutoAim/include/pnp_solver.h
 CMakeFiles/example.dir/src/test.cpp.o: ../libBase/include/base_thread.h
 CMakeFiles/example.dir/src/test.cpp.o: ../libHardWare/serialPort/include/serial_interface.h
 CMakeFiles/example.dir/src/test.cpp.o: ../libHardWare/serialPort/include/serial_packet.h
 CMakeFiles/example.dir/src/test.cpp.o: ../libHardWare/serialPort/include/serial_port.h
 CMakeFiles/example.dir/src/test.cpp.o: ../libHardWare/usbCapture/include/usb_capture_with_opencv.h
 CMakeFiles/example.dir/src/test.cpp.o: ../libHardWare/usbCapture/include/usb_capture_with_thread.h
+CMakeFiles/example.dir/src/test.cpp.o: ../libTools/include/math_tools.h
 CMakeFiles/example.dir/src/test.cpp.o: ../src/test.cpp
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv/cxcore.h
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/calib3d.hpp

@@ -9,8 +9,8 @@ using namespace std;
 
 class PNPSolver{
 public:
-    PNPSolver(){}
-    ~PNPSolver(){}
+    PNPSolver();
+    ~PNPSolver();
 
 public:
     void setCameraMatrix(float a, float b, float c, float d, float e, float f, float g, float h, float i);
@@ -23,7 +23,7 @@ public:
     void clearPoints2D();
 
     //默认使用迭代法
-    void solvePnP(bool useExtrinsicGuess=false, int flags = 0);
+    void solvePnP(bool useExtrinsicGuess = false, int flags = 0);
     Point3d getRvec();
 
     void showParams();

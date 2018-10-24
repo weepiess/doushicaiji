@@ -175,6 +175,19 @@ libAutoAim/fast:
 	$(MAKE) -f libAutoAim/CMakeFiles/libAutoAim.dir/build.make libAutoAim/CMakeFiles/libAutoAim.dir/build
 .PHONY : libAutoAim/fast
 
+#=============================================================================
+# Target rules for targets named libTools
+
+# Build rule for target.
+libTools: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 libTools
+.PHONY : libTools
+
+# fast build rule for target.
+libTools/fast:
+	$(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/build
+.PHONY : libTools/fast
+
 src/test.o: src/test.cpp.o
 
 .PHONY : src/test.o
@@ -215,6 +228,7 @@ help:
 	@echo "... SerialPort"
 	@echo "... UsbCapture"
 	@echo "... libAutoAim"
+	@echo "... libTools"
 	@echo "... src/test.o"
 	@echo "... src/test.i"
 	@echo "... src/test.s"

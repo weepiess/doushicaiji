@@ -15,3 +15,6 @@
 /home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/edit_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/rebuild_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir
+/home/wyx/程序/wyx/doushicaiji/build/libTools/CMakeFiles/rebuild_cache.dir
+/home/wyx/程序/wyx/doushicaiji/build/libTools/CMakeFiles/edit_cache.dir
+/home/wyx/程序/wyx/doushicaiji/build/libTools/CMakeFiles/libTools.dir

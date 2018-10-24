@@ -4,9 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/auto_aim.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/auto_aim.cpp.o"
-  "/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/kalman_filter_by_opencv.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/kalman_filter_by_opencv.cpp.o"
-  "/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/pnp_solver.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/pnp_solver.cpp.o"
+  "/home/wyx/程序/wyx/doushicaiji/libTools/src/math_tools.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libTools/CMakeFiles/libTools.dir/src/math_tools.cpp.o"
+  "/home/wyx/程序/wyx/doushicaiji/libTools/src/time_tools.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libTools/CMakeFiles/libTools.dir/src/time_tools.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -18,7 +17,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../libHardWare/usbCapture/include"
   "../libAutoAim/include"
   "../libTools/include"
-  "../libAutoAim/./include"
+  "../libTools/./include"
   )
 
 # Targets to which this target links.
