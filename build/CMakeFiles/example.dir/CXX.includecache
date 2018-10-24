@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -74,15 +74,15 @@ opencv2/opencv.hpp
 base_thread.h
 ../libHardWare/usbCapture/include/base_thread.h
 
-/home/four/RM2019/wyx/doushicaiji/src/test.cpp
+/home/wyx/程序/wyx/doushicaiji/src/test.cpp
 iostream
 -
 auto_aim.h
-/home/four/RM2019/wyx/doushicaiji/src/auto_aim.h
+/home/wyx/程序/wyx/doushicaiji/src/auto_aim.h
 usb_capture_with_thread.h
-/home/four/RM2019/wyx/doushicaiji/src/usb_capture_with_thread.h
+/home/wyx/程序/wyx/doushicaiji/src/usb_capture_with_thread.h
 serial_interface.h
-/home/four/RM2019/wyx/doushicaiji/src/serial_interface.h
+/home/wyx/程序/wyx/doushicaiji/src/serial_interface.h
 
 /usr/local/include/opencv/cxcore.h
 opencv2/core/core_c.h
@@ -151,8 +151,14 @@ opencv2/core/neon_utils.hpp
 /usr/local/include/opencv2/core/opencv2/core/neon_utils.hpp
 opencv2/core/vsx_utils.hpp
 /usr/local/include/opencv2/core/opencv2/core/vsx_utils.hpp
+opencv2/core/check.hpp
+/usr/local/include/opencv2/core/opencv2/core/check.hpp
 
 /usr/local/include/opencv2/core/bufferpool.hpp
+
+/usr/local/include/opencv2/core/check.hpp
+opencv2/core/base.hpp
+-
 
 /usr/local/include/opencv2/core/core_c.h
 opencv2/core/types_c.h
@@ -251,6 +257,10 @@ cstdint
 -
 stdint.h
 -
+stdint.h
+-
+opencv2/core/fast_math.hpp
+/usr/local/include/opencv2/core/opencv2/core/fast_math.hpp
 
 /usr/local/include/opencv2/core/cvstd.hpp
 opencv2/core/cvdef.h
@@ -923,34 +933,6 @@ opencv2/core/core_c.h
 /usr/local/include/opencv2/imgproc.hpp
 opencv2/core.hpp
 /usr/local/include/opencv2/opencv2/core.hpp
-opencv2/core.hpp
--
-opencv2/imgproc.hpp
--
-opencv2/imgcodecs.hpp
--
-opencv2/highgui.hpp
--
-iostream
--
-opencv2/imgproc.hpp
--
-opencv2/highgui.hpp
--
-opencv2/imgproc.hpp
--
-opencv2/highgui.hpp
--
-math.h
--
-opencv2/imgproc.hpp
--
-opencv2/highgui.hpp
--
-opencv2/imgproc.hpp
-/usr/local/include/opencv2/opencv2/imgproc.hpp
-opencv2/highgui.hpp
-/usr/local/include/opencv2/opencv2/highgui.hpp
 opencv2/imgproc/imgproc_c.h
 /usr/local/include/opencv2/opencv2/imgproc/imgproc_c.h
 
@@ -1129,6 +1111,8 @@ opencv2/stitching/detail/camera.hpp
 /usr/local/include/opencv2/stitching/detail/blenders.hpp
 opencv2/core.hpp
 /usr/local/include/opencv2/stitching/detail/opencv2/core.hpp
+opencv2/core/cuda.hpp
+/usr/local/include/opencv2/stitching/detail/opencv2/core/cuda.hpp
 
 /usr/local/include/opencv2/stitching/detail/camera.hpp
 opencv2/core.hpp

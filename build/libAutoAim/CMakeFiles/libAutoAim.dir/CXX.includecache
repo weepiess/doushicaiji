@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -22,16 +22,6 @@ opencv2/opencv.hpp
 iostream
 -
 
-../libAutoAim/include/pnp_solver.h
-opencv2/opencv.hpp
--
-math.h
--
-iostream
--
-fstream
--
-
 ../libBase/include/base_thread.h
 unistd.h
 -
@@ -46,9 +36,9 @@ opencv2/opencv.hpp
 base_thread.h
 ../libHardWare/usbCapture/include/base_thread.h
 
-/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/auto_aim.cpp
+/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/auto_aim.cpp
 auto_aim.h
-/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/auto_aim.h
+/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/auto_aim.h
 string
 -
 iostream
@@ -56,11 +46,9 @@ iostream
 algorithm
 -
 
-/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/kalman_filter_by_opencv.cpp
+/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/kalman_filter_by_opencv.cpp
 kalman_filter_by_opencv.h
-/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/kalman_filter_by_opencv.h
+/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/kalman_filter_by_opencv.h
 
-/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/pnp_solver.cpp
-pnp_solver.h
-/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/pnp_solver.h
+/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/pnp_solver.cpp
 

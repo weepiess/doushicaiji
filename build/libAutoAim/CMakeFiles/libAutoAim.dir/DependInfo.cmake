@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/auto_aim.cpp" "/home/four/RM2019/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/auto_aim.cpp.o"
-  "/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/kalman_filter_by_opencv.cpp" "/home/four/RM2019/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/kalman_filter_by_opencv.cpp.o"
-  "/home/four/RM2019/wyx/doushicaiji/libAutoAim/src/pnp_solver.cpp" "/home/four/RM2019/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/pnp_solver.cpp.o"
+  "/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/auto_aim.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/auto_aim.cpp.o"
+  "/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/kalman_filter_by_opencv.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/kalman_filter_by_opencv.cpp.o"
+  "/home/wyx/程序/wyx/doushicaiji/libAutoAim/src/pnp_solver.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAutoAim/CMakeFiles/libAutoAim.dir/src/pnp_solver.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

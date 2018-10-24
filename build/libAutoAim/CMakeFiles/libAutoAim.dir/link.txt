@@ -1,2 +1,2 @@
-/usr/bin/ar qc liblibAutoAim.a  CMakeFiles/libAutoAim.dir/src/auto_aim.cpp.o CMakeFiles/libAutoAim.dir/src/kalman_filter_by_opencv.cpp.o CMakeFiles/libAutoAim.dir/src/pnp_solver.cpp.o
+/usr/bin/ar qc liblibAutoAim.a  CMakeFiles/libAutoAim.dir/src/pnp_solver.cpp.o CMakeFiles/libAutoAim.dir/src/kalman_filter_by_opencv.cpp.o CMakeFiles/libAutoAim.dir/src/auto_aim.cpp.o
 /usr/bin/ranlib liblibAutoAim.a
