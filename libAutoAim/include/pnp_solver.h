@@ -24,7 +24,7 @@ public:
 
     //默认使用迭代法
     void solvePnP(bool useExtrinsicGuess = false, int flags = 0);
-    Point3d getRvec();
+    Point3d getTvec();
 
     void showParams();
 

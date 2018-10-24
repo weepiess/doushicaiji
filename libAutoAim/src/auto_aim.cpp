@@ -170,10 +170,10 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
             if(diff_y > 30) continue;
             
             dist = distPoint(compare.center, current.center);
-            if(dist>200 || dist<10) continue;
+            if(dist<10) continue;
             avg_height = (compare.size.height + current.size.height) / 2;
             ratio = dist / avg_height;
-            if(ratio > 5 || ratio < 1) continue;
+            if(ratio > 10 || ratio < 1) continue;
             
             totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height+0.5*dist;
             if(totalDiff < currDiff){
@@ -203,19 +203,23 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
     }
 }
 
-void AutoAim::change_roi(int &x, int &y, int &width, int &hight){
+void AutoAim::change_roi(int &x, int &y, int &width, int &height){
     if(x<0){
-        width=width+x;
-        x=0;
+        width = width+x;
+        x = 0;
     }
     if(y<0){
-        hight=hight+y;
-        y=0;
+        height = height+y;
+        y = 0;
     }
-    if((x+width)>IMG_WIDTH)
+    if((x+width) > IMG_WIDTH)
         width=width-(IMG_WIDTH-(x+width));
-    if((y+hight)>IMG_HEIGHT)
-        hight=hight-(IMG_HEIGHT-(y+hight));
+    if((y+height)>IMG_HEIGHT)
+        height=height-(IMG_HEIGHT-(y+height));
+    rectROI.x = x;
+    rectROI.y = y;
+    rectROI.width = width;
+    rectROI.height = height;
 }
 
 void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start){
@@ -247,11 +251,6 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             int recthight = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height);
             int rectwidth =2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
             change_roi(rectx,recty,rectwidth,recthight);
-            rectROI.x = rectx;
-            rectROI.y = recty;
-            rectROI.width = rectwidth;
-            rectROI.height = recthight;
-
             if(!checkBorder()) return;
             hasROI = true;
             bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
@@ -264,7 +263,7 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
                 bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
                 Armorsize.x = (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
                 Armorsize.y = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
-                if(IMG_WIDTH-1-rectROI.x<rectROI.width || IMG_HEIGHT-1-rectROI.y<rectROI.height) bestCenter.x = -1;
+                if(!checkBorder()) bestCenter.x = -1;
             } else hasROI = false;
         }
     }
@@ -280,10 +279,6 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             int recthight =lamps[lowerIndex+1].size.height+lamps[lowerIndex].size.height;
             int rectwidth =lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x+lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x;
             change_roi(rectx,recty,rectwidth,recthight);
-            rectROI.x = rectx;
-            rectROI.y = recty;
-            rectROI.width = rectwidth;
-            rectROI.height = recthight;
             if(!checkBorder()){
                 bestCenter.x = -1;
                 hasROI = false;
@@ -395,8 +390,15 @@ Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is
     findLamp(mask, lamps);
     bestCenter.x = -1;  
     findBestArmor(lamps, bestCenter,posAndSpeed, best_lamps,start);
+
+    if(bestCenter.x != -1){
+        circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        rectangle(src, rectROI, Scalar(255,0,0), 10);
+    }
+    imshow("src", src);
+    waitKey(1);
     
-    if(bestCenter.x!=-1) 
+    if(bestCenter.x!=-1)
     {
         measurement.at<float>(0)= (float)posAndSpeed[0].x;
         measurement.at<float>(1) = (float)posAndSpeed[0].y;  
@@ -443,9 +445,13 @@ Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is
         }
 
         pnpSolver.solvePnP();
+        pnpSolver.clearPoints2D();
         //pnpSolver.showParams();
-        Point3d rvec = pnpSolver.getRvec();
-        angle=calPitchAndYaw(rvec.x, rvec.y, rvec.z, currPitch, currYaw);
+        Point3d tvec = pnpSolver.getTvec();
+        //cout<<"rvec "<<tvec<<endl;
+        angle=calPitchAndYaw(tvec.x, tvec.y, tvec.z, currPitch, currYaw);
         return angle;
+    } else {
+        return Point2f(180,180);
     }
 }

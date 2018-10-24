@@ -47,12 +47,12 @@ void PNPSolver::solvePnP(bool useExtrinsicGuess, int flags){
     cv::solvePnP(Points3D, Points2D, camera_matrix, distortion_coef, rvec, tvec, useExtrinsicGuess, flags);
 }
 
-Point3d PNPSolver::getRvec(){
+Point3d PNPSolver::getTvec(){
     Point3d temp;
-    assert(!rvec.empty());
-    temp.x = rvec.at<double>(0);
-    temp.y = rvec.at<double>(1);
-    temp.z = rvec.at<double>(2);
+    assert(!tvec.empty());
+    temp.x = tvec.at<double>(0);
+    temp.y = tvec.at<double>(1);
+    temp.z = tvec.at<double>(2);
     return temp;
 }
 
