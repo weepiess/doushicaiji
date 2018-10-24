@@ -17,7 +17,7 @@ AutoAim::AutoAim(int width, int height){
     Points3D.push_back(cv::Point3f(-64.5, -20, 0));     //P1三维坐标的单位是毫米
     Points3D.push_back(cv::Point3f(-64.5, 20, 0));   //P2
     Points3D.push_back(cv::Point3f(70.5, -20, 0));   //P3
-    //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
+    //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4 
     Points3D.push_back(cv::Point3f(70.5,20, 0));
     float dt=1/50;
     this->kf.transitionMatrix=(Mat_<float>(4, 4) <<   
@@ -227,10 +227,10 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             lowerIndex = i;
         }
     }
-
     if(lowerIndex == -1){
         if(hasROI){
             hasROI = resizeROI(rectROI, rectROI);
+
 	        is_global=false;
         }
     } else {
