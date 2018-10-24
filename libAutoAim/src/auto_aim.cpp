@@ -203,20 +203,26 @@ RotatedRect temp;
 void AutoAim::change_roi(int &x, int &y, int &width, int &hight)
 {
     if(x<0)
+    {
         width=width+x;
         x=0;
+    }
     if(y<0)
+    {
         hight=hight+y;
         y=0;
+    }
     if((x+width)>IMG_WIDTH)
         width=width-(IMG_WIDTH-(x+width));
     if((y+hight)>IMG_HEIGHT)
         hight=hight-(IMG_HEIGHT-(y+hight));
+        cout<<width<<"     width"<<endl;
+        cout<<hight<<"     height"<<endl;
 }
 void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start){
 
     bool is_global=true;
-    hasROI = false;
+    //hasROI = false;
     int lowerY=0;
     int lowerIndex=-1;
     for(int i=0; i<lamps.size(); i+=2){
@@ -243,26 +249,40 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             recty = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 - ( lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
             recthight = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height);
             rectwidth =2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+                        cout<<rectx<<"           1                     rectx"<<endl;
+            cout<<recty<<"                  1              recty"<<endl;
             change_roi(rectx,recty,rectwidth,recthight);
+                        cout<<rectx<<"                    2            rectx"<<endl;
+            cout<<recty<<"                  2              recty"<<endl;
             rectROI.x = rectx;
             rectROI.y = recty;
             rectROI.width = rectwidth;
-            rectROI.height =  recthight;                   
+            rectROI.height =  recthight;     
+            cout<<rectROI.x<<"         rectROI.x"<<endl;
+            cout<<rectROI.y<<"         rectROI.y"<<endl;     
+            cout<<rectROI.width<<"     rectroi.width"<<endl;
+            cout<<rectROI.height<<"     rectroi.height"<<endl;         
             if(!checkBorder()) return;
+            cout<<"mei bei check ba?"<<endl;
             hasROI = true;
             bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
             bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2;
         } else {
             int height = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
+            cout<<"jin lai le ma?"<<endl;
             if(height > 15){
 		        is_global=false;
                 bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2 + rectROI.x;
                 bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
                 Armorsize.x = (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
                 Armorsize.y = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
+                                cout<<Armorsize.x<<"  r222 ----armor.x  "<<endl;
+            cout<<Armorsize.y<<"   r22 -----armor.y"<<endl;
                 if(IMG_WIDTH-1<bestCenter.x || IMG_HEIGHT-1<rectROI.y) bestCenter.x = -1;
             } else hasROI = false;
         }
+                                    cout<<Armorsize.x<<"  222 ----armor.x  "<<endl;
+            cout<<Armorsize.y<<"   22 -----armor.y"<<endl;
     }
 
     if(bestCenter.x!=-1){
@@ -275,12 +295,21 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             recty = bestCenter.y - Armorsize.y;
             recthight = 2*Armorsize.y;
             rectwidth =2*Armorsize.x;
+            cout<<Armorsize.x<<"   ----armor.x  "<<endl;
+            cout<<Armorsize.y<<"    -----armor.y"<<endl;
+                        cout<<rectx<<" 44444    rectroi.width"<<endl;
+            cout<<recty<<" 4444    rectroi.height"<<endl; 
+                        cout<<rectwidth<<" 44444    rectroi.width"<<endl;
+            cout<<recthight<<" 4444    rectroi.height"<<endl; 
             change_roi(rectx,recty,rectwidth,recthight);
+                        cout<<rectwidth<<"   33  rectroi.width"<<endl;
+            cout<<rectwidth<<"   33  rectroi.height"<<endl; 
             rectROI.x = rectx;
             rectROI.y = recty;
             rectROI.width = rectwidth;
             rectROI.height = recthight;
             if(!checkBorder()){
+                cout<<"                              *****bu hui ba!!!!"<<endl;
                 bestCenter.x = -1;
                 hasROI = false;
                 return;
@@ -381,7 +410,6 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up){
 Point2f AutoAim::calPitchAndYaw(float x, float y, float z)
 {   
     Point2f angle;
-    
     angle.x=atanf((y-75)/(z+180))*180/CV_PI;   //pitch
     //cout<<y<<" emmm "<<atan(y/z)<<" 233 "<<atan(x/z)<<endl;
     angle.y=-atanf((x+30)/(z+180))*180/CV_PI;   //yaw
@@ -402,7 +430,17 @@ Point2f AutoAim::aim(Mat &src, int color,int is_predict,double time_delay){
     findLamp(mask,lamps);
     bestCenter.x = -1;  
     findBestArmor(lamps, bestCenter,posAndSpeed, best_lamps,start);
-    
+    cout<<rectROI.x<<" xxxxxxxxxxxxx"<<endl;
+    if(bestCenter.x!=-1){
+	circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+	    rectangle(src, rectROI, Scalar(0,0,255), 5);
+	cout<<rectROI.x<<"       rect.x"<<endl;
+	cout<<rectROI.y<<"       rect.y"<<endl;
+                cout<<rectROI.width<<"     rectroi.width"<<endl;
+            cout<<rectROI.height<<"     rectroi.height"<<endl; 
+    }
+    imshow("src", src);
+	waitKey(1);    
     if(bestCenter.x!=-1) 
     {
         measurement.at<float>(0)= (float)posAndSpeed[0].x;
