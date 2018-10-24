@@ -203,6 +203,21 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
     }
 }
 
+void AutoAim::change_roi(int &x, int &y, int &width, int &hight){
+    if(x<0){
+        width=width+x;
+        x=0;
+    }
+    if(y<0){
+        hight=hight+y;
+        y=0;
+    }
+    if((x+width)>IMG_WIDTH)
+        width=width-(IMG_WIDTH-(x+width));
+    if((y+hight)>IMG_HEIGHT)
+        hight=hight-(IMG_HEIGHT-(y+hight));
+}
+
 void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start){
 
     bool is_global=true;
@@ -227,12 +242,16 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             swap(lamps[lowerIndex],lamps[lowerIndex+1]);
         }
         if(!hasROI){
-            rectROI.x = lamps[lowerIndex].center.x - lamps[lowerIndex].size.width*2;
-            rectROI.y = lamps[lowerIndex].center.y - lamps[lowerIndex].size.height*2;
-            rectROI.width = abs(lamps[lowerIndex].center.x - lamps[lowerIndex+1].center.x) + 2*lamps[lowerIndex].size.width + 
-                                lamps[lowerIndex+1].size.width*2;
-            rectROI.height =  lamps[lowerIndex].size.height*2 + lamps[lowerIndex+1].size.height*2 - fabs(lamps[lowerIndex].center.y - 
-                                lamps[lowerIndex+1].center.y);                   
+            int rectx = ((lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2) - (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+            int recty = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 - ( lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
+            int recthight = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height);
+            int rectwidth =2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+            change_roi(rectx,recty,rectwidth,recthight);
+            rectROI.x = rectx;
+            rectROI.y = recty;
+            rectROI.width = rectwidth;
+            rectROI.height = recthight;
+
             if(!checkBorder()) return;
             hasROI = true;
             bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
@@ -243,7 +262,9 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
 		        is_global=false;
                 bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2 + rectROI.x;
                 bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
-                if(IMG_WIDTH-1<bestCenter.x || IMG_HEIGHT-1<rectROI.y) bestCenter.x = -1;
+                Armorsize.x = (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+                Armorsize.y = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
+                if(IMG_WIDTH-1-rectROI.x<rectROI.width || IMG_HEIGHT-1-rectROI.y<rectROI.height) bestCenter.x = -1;
             } else hasROI = false;
         }
     }
@@ -254,8 +275,15 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
         posAndSpeed.push_back(bestCenter);
         Point speed;
         if(hasROI && lastPoint.x !=0){
-            rectROI.x += bestCenter.x - lastPoint.x;
-            rectROI.y += bestCenter.y - lastPoint.y;
+            int rectx = bestCenter.x - Armorsize.x;
+            int recty = bestCenter.y - Armorsize.y;
+            int recthight =lamps[lowerIndex+1].size.height+lamps[lowerIndex].size.height;
+            int rectwidth =lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x+lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x;
+            change_roi(rectx,recty,rectwidth,recthight);
+            rectROI.x = rectx;
+            rectROI.y = recty;
+            rectROI.width = rectwidth;
+            rectROI.height = recthight;
             if(!checkBorder()){
                 bestCenter.x = -1;
                 hasROI = false;

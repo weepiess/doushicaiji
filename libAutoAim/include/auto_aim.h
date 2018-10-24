@@ -29,6 +29,7 @@ private:
     void findLamp(Mat &mask, vector<RotatedRect> &lamps);
     void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start);
     bool resizeROI(Rect &origin, Rect &current);
+    void change_roi(int &x, int &y, int &width, int &hight);
     Point2f calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw);
 
 private:
@@ -45,6 +46,7 @@ private:
     Mat measurement = Mat::zeros(4, 1, CV_32F);
 
     Point bestCenter;
+    Point Armorsize;
     
     vector<RotatedRect> lamps;
     vector<Point2f> posAndSpeed;
