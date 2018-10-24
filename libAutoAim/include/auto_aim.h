@@ -17,7 +17,7 @@ public:
     AutoAim(int width, int height);
     ~AutoAim();
 
-    Point2f aim(Mat &src, int color, float currPitch, float currYaw, int is_predict,double time_delay);
+    Point2f aim(Mat &src, int color, float currPitch, float currYaw, int is_predict, double time_delay);
 
 public:
     const static int color_red = 0;
