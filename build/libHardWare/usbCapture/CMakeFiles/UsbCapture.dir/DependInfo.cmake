@@ -16,7 +16,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../libBase/include"
   "../libHardWare/serialPort/include"
   "../libHardWare/usbCapture/include"
-  "../libAutoAim/include"
+  "../libAim/autoAim/include"
+  "../libAim/markAim/include"
   "../libTools/include"
   "../libHardWare/usbCapture/./include"
   )

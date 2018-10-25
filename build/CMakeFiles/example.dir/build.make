@@ -93,8 +93,9 @@ example: CMakeFiles/example.dir/build.make
 example: libBase/libBase.a
 example: libHardWare/serialPort/libSerialPort.a
 example: libHardWare/usbCapture/libUsbCapture.a
-example: libAutoAim/liblibAutoAim.a
-example: libTools/liblibTools.a
+example: libAim/autoAim/libAutoAim.a
+example: libAim/markAim/libMarkAim.a
+example: libTools/libTools.a
 example: /usr/local/lib/libopencv_videostab.so.3.4.3
 example: /usr/local/lib/libopencv_photo.so.3.4.3
 example: /usr/local/lib/libopencv_stitching.so.3.4.3

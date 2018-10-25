@@ -11,7 +11,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.5.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeSystem.cmake"
-  "../libAutoAim/CMakeLists.txt"
+  "../libAim/CMakeLists.txt"
+  "../libAim/autoAim/CMakeLists.txt"
+  "../libAim/markAim/CMakeLists.txt"
   "../libBase/CMakeLists.txt"
   "../libHardWare/CMakeLists.txt"
   "../libHardWare/serialPort/CMakeLists.txt"
@@ -55,7 +57,9 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "libHardWare/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libHardWare/serialPort/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libHardWare/usbCapture/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libAutoAim/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libAim/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libAim/autoAim/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libAim/markAim/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libTools/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
@@ -65,6 +69,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "libBase/CMakeFiles/Base.dir/DependInfo.cmake"
   "libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake"
   "libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake"
-  "libAutoAim/CMakeFiles/libAutoAim.dir/DependInfo.cmake"
-  "libTools/CMakeFiles/libTools.dir/DependInfo.cmake"
+  "libAim/autoAim/CMakeFiles/AutoAim.dir/DependInfo.cmake"
+  "libAim/markAim/CMakeFiles/MarkAim.dir/DependInfo.cmake"
+  "libTools/CMakeFiles/Tools.dir/DependInfo.cmake"
   )

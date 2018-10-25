@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,19 +111,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-libTools/CMakeFiles/libTools.dir/rule:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libTools/CMakeFiles/libTools.dir/rule
-.PHONY : libTools/CMakeFiles/libTools.dir/rule
+libTools/CMakeFiles/Tools.dir/rule:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libTools/CMakeFiles/Tools.dir/rule
+.PHONY : libTools/CMakeFiles/Tools.dir/rule
 
 # Convenience name for target.
-libTools: libTools/CMakeFiles/libTools.dir/rule
+Tools: libTools/CMakeFiles/Tools.dir/rule
 
-.PHONY : libTools
+.PHONY : Tools
 
 # fast build rule for target.
-libTools/fast:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/build
-.PHONY : libTools/fast
+Tools/fast:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/build
+.PHONY : Tools/fast
 
 src/math_tools.o: src/math_tools.cpp.o
 
@@ -131,7 +131,7 @@ src/math_tools.o: src/math_tools.cpp.o
 
 # target to build an object file
 src/math_tools.cpp.o:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/src/math_tools.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/math_tools.cpp.o
 .PHONY : src/math_tools.cpp.o
 
 src/math_tools.i: src/math_tools.cpp.i
@@ -140,7 +140,7 @@ src/math_tools.i: src/math_tools.cpp.i
 
 # target to preprocess a source file
 src/math_tools.cpp.i:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/src/math_tools.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/math_tools.cpp.i
 .PHONY : src/math_tools.cpp.i
 
 src/math_tools.s: src/math_tools.cpp.s
@@ -149,8 +149,35 @@ src/math_tools.s: src/math_tools.cpp.s
 
 # target to generate assembly for a file
 src/math_tools.cpp.s:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/src/math_tools.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/math_tools.cpp.s
 .PHONY : src/math_tools.cpp.s
+
+src/pnp_solver.o: src/pnp_solver.cpp.o
+
+.PHONY : src/pnp_solver.o
+
+# target to build an object file
+src/pnp_solver.cpp.o:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/pnp_solver.cpp.o
+.PHONY : src/pnp_solver.cpp.o
+
+src/pnp_solver.i: src/pnp_solver.cpp.i
+
+.PHONY : src/pnp_solver.i
+
+# target to preprocess a source file
+src/pnp_solver.cpp.i:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/pnp_solver.cpp.i
+.PHONY : src/pnp_solver.cpp.i
+
+src/pnp_solver.s: src/pnp_solver.cpp.s
+
+.PHONY : src/pnp_solver.s
+
+# target to generate assembly for a file
+src/pnp_solver.cpp.s:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/pnp_solver.cpp.s
+.PHONY : src/pnp_solver.cpp.s
 
 src/time_tools.o: src/time_tools.cpp.o
 
@@ -158,7 +185,7 @@ src/time_tools.o: src/time_tools.cpp.o
 
 # target to build an object file
 src/time_tools.cpp.o:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/src/time_tools.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/time_tools.cpp.o
 .PHONY : src/time_tools.cpp.o
 
 src/time_tools.i: src/time_tools.cpp.i
@@ -167,7 +194,7 @@ src/time_tools.i: src/time_tools.cpp.i
 
 # target to preprocess a source file
 src/time_tools.cpp.i:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/src/time_tools.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/time_tools.cpp.i
 .PHONY : src/time_tools.cpp.i
 
 src/time_tools.s: src/time_tools.cpp.s
@@ -176,7 +203,7 @@ src/time_tools.s: src/time_tools.cpp.s
 
 # target to generate assembly for a file
 src/time_tools.cpp.s:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/src/time_tools.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/src/time_tools.cpp.s
 .PHONY : src/time_tools.cpp.s
 
 # Help Target
@@ -185,12 +212,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... libTools"
+	@echo "... rebuild_cache"
+	@echo "... Tools"
 	@echo "... src/math_tools.o"
 	@echo "... src/math_tools.i"
 	@echo "... src/math_tools.s"
+	@echo "... src/pnp_solver.o"
+	@echo "... src/pnp_solver.i"
+	@echo "... src/pnp_solver.s"
 	@echo "... src/time_tools.o"
 	@echo "... src/time_tools.i"
 	@echo "... src/time_tools.s"

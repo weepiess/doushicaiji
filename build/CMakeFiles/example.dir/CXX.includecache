@@ -6,27 +6,21 @@
 
 #IncludeRegexTransform: 
 
-../libAutoAim/include/auto_aim.h
+../libAim/autoAim/include/auto_aim.h
 opencv2/opencv.hpp
 -
 time.h
-../libAutoAim/include/time.h
+../libAim/autoAim/include/time.h
 kalman_filter_by_opencv.h
-../libAutoAim/include/kalman_filter_by_opencv.h
+../libAim/autoAim/include/kalman_filter_by_opencv.h
 usb_capture_with_opencv.h
-../libAutoAim/include/usb_capture_with_opencv.h
+../libAim/autoAim/include/usb_capture_with_opencv.h
 pnp_solver.h
-../libAutoAim/include/pnp_solver.h
+../libAim/autoAim/include/pnp_solver.h
 math_tools.h
-../libAutoAim/include/math_tools.h
+../libAim/autoAim/include/math_tools.h
 
-../libAutoAim/include/kalman_filter_by_opencv.h
-opencv2/opencv.hpp
--
-iostream
--
-
-../libAutoAim/include/pnp_solver.h
+../libAim/autoAim/include/kalman_filter_by_opencv.h
 opencv2/opencv.hpp
 -
 iostream
@@ -86,6 +80,12 @@ base_thread.h
 
 ../libTools/include/math_tools.h
 opencv2/opencv.hpp
+-
+
+../libTools/include/pnp_solver.h
+opencv2/opencv.hpp
+-
+iostream
 -
 
 /home/wyx/程序/wyx/doushicaiji/src/test.cpp

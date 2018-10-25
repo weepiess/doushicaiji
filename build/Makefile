@@ -163,30 +163,43 @@ UsbCapture/fast:
 .PHONY : UsbCapture/fast
 
 #=============================================================================
-# Target rules for targets named libAutoAim
+# Target rules for targets named AutoAim
 
 # Build rule for target.
-libAutoAim: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 libAutoAim
-.PHONY : libAutoAim
+AutoAim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 AutoAim
+.PHONY : AutoAim
 
 # fast build rule for target.
-libAutoAim/fast:
-	$(MAKE) -f libAutoAim/CMakeFiles/libAutoAim.dir/build.make libAutoAim/CMakeFiles/libAutoAim.dir/build
-.PHONY : libAutoAim/fast
+AutoAim/fast:
+	$(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/build
+.PHONY : AutoAim/fast
 
 #=============================================================================
-# Target rules for targets named libTools
+# Target rules for targets named MarkAim
 
 # Build rule for target.
-libTools: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 libTools
-.PHONY : libTools
+MarkAim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MarkAim
+.PHONY : MarkAim
 
 # fast build rule for target.
-libTools/fast:
-	$(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/build
-.PHONY : libTools/fast
+MarkAim/fast:
+	$(MAKE) -f libAim/markAim/CMakeFiles/MarkAim.dir/build.make libAim/markAim/CMakeFiles/MarkAim.dir/build
+.PHONY : MarkAim/fast
+
+#=============================================================================
+# Target rules for targets named Tools
+
+# Build rule for target.
+Tools: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Tools
+.PHONY : Tools
+
+# fast build rule for target.
+Tools/fast:
+	$(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/build
+.PHONY : Tools/fast
 
 src/test.o: src/test.cpp.o
 
@@ -227,8 +240,9 @@ help:
 	@echo "... Base"
 	@echo "... SerialPort"
 	@echo "... UsbCapture"
-	@echo "... libAutoAim"
-	@echo "... libTools"
+	@echo "... AutoAim"
+	@echo "... MarkAim"
+	@echo "... Tools"
 	@echo "... src/test.o"
 	@echo "... src/test.i"
 	@echo "... src/test.s"

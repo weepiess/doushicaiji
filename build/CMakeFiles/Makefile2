@@ -66,11 +66,12 @@ CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 CMakeFiles/example.dir/all: libBase/CMakeFiles/Base.dir/all
 CMakeFiles/example.dir/all: libHardWare/serialPort/CMakeFiles/SerialPort.dir/all
 CMakeFiles/example.dir/all: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/all
-CMakeFiles/example.dir/all: libAutoAim/CMakeFiles/libAutoAim.dir/all
-CMakeFiles/example.dir/all: libTools/CMakeFiles/libTools.dir/all
+CMakeFiles/example.dir/all: libAim/autoAim/CMakeFiles/AutoAim.dir/all
+CMakeFiles/example.dir/all: libAim/markAim/CMakeFiles/MarkAim.dir/all
+CMakeFiles/example.dir/all: libTools/CMakeFiles/Tools.dir/all
 	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/depend
 	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=14,15 "Built target example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=23,24 "Built target example"
 .PHONY : CMakeFiles/example.dir/all
 
 # Include target in all.
@@ -80,7 +81,7 @@ all: CMakeFiles/example.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 22
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 24
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/example.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : CMakeFiles/example.dir/rule
@@ -125,7 +126,7 @@ libBase/preinstall:
 libBase/CMakeFiles/Base.dir/all:
 	$(MAKE) -f libBase/CMakeFiles/Base.dir/build.make libBase/CMakeFiles/Base.dir/depend
 	$(MAKE) -f libBase/CMakeFiles/Base.dir/build.make libBase/CMakeFiles/Base.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=1,2,3,4 "Built target Base"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=4,5,6,7 "Built target Base"
 .PHONY : libBase/CMakeFiles/Base.dir/all
 
 # Include target in all.
@@ -201,7 +202,7 @@ libHardWare/serialPort/preinstall:
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/all:
 	$(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/depend
 	$(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=5,6,7,8,9 "Built target SerialPort"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=10,11,12,13,14 "Built target SerialPort"
 .PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/all
 
 # Include target in all.
@@ -256,7 +257,7 @@ libHardWare/usbCapture/preinstall:
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/all: libBase/CMakeFiles/Base.dir/all
 	$(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/depend
 	$(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=10,11,12,13 "Built target UsbCapture"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=19,20,21,22 "Built target UsbCapture"
 .PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/all
 
 # Include target in all.
@@ -287,57 +288,133 @@ clean: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory libAutoAim
+# Directory level rules for directory libAim
 
 # Convenience name for "all" pass in the directory.
-libAutoAim/all: libAutoAim/CMakeFiles/libAutoAim.dir/all
+libAim/all: libAim/autoAim/all
+libAim/all: libAim/markAim/all
 
-.PHONY : libAutoAim/all
+.PHONY : libAim/all
 
 # Convenience name for "clean" pass in the directory.
-libAutoAim/clean: libAutoAim/CMakeFiles/libAutoAim.dir/clean
+libAim/clean: libAim/autoAim/clean
+libAim/clean: libAim/markAim/clean
 
-.PHONY : libAutoAim/clean
+.PHONY : libAim/clean
 
 # Convenience name for "preinstall" pass in the directory.
-libAutoAim/preinstall:
+libAim/preinstall: libAim/autoAim/preinstall
+libAim/preinstall: libAim/markAim/preinstall
 
-.PHONY : libAutoAim/preinstall
+.PHONY : libAim/preinstall
 
 #=============================================================================
-# Target rules for target libAutoAim/CMakeFiles/libAutoAim.dir
+# Directory level rules for directory libAim/autoAim
+
+# Convenience name for "all" pass in the directory.
+libAim/autoAim/all: libAim/autoAim/CMakeFiles/AutoAim.dir/all
+
+.PHONY : libAim/autoAim/all
+
+# Convenience name for "clean" pass in the directory.
+libAim/autoAim/clean: libAim/autoAim/CMakeFiles/AutoAim.dir/clean
+
+.PHONY : libAim/autoAim/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libAim/autoAim/preinstall:
+
+.PHONY : libAim/autoAim/preinstall
+
+#=============================================================================
+# Target rules for target libAim/autoAim/CMakeFiles/AutoAim.dir
 
 # All Build rule for target.
-libAutoAim/CMakeFiles/libAutoAim.dir/all:
-	$(MAKE) -f libAutoAim/CMakeFiles/libAutoAim.dir/build.make libAutoAim/CMakeFiles/libAutoAim.dir/depend
-	$(MAKE) -f libAutoAim/CMakeFiles/libAutoAim.dir/build.make libAutoAim/CMakeFiles/libAutoAim.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=16,17,18,19 "Built target libAutoAim"
-.PHONY : libAutoAim/CMakeFiles/libAutoAim.dir/all
+libAim/autoAim/CMakeFiles/AutoAim.dir/all:
+	$(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/depend
+	$(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=1,2,3 "Built target AutoAim"
+.PHONY : libAim/autoAim/CMakeFiles/AutoAim.dir/all
 
 # Include target in all.
-all: libAutoAim/CMakeFiles/libAutoAim.dir/all
+all: libAim/autoAim/CMakeFiles/AutoAim.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-libAutoAim/CMakeFiles/libAutoAim.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 libAutoAim/CMakeFiles/libAutoAim.dir/all
+libAim/autoAim/CMakeFiles/AutoAim.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/CMakeFiles/AutoAim.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
-.PHONY : libAutoAim/CMakeFiles/libAutoAim.dir/rule
+.PHONY : libAim/autoAim/CMakeFiles/AutoAim.dir/rule
 
 # Convenience name for target.
-libAutoAim: libAutoAim/CMakeFiles/libAutoAim.dir/rule
+AutoAim: libAim/autoAim/CMakeFiles/AutoAim.dir/rule
 
-.PHONY : libAutoAim
-
-# clean rule for target.
-libAutoAim/CMakeFiles/libAutoAim.dir/clean:
-	$(MAKE) -f libAutoAim/CMakeFiles/libAutoAim.dir/build.make libAutoAim/CMakeFiles/libAutoAim.dir/clean
-.PHONY : libAutoAim/CMakeFiles/libAutoAim.dir/clean
+.PHONY : AutoAim
 
 # clean rule for target.
-clean: libAutoAim/CMakeFiles/libAutoAim.dir/clean
+libAim/autoAim/CMakeFiles/AutoAim.dir/clean:
+	$(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/clean
+.PHONY : libAim/autoAim/CMakeFiles/AutoAim.dir/clean
+
+# clean rule for target.
+clean: libAim/autoAim/CMakeFiles/AutoAim.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory libAim/markAim
+
+# Convenience name for "all" pass in the directory.
+libAim/markAim/all: libAim/markAim/CMakeFiles/MarkAim.dir/all
+
+.PHONY : libAim/markAim/all
+
+# Convenience name for "clean" pass in the directory.
+libAim/markAim/clean: libAim/markAim/CMakeFiles/MarkAim.dir/clean
+
+.PHONY : libAim/markAim/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libAim/markAim/preinstall:
+
+.PHONY : libAim/markAim/preinstall
+
+#=============================================================================
+# Target rules for target libAim/markAim/CMakeFiles/MarkAim.dir
+
+# All Build rule for target.
+libAim/markAim/CMakeFiles/MarkAim.dir/all:
+	$(MAKE) -f libAim/markAim/CMakeFiles/MarkAim.dir/build.make libAim/markAim/CMakeFiles/MarkAim.dir/depend
+	$(MAKE) -f libAim/markAim/CMakeFiles/MarkAim.dir/build.make libAim/markAim/CMakeFiles/MarkAim.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=8,9 "Built target MarkAim"
+.PHONY : libAim/markAim/CMakeFiles/MarkAim.dir/all
+
+# Include target in all.
+all: libAim/markAim/CMakeFiles/MarkAim.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+libAim/markAim/CMakeFiles/MarkAim.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 libAim/markAim/CMakeFiles/MarkAim.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
+.PHONY : libAim/markAim/CMakeFiles/MarkAim.dir/rule
+
+# Convenience name for target.
+MarkAim: libAim/markAim/CMakeFiles/MarkAim.dir/rule
+
+.PHONY : MarkAim
+
+# clean rule for target.
+libAim/markAim/CMakeFiles/MarkAim.dir/clean:
+	$(MAKE) -f libAim/markAim/CMakeFiles/MarkAim.dir/build.make libAim/markAim/CMakeFiles/MarkAim.dir/clean
+.PHONY : libAim/markAim/CMakeFiles/MarkAim.dir/clean
+
+# clean rule for target.
+clean: libAim/markAim/CMakeFiles/MarkAim.dir/clean
 
 .PHONY : clean
 
@@ -345,12 +422,12 @@ clean: libAutoAim/CMakeFiles/libAutoAim.dir/clean
 # Directory level rules for directory libTools
 
 # Convenience name for "all" pass in the directory.
-libTools/all: libTools/CMakeFiles/libTools.dir/all
+libTools/all: libTools/CMakeFiles/Tools.dir/all
 
 .PHONY : libTools/all
 
 # Convenience name for "clean" pass in the directory.
-libTools/clean: libTools/CMakeFiles/libTools.dir/clean
+libTools/clean: libTools/CMakeFiles/Tools.dir/clean
 
 .PHONY : libTools/clean
 
@@ -360,39 +437,39 @@ libTools/preinstall:
 .PHONY : libTools/preinstall
 
 #=============================================================================
-# Target rules for target libTools/CMakeFiles/libTools.dir
+# Target rules for target libTools/CMakeFiles/Tools.dir
 
 # All Build rule for target.
-libTools/CMakeFiles/libTools.dir/all:
-	$(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/depend
-	$(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=20,21,22 "Built target libTools"
-.PHONY : libTools/CMakeFiles/libTools.dir/all
+libTools/CMakeFiles/Tools.dir/all:
+	$(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/depend
+	$(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=15,16,17,18 "Built target Tools"
+.PHONY : libTools/CMakeFiles/Tools.dir/all
 
 # Include target in all.
-all: libTools/CMakeFiles/libTools.dir/all
+all: libTools/CMakeFiles/Tools.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-libTools/CMakeFiles/libTools.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 libTools/CMakeFiles/libTools.dir/all
+libTools/CMakeFiles/Tools.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 libTools/CMakeFiles/Tools.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
-.PHONY : libTools/CMakeFiles/libTools.dir/rule
+.PHONY : libTools/CMakeFiles/Tools.dir/rule
 
 # Convenience name for target.
-libTools: libTools/CMakeFiles/libTools.dir/rule
+Tools: libTools/CMakeFiles/Tools.dir/rule
 
-.PHONY : libTools
-
-# clean rule for target.
-libTools/CMakeFiles/libTools.dir/clean:
-	$(MAKE) -f libTools/CMakeFiles/libTools.dir/build.make libTools/CMakeFiles/libTools.dir/clean
-.PHONY : libTools/CMakeFiles/libTools.dir/clean
+.PHONY : Tools
 
 # clean rule for target.
-clean: libTools/CMakeFiles/libTools.dir/clean
+libTools/CMakeFiles/Tools.dir/clean:
+	$(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/clean
+.PHONY : libTools/CMakeFiles/Tools.dir/clean
+
+# clean rule for target.
+clean: libTools/CMakeFiles/Tools.dir/clean
 
 .PHONY : clean
 
