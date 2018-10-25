@@ -7,7 +7,7 @@
 #include "usb_capture_with_opencv.h"
 #include "pnp_solver.h"
 #include "math_tools.h"
-
+#include <queue>
 using namespace cv;
 using namespace std;
 
@@ -16,13 +16,14 @@ public:
     AutoAim();
     AutoAim(int width, int height);
     ~AutoAim();
+
     Point2f aim(Mat &src, int color, float currPitch, float currYaw, int is_predict, double time_delay);
+
 public:
     const static int color_red = 0;
     const static int color_blue = 1;
 
 private:
-
     bool checkBorder();
     void setImage(Mat &src, Mat &mask , int enemyColor);
     void findLamp(Mat &mask, vector<RotatedRect> &lamps);
@@ -43,12 +44,14 @@ private:
     Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
     Mat temp = Mat::zeros(8, 1, CV_32F);
     Mat measurement = Mat::zeros(4, 1, CV_32F);
-
+    queue<double> z_filter;
     Point bestCenter;
     Point Armorsize;
+    
     vector<RotatedRect> lamps;
     vector<Point2f> posAndSpeed;
     bool camera_is_open;
+
     Rect rectROI;
     Kalman_filter kf;
 };                                                                                                                                  
