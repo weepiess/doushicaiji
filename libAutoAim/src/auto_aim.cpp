@@ -17,7 +17,7 @@ AutoAim::AutoAim(int width, int height){
     Points3D.push_back(cv::Point3f(-64.5, -20, 0));     //P1三维坐标的单位是毫米
     Points3D.push_back(cv::Point3f(-64.5, 20, 0));   //P2
     Points3D.push_back(cv::Point3f(70.5, -20, 0));   //P3
-    //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4 
+    //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
     Points3D.push_back(cv::Point3f(70.5,20, 0));
     float dt=1/50;
     this->kf.transitionMatrix=(Mat_<float>(4, 4) <<   
@@ -57,7 +57,7 @@ bool cmp(RotatedRect &x, RotatedRect &y){
 }
 
 bool AutoAim::checkBorder(){
-    if(IMG_WIDTH-1-rectROI.x<rectROI.width || IMG_HEIGHT-1-rectROI.y<rectROI.height || rectROI.x<0 || rectROI.y <0){
+    if(IMG_WIDTH-rectROI.x<rectROI.width || IMG_HEIGHT-rectROI.y<rectROI.height || rectROI.x<0 || rectROI.y <0){
         rectROI.x = rectROI.y = rectROI.width = rectROI.height = 0;
         return false;
     }
@@ -212,9 +212,9 @@ void AutoAim::change_roi(int &x, int &y, int &width, int &hight)
         hight=hight+y;
         y=0;
     }
-    if((x+width)>IMG_WIDTH)
+    if((x+width)>=IMG_WIDTH)
         width=width-(IMG_WIDTH-(x+width));
-    if((y+hight)>IMG_HEIGHT)
+    if((y+hight)>=IMG_HEIGHT)
         hight=hight-(IMG_HEIGHT-(y+hight));
         cout<<width<<"     width"<<endl;
         cout<<hight<<"     height"<<endl;
@@ -233,10 +233,10 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             lowerIndex = i;
         }
     }
+
     if(lowerIndex == -1){
         if(hasROI){
             hasROI = resizeROI(rectROI, rectROI);
-
 	        is_global=false;
         }
     } else {
@@ -432,12 +432,12 @@ Point2f AutoAim::aim(Mat &src, int color,int is_predict,double time_delay){
     findBestArmor(lamps, bestCenter,posAndSpeed, best_lamps,start);
     cout<<rectROI.x<<" xxxxxxxxxxxxx"<<endl;
     if(bestCenter.x!=-1){
-	circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+	    circle(src, bestCenter, 20, Scalar(255,255,255), 5);
 	    rectangle(src, rectROI, Scalar(0,0,255), 5);
-	cout<<rectROI.x<<"       rect.x"<<endl;
-	cout<<rectROI.y<<"       rect.y"<<endl;
-                cout<<rectROI.width<<"     rectroi.width"<<endl;
-            cout<<rectROI.height<<"     rectroi.height"<<endl; 
+	    cout<<rectROI.x<<"       rect.x"<<endl;
+	    cout<<rectROI.y<<"       rect.y"<<endl;
+        cout<<rectROI.width<<"     rectroi.width"<<endl;
+        cout<<rectROI.height<<"     rectroi.height"<<endl; 
     }
     imshow("src", src);
 	waitKey(1);    
