@@ -8,37 +8,39 @@ const float AutoAim::max_offset_angle = 30;
 AutoAim::AutoAim(){}
 
 AutoAim::AutoAim(int width, int height){
-    this->IMG_WIDTH = width;
-    this->IMG_HEIGHT = height;
+    IMG_WIDTH = width;
+    IMG_HEIGHT = height;
     hasROI = false;
     resizeCount = 0;
     lastPoint.x = 0;
     lastPoint.y = 0;
-    Points3D.push_back(cv::Point3f(-64.5, -20, 0));     //P1三维坐标的单位是毫米
-    Points3D.push_back(cv::Point3f(-64.5, 20, 0));   //P2
-    Points3D.push_back(cv::Point3f(70.5, -20, 0));   //P3
-    //p4psolver.Points3D.push_back(cv::Point3f(150, 200, 0));   //P4
-    Points3D.push_back(cv::Point3f(70.5,20, 0));
+
+    //初始化三维坐标点
+    pnpSolver.pushPoints3D(-70.5, -18, 10);
+    pnpSolver.pushPoints3D(-70.5, 18, -10);
+    pnpSolver.pushPoints3D(64.5, -18, 10);
+    pnpSolver.pushPoints3D(64.5, 18, -10);
+    //初始化相机参数
+    pnpSolver.setCameraMatrix(3020.80666, 0., 695.74256, 0.,1020.80666,388.82902, 0., 0., 1.);
+    pnpSolver.setDistortionCoef(0.0058917, 0.269857,0.0026559, 0.00903601,0.393959);
+
     float dt=1/50;
-    this->kf.transitionMatrix=(Mat_<float>(4, 4) <<   
+    kf.transitionMatrix=(Mat_<float>(4, 4) <<   
             1,0,dt,0,   
             0,1,0,dt,   
             0,0,1,0,   
             0,0,0,1 );
-    this->kf.measurementMatrix=(Mat_<float>(4, 4) <<   
+    kf.measurementMatrix=(Mat_<float>(4, 4) <<   
             1,0,0,0,   
             0,1,0,0,   
             0,0,1,0,   
             0,0,0,1 );  
-    this->kf.measurementNoiseCov=(Mat_<float>(4, 4) <<   
+    kf.measurementNoiseCov=(Mat_<float>(4, 4) <<   
             2000,0,0,0,   
             0,2000,0,0,   
             0,0,10000,0,   
             0,0,0,10000 );
-    camera_matrix=(Mat_<float>(3,3)<<3020.80666, 0., 695.74256, 0.,1020.80666,388.82902, 0., 0., 1.);
-    distortion_coef=(Mat_<float>(5,1)<<0.0058917, 0.269857,0.0026559, 0.00903601,
-      0.393959 );
-    this->kf.init(4,20000,0);
+    kf.init(4,20000,0);
 }
 
 AutoAim::~AutoAim(){}
@@ -71,14 +73,17 @@ float distPoint(Point2f center1, Point2f center2){
 
 void AutoAim::setImage(Mat &img, Mat &mask, int enemyColor){
     Mat channel[3];
-    if(hasROI){
-        mask = img(Rect(rectROI));
-        GaussianBlur(mask, mask, Size(5,5), 0, 0);
-    } else {
+    if(!hasROI || !checkBorder()){
         GaussianBlur(img, mask, Size(5,5), 0, 0);
+    } else {
+        mask = img(rectROI);
+        GaussianBlur(mask, mask, Size(5,5), 0, 0);
     }
     split(mask,channel); 
     threshold(enemyColor==AutoAim::color_red ? (channel[2]-channel[0]) : (channel[0] - channel[2]), mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
+	Mat element = getStructuringElement(MORPH_ELLIPSE,Size(3,3));  
+	dilate(mask,mask,element);
+ 	dilate(mask,mask,element);
     Canny(mask, mask, 3, 9, 3);                                       
 }
 
@@ -88,9 +93,9 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
     vector<vector<Point> > contours;
     vector<Vec4i> hierarcy;
     //寻找轮廓，将满足条件的轮廓放入待确定的数组中去
-   // findContours(mask, contours, hierarcy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-findContours(mask,contours,hierarcy,RETR_EXTERNAL,CHAIN_APPROX_NONE,Point(0,0));    
-RotatedRect temp;
+    // findContours(mask, contours, hierarcy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+    findContours(mask,contours,hierarcy,RETR_EXTERNAL,CHAIN_APPROX_NONE,Point(0,0));    
+    RotatedRect temp;
     vector<RotatedRect> pre_lamps;
 
     float lastCenterX = 0, lastCenterY = 0;
@@ -165,10 +170,10 @@ RotatedRect temp;
             if(diff_y > 30) continue;
             
             dist = distPoint(compare.center, current.center);
-            if(dist>200 || dist<10) continue;
+            if(dist<10) continue;
             avg_height = (compare.size.height + current.size.height) / 2;
             ratio = dist / avg_height;
-            if(ratio > 5 || ratio < 1) continue;
+            if(ratio > 10 || ratio < 1) continue;
             
             totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height+0.5*dist;
             if(totalDiff < currDiff){
@@ -221,8 +226,29 @@ void AutoAim::change_roi(int &x, int &y, int &width, int &hight)
 }
 void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start){
 
+void AutoAim::change_roi(int &x, int &y, int &width, int &height){
+    if(x<0){
+        width = width+x;
+        x = 0;
+    }
+    if(y<0){
+        height = height+y;
+        y = 0;
+    }
+    if((x+width) > IMG_WIDTH)
+        width=width-(IMG_WIDTH-(x+width));
+    if((y+height)>IMG_HEIGHT)
+        height=height-(IMG_HEIGHT-(y+height));
+
+    rectROI.x = x;
+    rectROI.y = y;
+    rectROI.width = width;
+    rectROI.height = height;
+}
+
+void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start){
+
     bool is_global=true;
-    //hasROI = false;
     int lowerY=0;
     int lowerIndex=-1;
     for(int i=0; i<lamps.size(); i+=2){
@@ -240,28 +266,16 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
 	        is_global=false;
         }
     } else {
-	   if(lamps[lowerIndex].center.x>lamps[lowerIndex+1].center.x){
-                swap(lamps[lowerIndex],lamps[lowerIndex+1]);
-            }
-
+        resizeCount = 0;
+	    if(lamps[lowerIndex].center.x>lamps[lowerIndex+1].center.x){
+            swap(lamps[lowerIndex],lamps[lowerIndex+1]);
+        }
         if(!hasROI){
-            rectx = ((lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2) - (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
-            recty = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 - ( lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
-            recthight = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height);
-            rectwidth =2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
-                        cout<<rectx<<"           1                     rectx"<<endl;
-            cout<<recty<<"                  1              recty"<<endl;
+            int rectx = ((lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2) - (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+            int recty = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 - ( lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
+            int recthight = lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height;
+            int rectwidth = 2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
             change_roi(rectx,recty,rectwidth,recthight);
-                        cout<<rectx<<"                    2            rectx"<<endl;
-            cout<<recty<<"                  2              recty"<<endl;
-            rectROI.x = rectx;
-            rectROI.y = recty;
-            rectROI.width = rectwidth;
-            rectROI.height =  recthight;     
-            cout<<rectROI.x<<"         rectROI.x"<<endl;
-            cout<<rectROI.y<<"         rectROI.y"<<endl;     
-            cout<<rectROI.width<<"     rectroi.width"<<endl;
-            cout<<rectROI.height<<"     rectroi.height"<<endl;         
             if(!checkBorder()) return;
             cout<<"mei bei check ba?"<<endl;
             hasROI = true;
@@ -274,11 +288,9 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
 		        is_global=false;
                 bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2 + rectROI.x;
                 bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
-                Armorsize.x = (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+                Armorsize.x = lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x;
                 Armorsize.y = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
-                                cout<<Armorsize.x<<"  r222 ----armor.x  "<<endl;
-            cout<<Armorsize.y<<"   r22 -----armor.y"<<endl;
-                if(IMG_WIDTH-1<bestCenter.x || IMG_HEIGHT-1<rectROI.y) bestCenter.x = -1;
+                if(!checkBorder()) bestCenter.x = -1;
             } else hasROI = false;
         }
                                     cout<<Armorsize.x<<"  222 ----armor.x  "<<endl;
@@ -291,23 +303,11 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
         posAndSpeed.push_back(bestCenter);
         Point speed;
         if(hasROI && lastPoint.x !=0){
-            rectx = bestCenter.x - Armorsize.x;
-            recty = bestCenter.y - Armorsize.y;
-            recthight = 2*Armorsize.y;
-            rectwidth =2*Armorsize.x;
-            cout<<Armorsize.x<<"   ----armor.x  "<<endl;
-            cout<<Armorsize.y<<"    -----armor.y"<<endl;
-                        cout<<rectx<<" 44444    rectroi.width"<<endl;
-            cout<<recty<<" 4444    rectroi.height"<<endl; 
-                        cout<<rectwidth<<" 44444    rectroi.width"<<endl;
-            cout<<recthight<<" 4444    rectroi.height"<<endl; 
+            int rectx = bestCenter.x - Armorsize.x;
+            int recty = bestCenter.y - Armorsize.y;
+            int recthight =lamps[lowerIndex+1].size.height+lamps[lowerIndex].size.height;
+            int rectwidth =lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x+lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x;
             change_roi(rectx,recty,rectwidth,recthight);
-                        cout<<rectwidth<<"   33  rectroi.width"<<endl;
-            cout<<rectwidth<<"   33  rectroi.height"<<endl; 
-            rectROI.x = rectx;
-            rectROI.y = recty;
-            rectROI.width = rectwidth;
-            rectROI.height = recthight;
             if(!checkBorder()){
                 cout<<"                              *****bu hui ba!!!!"<<endl;
                 bestCenter.x = -1;
@@ -315,7 +315,6 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
                 return;
             }
         }
-        
         speed.x = (bestCenter.x - lastPoint.x)/time;
         speed.y = (bestCenter.y - lastPoint.y)/time;
         posAndSpeed.push_back(speed);
@@ -326,7 +325,6 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vecto
             best_lamps.at<float>(1)=lamps[lowerIndex].center.y;
             best_lamps.at<float>(4)=lamps[lowerIndex+1].center.x;
             best_lamps.at<float>(5)=lamps[lowerIndex+1].center.y;
-	    cout<< best_lamps.at<float>(0)<<" "<< best_lamps.at<float>(0)<< " " << best_lamps.at<float>(4) <<" "<< best_lamps.at<float>(5)<< " bes" <<endl;
         } else { 
             best_lamps.at<float>(0)=lamps[lowerIndex].center.x + rectROI.x;
             best_lamps.at<float>(1)=lamps[lowerIndex].center.y + rectROI.y;
@@ -367,10 +365,9 @@ bool AutoAim::resizeROI(Rect &origin, Rect &current){
     return isSuccess;
 }
 
-Point2f cal_x_y(int x,int y,int H,float angle,int is_up){
+Point2d cal_x_y(int x,int y,int H,float angle,int is_up){
     float theta;
-    Point2f point;
-    cout<<"x: "<<x<<" y: "<<y<<" H: "<<H<<" angle: "<<angle<<endl;
+    Point2d point;
     if(angle>90&&angle<=180){
         theta=(180-angle)*CV_PI/180;
         if(is_up){
@@ -391,8 +388,7 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up){
             point.y=y+cos(theta)*H/2;
         }
     }
-    else
-    { 
+    else{ 
         theta=angle*CV_PI/180;
         if(is_up){
             point.x=x+sin(theta)*H/2;
@@ -403,23 +399,23 @@ Point2f cal_x_y(int x,int y,int H,float angle,int is_up){
         }
         
     }
-    //cout<<point<<endl;
     return point;
 }
 
-Point2f AutoAim::calPitchAndYaw(float x, float y, float z)
-{   
+Point2f AutoAim::calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw){   
     Point2f angle;
-    angle.x=atanf((y-75)/(z+180))*180/CV_PI;   //pitch
-    //cout<<y<<" emmm "<<atan(y/z)<<" 233 "<<atan(x/z)<<endl;
-    angle.y=-atanf((x+30)/(z+180))*180/CV_PI;   //yaw
+
+    
+    angle.x = MathTools::gravityKiller((z+170)/ 1000.0, (y-60)/1000.0, 15, currPitch); //pitch
+    angle.y = -atanf((x+30)/(z+170))*180/CV_PI;   //yaw
+
     return angle;
 }
 
-Point2f AutoAim::aim(Mat &src, int color,int is_predict,double time_delay){
+
+Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is_predict,double time_delay){
     clock_t start = clock();
     Mat mask;
-    vector<Point2f> Points2D;
     Point2f angle;
     if(src.empty()) 
         return Point2f(180,180);
@@ -427,40 +423,38 @@ Point2f AutoAim::aim(Mat &src, int color,int is_predict,double time_delay){
         setImage(src, mask, AutoAim::color_red);
     else    
         setImage(src,mask, AutoAim::color_blue);
-    findLamp(mask,lamps);
+    findLamp(mask, lamps);
     bestCenter.x = -1;  
     findBestArmor(lamps, bestCenter,posAndSpeed, best_lamps,start);
-    cout<<rectROI.x<<" xxxxxxxxxxxxx"<<endl;
-    if(bestCenter.x!=-1){
-	    circle(src, bestCenter, 20, Scalar(255,255,255), 5);
-	    rectangle(src, rectROI, Scalar(0,0,255), 5);
-	    cout<<rectROI.x<<"       rect.x"<<endl;
-	    cout<<rectROI.y<<"       rect.y"<<endl;
-        cout<<rectROI.width<<"     rectroi.width"<<endl;
-        cout<<rectROI.height<<"     rectroi.height"<<endl; 
+
+    if(bestCenter.x != -1){
+        circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        rectangle(src, rectROI, Scalar(255,0,0), 10);
     }
     imshow("src", src);
-	waitKey(1);    
-    if(bestCenter.x!=-1) 
+    waitKey(1);
+    
+    if(bestCenter.x!=-1)
     {
         measurement.at<float>(0)= (float)posAndSpeed[0].x;
         measurement.at<float>(1) = (float)posAndSpeed[0].y;  
         measurement.at<float>(2)= (float)posAndSpeed[1].x;  
         measurement.at<float>(3) = (float)posAndSpeed[1].y;
-        this->kf.statePost=(Mat_<float>(4, 1) <<  bestCenter.x,bestCenter.y,posAndSpeed[1].x,posAndSpeed[1].y);
+        kf.statePost=(Mat_<float>(4, 1) <<  bestCenter.x,bestCenter.y,posAndSpeed[1].x,posAndSpeed[1].y);
+
         Mat Predict = this->kf.predict();
-        this->kf.correct(measurement);
+        kf.correct(measurement);
         int h1=best_lamps.at<float>(2);
         int a1=best_lamps.at<float>(3);//first angle
         int h2=best_lamps.at<float>(6);//第二个灯条 hight
         int a2=best_lamps.at<float>(7);
         int xc1,xc2,yc1,yc2;
+
         if(is_predict==0){
             xc1=best_lamps.at<float>(0);//first center x 
             yc1=best_lamps.at<float>(1);//first center y
             xc2=best_lamps.at<float>(4);//第二个灯条 x
             yc2=best_lamps.at<float>(5);//第二个灯条 y
-	    cout<<xc1<<" "<<yc1<<" "<<xc2<<" "<<yc2<<" best_lamps" <<endl;
         }else{
             int xc=Predict.at<float>(0)+Predict.at<float>(2)*time_delay;
             int yc=Predict.at<float>(1)+Predict.at<float>(3)*time_delay;
@@ -470,35 +464,27 @@ Point2f AutoAim::aim(Mat &src, int color,int is_predict,double time_delay){
             int yc2=best_lamps.at<float>(5)+(yc-bestCenter.y);
             circle(src, Point(xc, yc), 10, Scalar(0,0,255), 2);
         }
-        //cout<<"xc1 yc1 xc2 yc2"<<xc1<<" "<<yc1<<" "<<xc2<<" "<<yc2<<endl;
         if(xc2-xc1>0)
         {    
-            Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P1
-            Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P3
-            Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,1));//P2
-            Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,0));//P4
+            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P1
+            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P3
+            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P2
+            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P4
         }else{
                
-           Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,1));//P1
-           Points2D.push_back(cal_x_y(xc2,yc2,h2,a2,0));//P2
-           Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,1));//P3
-           Points2D.push_back(cal_x_y(xc1,yc1,h1,a1,0));//P4
+           pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P1
+           pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P2
+           pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P3
+           pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P4
         }
-	//Points2D.push_back(Point2f(597.2,53.78));
-	//Points2D.push_back(Point2f(597.72,107.15));
-	//Points2D.push_back(Point2f(710.27,52.84));
-        //Points2D.push_back(Point2f(710.72,106.21));
 
-        solvePnP(Points3D, Points2D, camera_matrix, distortion_coef, rvec, tvec, false, CV_ITERATIVE);
-        //cout<<Points3D<<"        Points3D"<<endl;
-        cout<<Points2D<<"        Ponints2D"<<endl;
-        //cout<<"camera_matrix "<<camera_matrix<<endl;
-        //cout<<"dis   "<<distortion_coef<<endl;
-	cout<<"tvec"<<tvec<<endl;
-        angle=calPitchAndYaw(tvec.at<double>(0),tvec.at<double>(1),tvec.at<double>(2));
+        pnpSolver.solvePnP();
+        pnpSolver.clearPoints2D();
+        //pnpSolver.showParams();
+        Point3d tvec = pnpSolver.getTvec();
+        angle=calPitchAndYaw(tvec.x, tvec.y, tvec.z, currPitch, currYaw);
         return angle;
-    }else{
-        //printf("camera error %d",camera_is_open);
+    } else {
         return Point2f(180,180);
     }
 }

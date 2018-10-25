@@ -24,6 +24,7 @@ typedef enum:unsigned char {
     CMD_SERIAL_SHOOT=0x12,
     CMD_SERIAL_DATA_UPDATE=0xb0,
     CMD_SERIAL_MINIPC_SHUTDOWN=0xc1,
+    CMD_SERIAL_ABS_YUNTAI_DELTA = 0x13
 } SerialPortCMD;
 
 
@@ -37,13 +38,23 @@ private:
     SerialPort mMcuSerialPort;
 
 public:
+
+    struct Point2f{
+        float pitch;
+        float yaw;
+        Point2f(){}
+        Point2f(float p, float y):pitch(p), yaw(y){}
+    };
+
     /** 初始化函数
     *  @param:  std::string devPath :串口设备路径
     *  @return: int :错误号，0代表无错误，１代表发生错误。
     */
     int init(std::string devPath);
+
     //查询串口是否打开
     bool isOpen();
+
     /** 命令数据发送函数
      *根据协议数据帧格式，封装串口发送函数。
      *  @param:  SerialPacket sendPacket :待发送的数据包
@@ -76,15 +87,18 @@ public:
     */
     void YunTaiDeltaSet(float pitch,float yaw);
 
+
+    /* 获取云台的绝对角度
+    *　@return: Point2f，云台的pitch和yaw轴的角度　
+    */
+    void getAbsYunTaiDelta();
+
    
     /** 车云台射击函数
     *  @param:  void
     *  @return: void
     */
     void YunTaiShoot(unsigned char num=0x01);
-
-   
-
 };
 
 

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libAutoAim.a  CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o
+/usr/bin/ranlib libAutoAim.a

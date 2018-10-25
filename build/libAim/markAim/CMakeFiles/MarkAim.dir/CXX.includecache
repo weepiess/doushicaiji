@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libAim/markAim/include/mark_aim.h
+
+/home/wyx/程序/wyx/doushicaiji/libAim/markAim/src/mark_aim.cpp
+mark_aim.h
+/home/wyx/程序/wyx/doushicaiji/libAim/markAim/src/mark_aim.h
+

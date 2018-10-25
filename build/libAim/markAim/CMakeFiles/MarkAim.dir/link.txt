@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMarkAim.a  CMakeFiles/MarkAim.dir/src/mark_aim.cpp.o
+/usr/bin/ranlib libMarkAim.a
