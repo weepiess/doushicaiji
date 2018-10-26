@@ -13,7 +13,7 @@ int main(int agrc, char *argv[]){
     VideoCapture cap(1);
     cap.set(CAP_PROP_FRAME_WIDTH, 1280);
     cap.set(CAP_PROP_FRAME_HEIGHT, 720);
-    AutoAim autoAim(width,height);
+    AutoAim autoAim(1280,720);
     //SerialInterface sInterface;
     //sInterface.init("/dev/ttyUSB0");
     //SerialPacket recvPacket;
