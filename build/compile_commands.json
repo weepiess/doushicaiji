@@ -1,0 +1,87 @@
+[
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -isystem /usr/local/opencv/3.4.3/include -isystem /usr/local/opencv/3.4.3/include/opencv  -g   -std=gnu++11 -o CMakeFiles/example.dir/src/test.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/src/test.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/src/test.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libBase",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/./include  -g   -std=gnu++11 -o CMakeFiles/Base.dir/src/image_tool.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/src/image_tool.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/src/image_tool.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libBase",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/./include  -g   -std=gnu++11 -o CMakeFiles/Base.dir/src/base_thread.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/src/base_thread.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/src/base_thread.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libBase",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/./include  -g   -std=gnu++11 -o CMakeFiles/Base.dir/src/basic_tool.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/src/basic_tool.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/src/basic_tool.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/./include  -g   -std=gnu++11 -o CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/./include  -g   -std=gnu++11 -o CMakeFiles/SerialPort.dir/src/serial_port.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/./include  -g   -std=gnu++11 -o CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/./include  -g   -std=gnu++11 -o CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/usbCapture",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/./include  -g   -std=gnu++11 -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/usbCapture",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/./include  -g   -std=gnu++11 -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_thread.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_thread.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/usbCapture",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/./include  -g   -std=gnu++11 -o CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/autoAim",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/./include  -g   -std=gnu++11 -o CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/auto_aim.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/auto_aim.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/autoAim",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/./include  -g   -std=gnu++11 -o CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/kalman_filter_by_opencv.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/kalman_filter_by_opencv.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/markAim",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/./include  -g   -std=gnu++11 -o CMakeFiles/MarkAim.dir/src/mark_aim.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/src/mark_aim.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/src/mark_aim.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libTools",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/./include  -g   -std=gnu++11 -o CMakeFiles/Tools.dir/src/pnp_solver.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/src/pnp_solver.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/src/pnp_solver.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libTools",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/./include  -g   -std=gnu++11 -o CMakeFiles/Tools.dir/src/math_tools.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/src/math_tools.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/src/math_tools.cpp"
+},
+{
+  "directory": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libTools",
+  "command": "/usr/bin/c++    -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libBase/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/markAim/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/include -I/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/./include  -g   -std=gnu++11 -o CMakeFiles/Tools.dir/src/time_tools.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/src/time_tools.cpp",
+  "file": "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libTools/src/time_tools.cpp"
+}
+]

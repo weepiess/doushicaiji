@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wyx/程序/wyx/doushicaiji/src/test.cpp" "/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles/example.dir/src/test.cpp.o"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/src/test.cpp" "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles/example.dir/src/test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,18 +17,18 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../libAim/autoAim/include"
   "../libAim/markAim/include"
   "../libTools/include"
-  "/usr/local/include"
-  "/usr/local/include/opencv"
+  "/usr/local/opencv/3.4.3/include"
+  "/usr/local/opencv/3.4.3/include/opencv"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/wyx/程序/wyx/doushicaiji/build/libBase/CMakeFiles/Base.dir/DependInfo.cmake"
-  "/home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake"
-  "/home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake"
-  "/home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/CMakeFiles/AutoAim.dir/DependInfo.cmake"
-  "/home/wyx/程序/wyx/doushicaiji/build/libAim/markAim/CMakeFiles/MarkAim.dir/DependInfo.cmake"
-  "/home/wyx/程序/wyx/doushicaiji/build/libTools/CMakeFiles/Tools.dir/DependInfo.cmake"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libBase/CMakeFiles/Base.dir/DependInfo.cmake"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/autoAim/CMakeFiles/AutoAim.dir/DependInfo.cmake"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/markAim/CMakeFiles/MarkAim.dir/DependInfo.cmake"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libTools/CMakeFiles/Tools.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

@@ -1,4 +1,4 @@
-# Install script for directory: /home/wyx/程序/wyx/doushicaiji/libHardWare
+# Install script for directory: /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort/cmake_install.cmake")
-  include("/home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/cmake_install.cmake")
+  include("/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort/cmake_install.cmake")
+  include("/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/usbCapture/cmake_install.cmake")
 
 endif()
 

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build
 
 # Include any dependencies generated for this target.
 include libHardWare/serialPort/CMakeFiles/SerialPort.dir/depend.make
@@ -59,16 +59,16 @@ include libHardWare/serialPort/CMakeFiles/SerialPort.dir/flags.make
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o: libHardWare/serialPort/CMakeFiles/SerialPort.dir/flags.make
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o: ../libHardWare/serialPort/src/serial_interface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_interface.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o"
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.cpp
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SerialPort.dir/src/serial_interface.cpp.i"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_interface.cpp > CMakeFiles/SerialPort.dir/src/serial_interface.cpp.i
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.cpp > CMakeFiles/SerialPort.dir/src/serial_interface.cpp.i
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SerialPort.dir/src/serial_interface.cpp.s"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_interface.cpp -o CMakeFiles/SerialPort.dir/src/serial_interface.cpp.s
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.cpp -o CMakeFiles/SerialPort.dir/src/serial_interface.cpp.s
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o.requires:
 
@@ -81,42 +81,18 @@ libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o.prov
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o.provides.build: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o
 
 
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o: libHardWare/serialPort/CMakeFiles/SerialPort.dir/flags.make
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o: ../libHardWare/serialPort/src/serial_packet.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_packet.cpp
-
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_packet.cpp > CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i
-
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_packet.cpp -o CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s
-
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires:
-
-.PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires
-
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires
-	$(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides.build
-.PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides
-
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides.build: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o
-
-
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o: libHardWare/serialPort/CMakeFiles/SerialPort.dir/flags.make
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o: ../libHardWare/serialPort/src/serial_port.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_port.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o"
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_port.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.cpp
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SerialPort.dir/src/serial_port.cpp.i"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port.cpp > CMakeFiles/SerialPort.dir/src/serial_port.cpp.i
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.cpp > CMakeFiles/SerialPort.dir/src/serial_port.cpp.i
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SerialPort.dir/src/serial_port.cpp.s"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port.cpp -o CMakeFiles/SerialPort.dir/src/serial_port.cpp.s
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.cpp -o CMakeFiles/SerialPort.dir/src/serial_port.cpp.s
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o.requires:
 
@@ -129,18 +105,42 @@ libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o.provides:
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o.provides.build: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o
 
 
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o: libHardWare/serialPort/CMakeFiles/SerialPort.dir/flags.make
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o: ../libHardWare/serialPort/src/serial_packet.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o"
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.cpp
+
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i"
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.cpp > CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i
+
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s"
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.cpp -o CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s
+
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires:
+
+.PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires
+
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires
+	$(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides.build
+.PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides
+
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.provides.build: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o
+
+
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o: libHardWare/serialPort/CMakeFiles/SerialPort.dir/flags.make
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o: ../libHardWare/serialPort/src/serial_port_debug.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port_debug.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o"
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o -c /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.cpp
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.i"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port_debug.cpp > CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.i
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.cpp > CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.i
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.s"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port_debug.cpp -o CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.s
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.cpp -o CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.s
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o.requires:
 
@@ -156,22 +156,22 @@ libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o.pro
 # Object files for target SerialPort
 SerialPort_OBJECTS = \
 "CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o" \
-"CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o" \
 "CMakeFiles/SerialPort.dir/src/serial_port.cpp.o" \
+"CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o" \
 "CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o"
 
 # External object files for target SerialPort
 SerialPort_EXTERNAL_OBJECTS =
 
 libHardWare/serialPort/libSerialPort.a: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o
-libHardWare/serialPort/libSerialPort.a: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o
 libHardWare/serialPort/libSerialPort.a: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o
+libHardWare/serialPort/libSerialPort.a: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o
 libHardWare/serialPort/libSerialPort.a: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o
 libHardWare/serialPort/libSerialPort.a: libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make
 libHardWare/serialPort/libSerialPort.a: libHardWare/serialPort/CMakeFiles/SerialPort.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libSerialPort.a"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && $(CMAKE_COMMAND) -P CMakeFiles/SerialPort.dir/cmake_clean_target.cmake
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SerialPort.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libSerialPort.a"
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && $(CMAKE_COMMAND) -P CMakeFiles/SerialPort.dir/cmake_clean_target.cmake
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SerialPort.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/build: libHardWare/serialPort/libSerialPort.a
@@ -179,17 +179,17 @@ libHardWare/serialPort/CMakeFiles/SerialPort.dir/build: libHardWare/serialPort/l
 .PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/build
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/requires: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o.requires
-libHardWare/serialPort/CMakeFiles/SerialPort.dir/requires: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/requires: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o.requires
+libHardWare/serialPort/CMakeFiles/SerialPort.dir/requires: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o.requires
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/requires: libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o.requires
 
 .PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/requires
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/clean:
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort && $(CMAKE_COMMAND) -P CMakeFiles/SerialPort.dir/cmake_clean.cmake
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort && $(CMAKE_COMMAND) -P CMakeFiles/SerialPort.dir/cmake_clean.cmake
 .PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/clean
 
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/depend:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wyx/程序/wyx/doushicaiji /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort /home/wyx/程序/wyx/doushicaiji/build /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/depend
 

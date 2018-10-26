@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles /home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/CMakeFiles/progress.marks
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/autoAim/CMakeFiles/progress.marks
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/clean
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/preinstall
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/preinstall
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 libAim/autoAim/CMakeFiles/AutoAim.dir/rule:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/CMakeFiles/AutoAim.dir/rule
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/CMakeFiles/AutoAim.dir/rule
 .PHONY : libAim/autoAim/CMakeFiles/AutoAim.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ AutoAim: libAim/autoAim/CMakeFiles/AutoAim.dir/rule
 
 # fast build rule for target.
 AutoAim/fast:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/build
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/build
 .PHONY : AutoAim/fast
 
 src/auto_aim.o: src/auto_aim.cpp.o
@@ -131,7 +131,7 @@ src/auto_aim.o: src/auto_aim.cpp.o
 
 # target to build an object file
 src/auto_aim.cpp.o:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o
 .PHONY : src/auto_aim.cpp.o
 
 src/auto_aim.i: src/auto_aim.cpp.i
@@ -140,7 +140,7 @@ src/auto_aim.i: src/auto_aim.cpp.i
 
 # target to preprocess a source file
 src/auto_aim.cpp.i:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.i
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.i
 .PHONY : src/auto_aim.cpp.i
 
 src/auto_aim.s: src/auto_aim.cpp.s
@@ -149,7 +149,7 @@ src/auto_aim.s: src/auto_aim.cpp.s
 
 # target to generate assembly for a file
 src/auto_aim.cpp.s:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.s
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.s
 .PHONY : src/auto_aim.cpp.s
 
 src/kalman_filter_by_opencv.o: src/kalman_filter_by_opencv.cpp.o
@@ -158,7 +158,7 @@ src/kalman_filter_by_opencv.o: src/kalman_filter_by_opencv.cpp.o
 
 # target to build an object file
 src/kalman_filter_by_opencv.cpp.o:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o
 .PHONY : src/kalman_filter_by_opencv.cpp.o
 
 src/kalman_filter_by_opencv.i: src/kalman_filter_by_opencv.cpp.i
@@ -167,7 +167,7 @@ src/kalman_filter_by_opencv.i: src/kalman_filter_by_opencv.cpp.i
 
 # target to preprocess a source file
 src/kalman_filter_by_opencv.cpp.i:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.i
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.i
 .PHONY : src/kalman_filter_by_opencv.cpp.i
 
 src/kalman_filter_by_opencv.s: src/kalman_filter_by_opencv.cpp.s
@@ -176,7 +176,7 @@ src/kalman_filter_by_opencv.s: src/kalman_filter_by_opencv.cpp.s
 
 # target to generate assembly for a file
 src/kalman_filter_by_opencv.cpp.s:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.s
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.s
 .PHONY : src/kalman_filter_by_opencv.cpp.s
 
 # Help Target
@@ -205,6 +205,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

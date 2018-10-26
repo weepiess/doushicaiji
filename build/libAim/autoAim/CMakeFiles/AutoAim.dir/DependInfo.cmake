@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/auto_aim.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o"
-  "/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/auto_aim.cpp" "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o"
+  "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/kalman_filter_by_opencv.cpp" "/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/build/libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

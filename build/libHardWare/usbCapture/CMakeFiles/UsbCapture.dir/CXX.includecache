@@ -30,9 +30,9 @@ opencv2/opencv.hpp
 base_thread.h
 ../libHardWare/usbCapture/include/base_thread.h
 
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture.cpp
 usb_capture.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture.h
 unistd.h
 -
 fcntl.h
@@ -42,11 +42,11 @@ sys/ioctl.h
 sys/mman.h
 -
 linux/videodev2.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/linux/videodev2.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/linux/videodev2.h
 
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp
 usb_capture_with_opencv.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_opencv.h
 unistd.h
 -
 fcntl.h
@@ -56,11 +56,11 @@ sys/ioctl.h
 sys/mman.h
 -
 linux/videodev2.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/linux/videodev2.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/linux/videodev2.h
 
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_thread.cpp
 usb_capture_with_thread.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/usb_capture_with_thread.h
 unistd.h
 -
 fcntl.h
@@ -70,5 +70,5 @@ sys/ioctl.h
 sys/mman.h
 -
 linux/videodev2.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/linux/videodev2.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/usbCapture/src/linux/videodev2.h
 

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o"
   "CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o"
+  "CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o"
   "libAutoAim.pdb"
   "libAutoAim.a"
 )

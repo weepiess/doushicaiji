@@ -5,16 +5,16 @@ libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o
  ../libHardWare/serialPort/include/serial_interface.h
  ../libHardWare/serialPort/include/serial_packet.h
  ../libHardWare/serialPort/include/serial_port.h
- /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_interface.cpp
+ /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.cpp
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o
  ../libHardWare/serialPort/include/serial_packet.h
- /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_packet.cpp
+ /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.cpp
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o
  ../libHardWare/serialPort/include/serial_port.h
- /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port.cpp
+ /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.cpp
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o
  ../libHardWare/serialPort/include/serial_interface.h
  ../libHardWare/serialPort/include/serial_packet.h
  ../libHardWare/serialPort/include/serial_port.h
  ../libHardWare/serialPort/include/serial_port_debug.h
- /home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port_debug.cpp
+ /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.cpp

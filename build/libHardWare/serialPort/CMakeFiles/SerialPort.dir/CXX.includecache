@@ -44,23 +44,23 @@ serial_interface.h
 serial_packet.h
 ../libHardWare/serialPort/include/serial_packet.h
 
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_interface.cpp
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.cpp
 serial_interface.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_interface.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_interface.h
 
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_packet.cpp
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.cpp
 cstring
 -
 serial_packet.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_packet.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_packet.h
 
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port.cpp
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.cpp
 sstream
 -
 serial_port.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port.h
 
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port_debug.cpp
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.cpp
 serial_port_debug.h
-/home/wyx/程序/wyx/doushicaiji/libHardWare/serialPort/src/serial_port_debug.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libHardWare/serialPort/src/serial_port_debug.h
 
