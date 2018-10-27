@@ -9,6 +9,8 @@
 ../libAim/autoAim/include/auto_aim.h
 opencv2/opencv.hpp
 -
+list
+-
 time.h
 ../libAim/autoAim/include/time.h
 kalman_filter_by_opencv.h
@@ -50,17 +52,19 @@ opencv2/opencv.hpp
 iostream
 -
 
-/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/auto_aim.cpp
+/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/auto_aim.cpp
 auto_aim.h
-/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/auto_aim.h
+/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/auto_aim.h
 string
 -
 iostream
 -
 algorithm
 -
+numeric
+-
 
-/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.cpp
+/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.cpp
 kalman_filter_by_opencv.h
-/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.h
+/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.h
 

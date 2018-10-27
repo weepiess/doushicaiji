@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/two/RM2019/wyx/doushicaiji
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/two/RM2019/wyx/doushicaiji/build
 
 # Include any dependencies generated for this target.
 include libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/depend.make
@@ -59,16 +59,16 @@ include libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/flags.make
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/flags.make
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o: ../libHardWare/usbCapture/src/usb_capture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/two/RM2019/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o"
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o -c /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.i"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp > CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.i
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp > CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.i
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.s"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp -o CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.s
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp -o CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.s
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o.requires:
 
@@ -81,42 +81,18 @@ libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o.provides:
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o.provides.build: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o
 
 
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/flags.make
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: ../libHardWare/usbCapture/src/usb_capture_with_thread.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp
-
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp > CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i
-
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s
-
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires:
-
-.PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires
-
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires
-	$(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides.build
-.PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides
-
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides.build: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o
-
-
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/flags.make
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o: ../libHardWare/usbCapture/src/usb_capture_with_opencv.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/two/RM2019/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o"
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o -c /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.i"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp > CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.i
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp > CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.i
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.s"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.s
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.s
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o.requires:
 
@@ -129,23 +105,47 @@ libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o.provides.build: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o
 
 
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/flags.make
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: ../libHardWare/usbCapture/src/usb_capture_with_thread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/two/RM2019/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o"
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o -c /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp
+
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i"
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp > CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i
+
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s"
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp -o CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s
+
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires:
+
+.PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires
+
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires
+	$(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides.build
+.PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides
+
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.provides.build: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o
+
+
 # Object files for target UsbCapture
 UsbCapture_OBJECTS = \
 "CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o" \
-"CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o" \
-"CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o"
+"CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o" \
+"CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o"
 
 # External object files for target UsbCapture
 UsbCapture_EXTERNAL_OBJECTS =
 
 libHardWare/usbCapture/libUsbCapture.a: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o
-libHardWare/usbCapture/libUsbCapture.a: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o
 libHardWare/usbCapture/libUsbCapture.a: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o
+libHardWare/usbCapture/libUsbCapture.a: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o
 libHardWare/usbCapture/libUsbCapture.a: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make
 libHardWare/usbCapture/libUsbCapture.a: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libUsbCapture.a"
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && $(CMAKE_COMMAND) -P CMakeFiles/UsbCapture.dir/cmake_clean_target.cmake
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/UsbCapture.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/two/RM2019/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libUsbCapture.a"
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && $(CMAKE_COMMAND) -P CMakeFiles/UsbCapture.dir/cmake_clean_target.cmake
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/UsbCapture.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build: libHardWare/usbCapture/libUsbCapture.a
@@ -153,16 +153,16 @@ libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build: libHardWare/usbCapture/l
 .PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/requires: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o.requires
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/requires: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/requires: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o.requires
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/requires: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o.requires
 
 .PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/requires
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/clean:
-	cd /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture && $(CMAKE_COMMAND) -P CMakeFiles/UsbCapture.dir/cmake_clean.cmake
+	cd /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture && $(CMAKE_COMMAND) -P CMakeFiles/UsbCapture.dir/cmake_clean.cmake
 .PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/clean
 
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/depend:
-	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wyx/程序/wyx/doushicaiji /home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture /home/wyx/程序/wyx/doushicaiji/build /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/two/RM2019/wyx/doushicaiji /home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture /home/two/RM2019/wyx/doushicaiji/build /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/depend
 

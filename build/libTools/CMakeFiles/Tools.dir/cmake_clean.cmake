@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Tools.dir/src/pnp_solver.cpp.o"
-  "CMakeFiles/Tools.dir/src/math_tools.cpp.o"
   "CMakeFiles/Tools.dir/src/time_tools.cpp.o"
+  "CMakeFiles/Tools.dir/src/math_tools.cpp.o"
+  "CMakeFiles/Tools.dir/src/pnp_solver.cpp.o"
   "libTools.pdb"
   "libTools.a"
 )

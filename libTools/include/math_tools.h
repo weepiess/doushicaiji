@@ -10,7 +10,7 @@ class MathTools{
 
 public:
     //pitch轴发射角消除重力
-    static double gravityKiller(double z_distance,double y_distance,double bullet_speed,float current_pitch);
+    static double gravityKiller(double z_distance, double y_distance, double bullet_speed, double current_pitch);
     
 };
 

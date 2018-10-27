@@ -19,7 +19,6 @@ CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core.hpp
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core/affine.hpp
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
-CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core/check.hpp
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core/core_c.h
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/example.dir/src/test.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp

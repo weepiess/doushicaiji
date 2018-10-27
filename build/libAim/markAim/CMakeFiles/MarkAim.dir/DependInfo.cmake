@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wyx/程序/wyx/doushicaiji/libAim/markAim/src/mark_aim.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAim/markAim/CMakeFiles/MarkAim.dir/src/mark_aim.cpp.o"
+  "/home/two/RM2019/wyx/doushicaiji/libAim/markAim/src/mark_aim.cpp" "/home/two/RM2019/wyx/doushicaiji/build/libAim/markAim/CMakeFiles/MarkAim.dir/src/mark_aim.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

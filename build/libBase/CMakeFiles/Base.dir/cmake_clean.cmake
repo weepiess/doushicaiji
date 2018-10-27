@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Base.dir/src/base_thread.cpp.o"
-  "CMakeFiles/Base.dir/src/basic_tool.cpp.o"
   "CMakeFiles/Base.dir/src/image_tool.cpp.o"
+  "CMakeFiles/Base.dir/src/basic_tool.cpp.o"
   "libBase.pdb"
   "libBase.a"
 )

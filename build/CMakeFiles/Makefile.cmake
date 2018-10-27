@@ -19,7 +19,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../libHardWare/serialPort/CMakeLists.txt"
   "../libHardWare/usbCapture/CMakeLists.txt"
   "../libTools/CMakeLists.txt"
-  "/opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
   "/usr/local/share/OpenCV/OpenCVModules-release.cmake"

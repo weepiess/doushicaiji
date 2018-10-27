@@ -1,4 +1,4 @@
-# Install script for directory: /home/wyx/程序/wyx/doushicaiji/libTools
+# Install script for directory: /home/two/RM2019/wyx/doushicaiji/libTools
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

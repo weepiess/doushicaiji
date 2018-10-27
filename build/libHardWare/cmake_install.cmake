@@ -1,4 +1,4 @@
-# Install script for directory: /home/wyx/程序/wyx/doushicaiji/libHardWare
+# Install script for directory: /home/two/RM2019/wyx/doushicaiji/libHardWare
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort/cmake_install.cmake")
-  include("/home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/cmake_install.cmake")
+  include("/home/two/RM2019/wyx/doushicaiji/build/libHardWare/serialPort/cmake_install.cmake")
+  include("/home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture/cmake_install.cmake")
 
 endif()
 

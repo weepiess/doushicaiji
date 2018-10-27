@@ -2,6 +2,7 @@
 #define AUTO_AIM_H
 
 #include <opencv2/opencv.hpp>
+#include <list>
 #include "time.h"
 #include "kalman_filter_by_opencv.h"
 #include "usb_capture_with_opencv.h"
@@ -47,7 +48,10 @@ private:
 
     Point bestCenter;
     Point Armorsize;
-    
+
+    list<double> z_list;
+
+    vector<double> z_vector;
     vector<RotatedRect> lamps;
     vector<Point2f> posAndSpeed;
     bool camera_is_open;

@@ -7,8 +7,16 @@
 #IncludeRegexTransform: 
 
 ../libAim/markAim/include/mark_aim.h
+opencv2/opencv.hpp
+-
 
-/home/wyx/程序/wyx/doushicaiji/libAim/markAim/src/mark_aim.cpp
+/home/two/RM2019/wyx/doushicaiji/libAim/markAim/src/mark_aim.cpp
 mark_aim.h
-/home/wyx/程序/wyx/doushicaiji/libAim/markAim/src/mark_aim.h
+/home/two/RM2019/wyx/doushicaiji/libAim/markAim/src/mark_aim.h
+string
+-
+iostream
+-
+algorithm
+-
 

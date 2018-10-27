@@ -1,4 +1,4 @@
-# Install script for directory: /home/wyx/程序/wyx/doushicaiji
+# Install script for directory: /home/two/RM2019/wyx/doushicaiji
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,10 +34,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/wyx/程序/wyx/doushicaiji/build/libBase/cmake_install.cmake")
-  include("/home/wyx/程序/wyx/doushicaiji/build/libHardWare/cmake_install.cmake")
-  include("/home/wyx/程序/wyx/doushicaiji/build/libAim/cmake_install.cmake")
-  include("/home/wyx/程序/wyx/doushicaiji/build/libTools/cmake_install.cmake")
+  include("/home/two/RM2019/wyx/doushicaiji/build/libBase/cmake_install.cmake")
+  include("/home/two/RM2019/wyx/doushicaiji/build/libHardWare/cmake_install.cmake")
+  include("/home/two/RM2019/wyx/doushicaiji/build/libAim/cmake_install.cmake")
+  include("/home/two/RM2019/wyx/doushicaiji/build/libTools/cmake_install.cmake")
 
 endif()
 
@@ -49,5 +49,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/wyx/程序/wyx/doushicaiji/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/two/RM2019/wyx/doushicaiji/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

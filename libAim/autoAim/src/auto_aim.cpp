@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <numeric>
 
 const float AutoAim::max_offset_angle = 30;
 
@@ -17,9 +18,9 @@ AutoAim::AutoAim(int width, int height){
 
     //初始化三维坐标点
     pnpSolver.pushPoints3D(-70.5, -18, 10);
+    pnpSolver.pushPoints3D(70.5, -18, 10);
+    pnpSolver.pushPoints3D(70.5, 18, -10);
     pnpSolver.pushPoints3D(-70.5, 18, -10);
-    pnpSolver.pushPoints3D(64.5, -18, 10);
-    pnpSolver.pushPoints3D(64.5, 18, -10);
     //初始化相机参数
     pnpSolver.setCameraMatrix(3020.80666, 0., 695.74256, 0.,1020.80666,388.82902, 0., 0., 1.);
     pnpSolver.setDistortionCoef(0.0058917, 0.269857,0.0026559, 0.00903601,0.393959);
@@ -59,7 +60,8 @@ bool cmp(RotatedRect &x, RotatedRect &y){
 }
 
 bool AutoAim::checkBorder(){
-    if(IMG_WIDTH-1-rectROI.x<rectROI.width || IMG_HEIGHT-1-rectROI.y<rectROI.height || rectROI.x<0 || rectROI.y <0){
+    if(rectROI.width<0 || rectROI.height<0 || rectROI.x<0 || rectROI.y <0 ||
+        IMG_WIDTH-1-rectROI.x<rectROI.width || IMG_HEIGHT-1-rectROI.y<rectROI.height){
         rectROI.x = rectROI.y = rectROI.width = rectROI.height = 0;
         return false;
     }
@@ -73,18 +75,19 @@ float distPoint(Point2f center1, Point2f center2){
 
 void AutoAim::setImage(Mat &img, Mat &mask, int enemyColor){
     Mat channel[3];
+    hasROI = false;
     if(!hasROI || !checkBorder()){
         GaussianBlur(img, mask, Size(5,5), 0, 0);
     } else {
         mask = img(rectROI);
         GaussianBlur(mask, mask, Size(5,5), 0, 0);
     }
-    split(mask,channel); 
+    split(mask, channel); 
     threshold(enemyColor==AutoAim::color_red ? (channel[2]-channel[0]) : (channel[0] - channel[2]), mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
-	Mat element = getStructuringElement(MORPH_ELLIPSE,Size(3,3));  
-	dilate(mask,mask,element);
- 	dilate(mask,mask,element);
-    Canny(mask, mask, 3, 9, 3);                                       
+	Mat element = getStructuringElement(MORPH_ELLIPSE, Size(3,3));  
+    dilate(mask, mask, element, Point(-1,-1), 8);
+    Canny(mask, mask, 3, 9, 3);
+    //imshow("mask", mask);       
 }
 
 void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
@@ -93,35 +96,28 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
     vector<vector<Point> > contours;
     vector<Vec4i> hierarcy;
     //寻找轮廓，将满足条件的轮廓放入待确定的数组中去
-    // findContours(mask, contours, hierarcy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-    findContours(mask,contours,hierarcy,RETR_EXTERNAL,CHAIN_APPROX_NONE,Point(0,0));    
+    findContours(mask, contours, hierarcy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);  
     RotatedRect temp;
     vector<RotatedRect> pre_lamps;
 
     float lastCenterX = 0, lastCenterY = 0;
-    if(contours.size()<40){
-        for(int i=0;i<contours.size();i++){
-            if(contours[i].size()>5){
-                temp =fitEllipse(contours[i]);
-
-                //去掉重复拟合同一幅图片的情况
-                if(fabs(lastCenterX - temp.center.x) + fabs(lastCenterY - temp.center.y) > 10){
-
-                    float theta=temp.angle;
-                    if(theta>95)
-                        theta=abs(180-theta);
-
-                    if(theta<40){
-                        //判断是否放入的条件 
-                        if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*1.2)
-			                continue;
-                        pre_lamps.push_back(temp);
-                    }
-                }
-
-                lastCenterX = temp.center.x;
-                lastCenterY = temp.center.y;
+    if(contours.size() >40) return;
+    for(int i=0; i<contours.size(); i++){
+        if(contours[i].size() >5){
+            temp =fitEllipse(contours[i]);
+            //去掉重复拟合同一幅图片的情况
+            if(fabs(lastCenterX - temp.center.x) + fabs(lastCenterY - temp.center.y) > 10){
+                float theta = temp.angle;
+                if(theta>95)
+                    theta=abs(180-theta);
+                
+                //todo:补充筛选情况
+                if(theta > max_offset_angle) continue;
+                if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*1.2) continue;
+                pre_lamps.push_back(temp);
             }
+            lastCenterX = temp.center.x;
+            lastCenterY = temp.center.y;
         }
     }
 
@@ -153,17 +149,17 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
         if(theta_current>95)
                     theta_current=-(180-theta_current);
 
-        for(j=1; j<=4 || (i+j)<size; j++){
+        for(j=1; j<=2 && (i+j)<size; j++){
             //计算比例，筛选灯管
             const RotatedRect &compare = pre_lamps[i+j];
             float theta_compare=abs(compare.angle);
             if(theta_compare>95)
                     theta_compare=-(180-theta_compare);
             diff_angle = abs(theta_compare - theta_current);
-            if(diff_angle > 15) continue;
+            if(diff_angle > 5) continue;
             
             diff_height = abs(compare.size.height - current.size.height);
-            if(diff_height>30) continue;
+            if(diff_height > 30) continue;
 
             float diff_y = abs(compare.center.y - current.center.y);
             if(diff_y > 30) continue;
@@ -172,14 +168,15 @@ void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
             if(dist<10) continue;
             avg_height = (compare.size.height + current.size.height) / 2;
             ratio = dist / avg_height;
-            if(ratio > 10 || ratio < 1) continue;
+            if(ratio > 5 || ratio < 1) continue;
             
-            totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height+0.5*dist;
+            totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height;
             if(totalDiff < currDiff){
                 currDiff = totalDiff;
                 currIndex = i+j;
             }
         }
+
         //一对灯管肯定花费是最少的，所以如果当前花费比两个的花费都要少，就记录是最优
         if(currIndex==-1) continue;
         if(currDiff < diff[i] && currDiff < diff[currIndex]){
@@ -318,10 +315,10 @@ bool AutoAim::resizeROI(Rect &origin, Rect &current){
     }	
     
     //将ROI区域扩大
-    current.x=origin.x-origin.width/2 ;
-    current.y=origin.y-origin.height/2 ;
-    current.height=origin.height+origin.height ;
-    current.width=origin.width+origin.width ;
+    current.x = origin.x-origin.width/2 ;
+    current.y = origin.y-origin.height/2 ;
+    current.height = origin.height+origin.height ;
+    current.width = origin.width+origin.width ;
     
     //判断ROI是否越界
     bool isSuccess = checkBorder();
@@ -368,19 +365,52 @@ Point2d cal_x_y(int x,int y,int H,float angle,int is_up){
     return point;
 }
 
-Point2f AutoAim::calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw){   
+Point2f AutoAim::calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw){ 
     Point2f angle;
-    
-    angle.x = MathTools::gravityKiller((z+170)/ 1000.0, (y-60)/1000.0, 15, currPitch); //pitch
-    angle.y = -atanf((x+30)/(z+170))*180/CV_PI;   //yaw
+    float aveg;
+/*
+    if(z_list.size()>5){
+    	aveg = std::accumulate(z_list.begin(), z_list.end(), 0.0f)/z_list.size();
+	cout<<"aveg  "<<aveg<<"  z  "<<z<<endl<<"  bestCenter.x  "<<bestCenter.x<<" "<<abs(z-aveg)/aveg<<endl;
+	if(abs(z-aveg)/aveg < 0.05){
+	    z_list.pop_front();
+	    z_list.push_back(z);
+	    z = std::accumulate(z_list.begin(), z_list.end(), 0.0f)/z_list.size();
+	}
+        else {
+	    cout<<"dist  "<<distPoint(bestCenter, lastPoint)<<endl;
+	    if(distPoint(bestCenter, lastPoint) < 10) return Point2f(180,180);
+     	    z_list.clear();
+	    z_list.push_back(z);
+	}
+    } else {
+	if(distPoint(bestCenter, lastPoint) > 10){
+	    z_list.clear();
+	}
+	z_list.push_back(z);
+    }
+*/
+    cout<<"!!!!!!     "<<z<<"    !!!!!!!"<<endl;
+    angle.x = MathTools::gravityKiller((z+170)/1000.0, y/1000.0, 15, currPitch); //pitch
+    //angle.x = atanf((y+60)/(z+170))*180/CV_PI;
+    angle.y = -atanf((x+z/54)/(z+170))*180/CV_PI;   //yaw
 
     return angle;
 }
 
+void draw4Point4f(cv::Mat &img, vector<Point2f> &point2fs) {
+    RNG rng(12345);
+    Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+    for( int j = 0; j < 4; j++ )
+        line( img, point2fs[j], point2fs[(j+1)%4], color, 1, 8 );
+}
 
 Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is_predict,double time_delay){
     clock_t start = clock();
     Mat mask;
+
+    vector<Point2f> points;
+
     Point2f angle;
     if(src.empty()) 
         return Point2f(180,180);
@@ -390,19 +420,15 @@ Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is
         setImage(src,mask, AutoAim::color_blue);
     findLamp(mask, lamps);
     bestCenter.x = -1;  
-    findBestArmor(lamps, bestCenter,posAndSpeed, best_lamps,start);
+    findBestArmor(lamps, bestCenter, posAndSpeed, best_lamps, start);
 
     if(bestCenter.x != -1){
-        circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        //circle(src, bestCenter, 20, Scalar(255,255,255), 5);
     }
-    rectangle(src, rectROI, Scalar(255,0,0), 10);
-    imshow("src", src);
-    waitKey(1);
-    
-    if(bestCenter.x!=-1)
-    {
-        measurement.at<float>(0)= (float)posAndSpeed[0].x;
-        measurement.at<float>(1) = (float)posAndSpeed[0].y;  
+    //circle(src, Point(IMG_WIDTH/2, IMG_HEIGHT/2), 20, Scalar(255,0,0), 5);
+    //rectangle(src, rectROI, Scalar(255,0,0), 10);
+
+    if(bestCenter.x != -1){
         measurement.at<float>(2)= (float)posAndSpeed[1].x;  
         measurement.at<float>(3) = (float)posAndSpeed[1].y;
         kf.statePost=(Mat_<float>(4, 1) <<  bestCenter.x,bestCenter.y,posAndSpeed[1].x,posAndSpeed[1].y);
@@ -428,28 +454,37 @@ Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is
             int yc1=best_lamps.at<float>(1)+(yc-bestCenter.y);
             int xc2=best_lamps.at<float>(4)+(xc-bestCenter.x);
             int yc2=best_lamps.at<float>(5)+(yc-bestCenter.y);
-            circle(src, Point(xc, yc), 10, Scalar(0,0,255), 2);
         }
 
         if(xc2-xc1>0)
         {    
             pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P1
-            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P3
             pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P2
             pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P4
+            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P3
+	        points.push_back(cal_x_y(xc1,yc1,h1,a1,1));
+            points.push_back(cal_x_y(xc1,yc1,h1,a1,0));
+	        points.push_back(cal_x_y(xc2,yc2,h2,a2,1));
+	        points.push_back(cal_x_y(xc2,yc2,h2,a2,0));
         }else{
-               
-           pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P1
-           pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P2
-           pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P3
-           pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P4
+            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P1
+            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P3
+            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P4
+            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P2
+	        points.push_back(cal_x_y(xc2,yc2,h2,a2,1));
+            points.push_back(cal_x_y(xc2,yc2,h2,a2,0));
+	        points.push_back(cal_x_y(xc1,yc1,h1,a1,1));
+	        points.push_back(cal_x_y(xc1,yc1,h1,a1,0));
         }
+	    //draw4Point4f(src, points);
 
         pnpSolver.solvePnP();
+	    pnpSolver.showParams();
         pnpSolver.clearPoints2D();
-        //pnpSolver.showParams();
         Point3d tvec = pnpSolver.getTvec();
+	    cout<<tvec<<endl;
         angle=calPitchAndYaw(tvec.x, tvec.y, tvec.z, currPitch, currYaw);
+
         return angle;
     } else {
         return Point2f(180,180);

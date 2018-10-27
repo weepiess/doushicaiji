@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o"
-  "/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o"
-  "/home/wyx/程序/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o"
+  "/home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture.cpp" "/home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o"
+  "/home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_opencv.cpp" "/home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o"
+  "/home/two/RM2019/wyx/doushicaiji/libHardWare/usbCapture/src/usb_capture_with_thread.cpp" "/home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -24,7 +24,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/wyx/程序/wyx/doushicaiji/build/libBase/CMakeFiles/Base.dir/DependInfo.cmake"
+  "/home/two/RM2019/wyx/doushicaiji/build/libBase/CMakeFiles/Base.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

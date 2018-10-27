@@ -44,7 +44,7 @@ void PNPSolver::solvePnP(bool useExtrinsicGuess, int flags){
         cout<<"Points.size() match error."<<endl;
         return;
     }
-    cv::solvePnP(Points3D, Points2D, camera_matrix, distortion_coef, rvec, tvec, useExtrinsicGuess, flags);
+    cv::solvePnP(Points3D, Points2D, camera_matrix, distortion_coef, rvec, tvec, useExtrinsicGuess, CV_P3P);
 }
 
 Point3d PNPSolver::getTvec(){
