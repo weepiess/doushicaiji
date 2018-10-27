@@ -43,7 +43,7 @@ private:
     bool hasROI;
     Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
     Mat temp = Mat::zeros(8, 1, CV_32F);
-    Mat measurement = Mat::zeros(4, 1, CV_32F);
+    Mat measurement = Mat::zeros(6, 1, CV_32F);
     float dt;
     Point bestCenter;
     Point Armorsize;

@@ -4,7 +4,7 @@ Kalman_filter::Kalman_filter(){}
 Kalman_filter::~Kalman_filter(){}
 
 void Kalman_filter::init( int measureParams, double Noise ,int controlParams){
-    Kf.init(4,measureParams,controlParams);
+    Kf.init(6,measureParams,controlParams);
     Kf.transitionMatrix = transitionMatrix;
     Kf.measurementMatrix = measurementMatrix;
     Kf.measurementNoiseCov = measurementNoiseCov;

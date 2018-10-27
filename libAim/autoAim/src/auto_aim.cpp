@@ -29,19 +29,21 @@ AutoAim::AutoAim(int width, int height,float dt_){
             0,0,0,1,0,0,
             0,0,0,0,1,0,
             0,0,0,0,0,1 );
-    kf.measurementMatrix=(Mat_<float>(5, 6) <<   
+    kf.measurementMatrix=(Mat_<float>(6, 6) <<   
             1,0,0,0,0,0,   
             0,1,0,0,0,0,   
             0,0,1,0,0,0,   
             0,0,0,1,0,0,
-            0,0,0,0,1,0);  
+            0,0,0,0,1,0,
+            0,0,0,0,0,1);  
     kf.measurementNoiseCov=(Mat_<float>(5, 6) <<   
             2000,0,0,0,0,0,  
             0,2000,0,0,0,0,   
             0,0,2000,0,0,0,   
             0,0,0,10000,0,0, 
-            0,0,0,0,10000,0);
-    kf.init(5,20000,0);
+            0,0,0,0,10000,0,
+            0,0,0,0,0,100000);
+    kf.init(6,20000,0);
 }
 
 
@@ -247,11 +249,7 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter,Mat &b
         }
         int height = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
         if(height > 15){
-            int rectx = ((lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2) - (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
-            int recty = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 - ( lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
-            int recthight = lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height;
-            int rectwidth = 2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
-            change_roi(rectx,recty,rectwidth,recthight);
+
             bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2 + rectROI.x;
             bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
             Armorsize.x = lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x;
@@ -288,6 +286,11 @@ void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter,Mat &b
         best_lamps.at<float>(3)=lamps[lowerIndex].angle;
         best_lamps.at<float>(6)=lamps[lowerIndex+1].size.height;
         best_lamps.at<float>(7)=lamps[lowerIndex+1].angle;
+        int rectx = ((lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2)+rectROI.x - (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+        int recty = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2+rectROI.y - ( lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
+        int recthight = lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height;
+        int rectwidth = 2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
+        change_roi(rectx,recty,rectwidth,recthight);
     }
 }
 
@@ -422,7 +425,8 @@ Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is
             measurement.at<float>(2)= tvec.z;  
             measurement.at<float>(3) = (last_tvec.x-tvec.x)/time_delay;
             measurement.at<float>(4) = (last_tvec.y-tvec.y)/time_delay;
-            kf.statePost=(Mat_<float>(5, 1) <<  tvec.x,tvec.y,tvec.z,measurement.at<float>(3),measurement.at<float>(4));
+            measurement.at<float>(5) = (last_tvec.z-tvec.z)/time_delay;
+            kf.statePost=(Mat_<float>(6, 1) <<  tvec.x,tvec.y,tvec.z,measurement.at<float>(3),measurement.at<float>(4),measurement.at<float>(5));
 
             Mat Predict = this->kf.predict();
             kf.correct(measurement);
