@@ -4,10 +4,13 @@ Kalman_filter::Kalman_filter(){}
 Kalman_filter::~Kalman_filter(){}
 
 void Kalman_filter::init( int measureParams, double Noise ,int controlParams){
+    cout<<"5"<<endl;
     Kf.init(6,measureParams,controlParams);
+    
     Kf.transitionMatrix = transitionMatrix;
     Kf.measurementMatrix = measurementMatrix;
     Kf.measurementNoiseCov = measurementNoiseCov;
+    
     setIdentity(Kf.processNoiseCov, Scalar::all(Noise)); 
     setIdentity(Kf.errorCovPost, Scalar::all(1)); 
     randn(Kf.statePost, Scalar::all(0), Scalar::all(0.1)); 
