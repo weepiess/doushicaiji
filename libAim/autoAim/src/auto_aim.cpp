@@ -4,328 +4,63 @@
 #include <algorithm>
 #include <numeric>
 
-const float AutoAim::max_offset_angle = 30;
+AutoAim::AutoAim(){
+    param_diff_angle = 5;
+    param_diff_height = 30;
+    param_diff_width = 100;
+    param_inside_angle = 360;
+}
 
-AutoAim::AutoAim(){}
-
-AutoAim::AutoAim(int width, int height){
+AutoAim::AutoAim(int width, int height,float dt_):AutoAim(){
     IMG_WIDTH = width;
     IMG_HEIGHT = height;
-    hasROI = false;
+    rectROI.x=0;
+    rectROI.y=0;
+    rectROI.width=width;
+    rectROI.height=height;
     resizeCount = 0;
-    lastPoint.x = 0;
-    lastPoint.y = 0;
+    dt=dt_;
 
     //初始化三维坐标点
     pnpSolver.pushPoints3D(-70.5, -18, 10);
-    pnpSolver.pushPoints3D(70.5, -18, 10);
-    pnpSolver.pushPoints3D(70.5, 18, -10);
     pnpSolver.pushPoints3D(-70.5, 18, -10);
+    pnpSolver.pushPoints3D(64.5, -18, 10);
+    pnpSolver.pushPoints3D(64.5, 18, -10);
     //初始化相机参数
-    pnpSolver.setCameraMatrix(3020.80666, 0., 695.74256, 0.,1020.80666,388.82902, 0., 0., 1.);
+    pnpSolver.setCameraMatrix(1020.80666, 0., 695.74256, 0.,1020.80666,388.82902, 0., 0., 1.);
     pnpSolver.setDistortionCoef(0.0058917, 0.269857,0.0026559, 0.00903601,0.393959);
 
-    float dt=1/50;
-    kf.transitionMatrix=(Mat_<float>(4, 4) <<   
-            1,0,dt,0,   
-            0,1,0,dt,   
-            0,0,1,0,   
-            0,0,0,1 );
-    kf.measurementMatrix=(Mat_<float>(4, 4) <<   
-            1,0,0,0,   
-            0,1,0,0,   
-            0,0,1,0,   
-            0,0,0,1 );  
-    kf.measurementNoiseCov=(Mat_<float>(4, 4) <<   
-            2000,0,0,0,   
-            0,2000,0,0,   
-            0,0,10000,0,   
-            0,0,0,10000 );
-    kf.init(4,20000,0);
+    kf.transitionMatrix=(Mat_<float>(6, 6) <<   
+            1,0,dt,0,0,0,   
+            0,1,0,dt,0,0,   
+            0,0,1,0,dt,0,   
+            0,0,0,1,0,0,
+            0,0,0,0,1,0,
+            0,0,0,0,0,1 );
+    kf.measurementMatrix=(Mat_<float>(6, 6) <<   
+            1,0,0,0,0,0,   
+            0,1,0,0,0,0,   
+            0,0,1,0,0,0,   
+            0,0,0,1,0,0,
+            0,0,0,0,1,0,
+            0,0,0,0,0,1);  
+    kf.measurementNoiseCov=(Mat_<float>(6, 6) <<   
+            2000,0,0,0,0,0,  
+            0,2000,0,0,0,0,   
+            0,0,2000,0,0,0,   
+            0,0,0,10000,0,0, 
+            0,0,0,0,10000,0,
+            0,0,0,0,0,10000);
+    kf.statePost=(Mat_<float>(6, 1) <<  0,0,1,0,0,0);
+    
+    kf.init(6,20000,0);
 }
+
 
 AutoAim::~AutoAim(){}
 
-//排序得到的椭圆，使得角度近似、高度近似的点邻近
-bool cmp(RotatedRect &x, RotatedRect &y){
-    float theta_x=x.angle;
-    float theta_y=y.angle;
-    if(x.angle>95)
-        theta_x=-(180-theta_x);
-    if(y.angle>95)
-        theta_y=-(180-theta_y);
-   if(theta_x!=theta_y) return theta_x>theta_y;
-   if(x.size.height!=y.size.height) return x.size.height<y.size.height;
-   return x.size.width>y.size.width;
-}
-
-bool AutoAim::checkBorder(){
-    if(rectROI.width<0 || rectROI.height<0 || rectROI.x<0 || rectROI.y <0 ||
-        IMG_WIDTH-1-rectROI.x<rectROI.width || IMG_HEIGHT-1-rectROI.y<rectROI.height){
-        rectROI.x = rectROI.y = rectROI.width = rectROI.height = 0;
-        return false;
-    }
-    return true;
-}
-
-//两点距离
-float distPoint(Point2f center1, Point2f center2){
-    return abs(center1.x-center2.x) + abs(center1.y-center2.y);
-}
-
-void AutoAim::setImage(Mat &img, Mat &mask, int enemyColor){
-    Mat channel[3];
-    hasROI = false;
-    if(!hasROI || !checkBorder()){
-        GaussianBlur(img, mask, Size(5,5), 0, 0);
-    } else {
-        mask = img(rectROI);
-        GaussianBlur(mask, mask, Size(5,5), 0, 0);
-    }
-    split(mask, channel); 
-    threshold(enemyColor==AutoAim::color_red ? (channel[2]-channel[0]) : (channel[0] - channel[2]), mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
-	Mat element = getStructuringElement(MORPH_ELLIPSE, Size(3,3));  
-    dilate(mask, mask, element, Point(-1,-1), 8);
-    Canny(mask, mask, 3, 9, 3);
-    //imshow("mask", mask);       
-}
-
-void AutoAim::findLamp(Mat &mask, vector<RotatedRect> &lamps){
-    
-    lamps.clear();
-    vector<vector<Point> > contours;
-    vector<Vec4i> hierarcy;
-    //寻找轮廓，将满足条件的轮廓放入待确定的数组中去
-    findContours(mask, contours, hierarcy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);  
-    RotatedRect temp;
-    vector<RotatedRect> pre_lamps;
-
-    float lastCenterX = 0, lastCenterY = 0;
-    if(contours.size() >40) return;
-    for(int i=0; i<contours.size(); i++){
-        if(contours[i].size() >5){
-            temp =fitEllipse(contours[i]);
-            //去掉重复拟合同一幅图片的情况
-            if(fabs(lastCenterX - temp.center.x) + fabs(lastCenterY - temp.center.y) > 10){
-                float theta = temp.angle;
-                if(theta>95)
-                    theta=abs(180-theta);
-                
-                //todo:补充筛选情况
-                if(theta > max_offset_angle) continue;
-                if(max(temp.size.width, temp.size.height) < min(temp.size.width, temp.size.height)*1.2) continue;
-                pre_lamps.push_back(temp);
-            }
-            lastCenterX = temp.center.x;
-            lastCenterY = temp.center.y;
-        }
-    }
-
-    //排序lamp找到满足比例条件的灯管
-    sort(pre_lamps.begin(), pre_lamps.end(), cmp);
-    
-    //角度和高度的权重，角度更加重要，所以角度的偏差使得结果的值偏差更大
-    int angle_diff_weight = 2;
-    int height_diff_weight = 1;
-
-    //按照比例　两灯管中心点之间的距离：两灯管长度的平均 近似等于 2:1
-    //这里只跟右边三个进行比较
-    int size = pre_lamps.size();
-    vector<float> diff(size,0);
-    vector<float> best_match_index(size,0);
-    for(int i=0; i<size; i++){
-        diff[i] = 0x3f3f3f3f;
-        best_match_index[i] = -1;
-    }
-    
-    //中心点间距离，平均高度，角度差，高度差
-    float dist, avg_height, diff_angle, diff_height, ratio, totalDiff;
-    int i,j;
-    for(i=0; i<size; i++){
-        float currDiff = 0x3f3f3f3f;
-        int currIndex = -1;
-        const RotatedRect &current = pre_lamps[i];
-        float theta_current=abs(current.angle);
-        if(theta_current>95)
-                    theta_current=-(180-theta_current);
-
-        for(j=1; j<=2 && (i+j)<size; j++){
-            //计算比例，筛选灯管
-            const RotatedRect &compare = pre_lamps[i+j];
-            float theta_compare=abs(compare.angle);
-            if(theta_compare>95)
-                    theta_compare=-(180-theta_compare);
-            diff_angle = abs(theta_compare - theta_current);
-            if(diff_angle > 5) continue;
-            
-            diff_height = abs(compare.size.height - current.size.height);
-            if(diff_height > 30) continue;
-
-            float diff_y = abs(compare.center.y - current.center.y);
-            if(diff_y > 30) continue;
-            
-            dist = distPoint(compare.center, current.center);
-            if(dist<10) continue;
-            avg_height = (compare.size.height + current.size.height) / 2;
-            ratio = dist / avg_height;
-            if(ratio > 5 || ratio < 1) continue;
-            
-            totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height;
-            if(totalDiff < currDiff){
-                currDiff = totalDiff;
-                currIndex = i+j;
-            }
-        }
-
-        //一对灯管肯定花费是最少的，所以如果当前花费比两个的花费都要少，就记录是最优
-        if(currIndex==-1) continue;
-        if(currDiff < diff[i] && currDiff < diff[currIndex]){
-            diff[i] = currDiff;
-            diff[currIndex] = currDiff;
-            best_match_index[i] = currIndex;
-            best_match_index[currIndex] = i;
-        }
-    }
-
-    //遍历，将满足条件的灯管储存
-    for(i=0; i<size; i++){
-        int index = best_match_index[i];
-        if(index == -1 || index <= i) continue;
-        //找到匹配对
-        if(i == best_match_index[index]){
-            lamps.push_back(pre_lamps[i]);
-            lamps.push_back(pre_lamps[index]);
-        }
-    }
-}
-
-void AutoAim::change_roi(int &x, int &y, int &width, int &height){
-    if(x<0){
-        width = width+x;
-        x = 0;
-    }
-    if(y<0){
-        height = height+y;
-        y = 0;
-    }
-    if((x+width) > IMG_WIDTH-1)
-        width += IMG_WIDTH-1-(x+width);
-    if((y+height) > IMG_HEIGHT-1)
-        height += IMG_HEIGHT-1-(y+height);
-
-    rectROI.x = x;
-    rectROI.y = y;
-    rectROI.width = width;
-    rectROI.height = height;
-}
-
-void AutoAim::findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start){
-
-    bool is_global=true;
-    int lowerY=0;
-    int lowerIndex=-1;
-    for(int i=0; i<lamps.size(); i+=2){
-        if(i+1 >= lamps.size()) break;
-        int y = (lamps[i].center.y + lamps[i+1].center.y)/2;
-        if(y > lowerY){
-            lowerY = y;
-            lowerIndex = i;
-        }
-    }
-
-    if(lowerIndex == -1){
-        if(hasROI){
-            hasROI = resizeROI(rectROI, rectROI);
-	        is_global=false;
-        }
-    } else {
-        resizeCount = 0;
-	    if(lamps[lowerIndex].center.x>lamps[lowerIndex+1].center.x){
-            swap(lamps[lowerIndex],lamps[lowerIndex+1]);
-        }
-        if(!hasROI){
-            int rectx = ((lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2) - (lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
-            int recty = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 - ( lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
-            int recthight = lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height;
-            int rectwidth = 2*(lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x);
-            change_roi(rectx,recty,rectwidth,recthight);
-            if(!checkBorder()) return;
-            hasROI = true;
-            bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2;
-            bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2;
-        } else {
-            int height = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
-            if(height > 15){
-		        is_global=false;
-                bestCenter.x = (lamps[lowerIndex].center.x + lamps[lowerIndex+1].center.x)/2 + rectROI.x;
-                bestCenter.y = (lamps[lowerIndex].center.y + lamps[lowerIndex+1].center.y)/2 + rectROI.y;
-                Armorsize.x = lamps[lowerIndex+1].center.x - lamps[lowerIndex].center.x;
-                Armorsize.y = (lamps[lowerIndex].size.height + lamps[lowerIndex+1].size.height)/2;
-                if(!checkBorder()) bestCenter.x = -1;
-            } else hasROI = false;
-        }
-    }
-
-    if(bestCenter.x!=-1){
-        clock_t finish = clock();
-        double time = (double)(finish-start)/CLOCKS_PER_SEC;
-        posAndSpeed.push_back(bestCenter);
-        Point speed;
-        if(hasROI && lastPoint.x !=0){
-            int rectx = bestCenter.x - Armorsize.x;
-            int recty = bestCenter.y - Armorsize.y;
-            int recthight =lamps[lowerIndex+1].size.height+lamps[lowerIndex].size.height;
-            int rectwidth =lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x+lamps[lowerIndex+1].center.x-lamps[lowerIndex].center.x;
-            change_roi(rectx,recty,rectwidth,recthight);
-            if(!checkBorder()){
-                bestCenter.x = -1;
-                hasROI = false;
-                return;
-            }
-        }
-
-        speed.x = (bestCenter.x - lastPoint.x)/time;
-        speed.y = (bestCenter.y - lastPoint.y)/time;
-        posAndSpeed.push_back(speed);
-        lastPoint.x = bestCenter.x;
-        lastPoint.y = bestCenter.y;
-        if(!hasROI || is_global){
-            best_lamps.at<float>(0)=lamps[lowerIndex].center.x;
-            best_lamps.at<float>(1)=lamps[lowerIndex].center.y;
-            best_lamps.at<float>(4)=lamps[lowerIndex+1].center.x;
-            best_lamps.at<float>(5)=lamps[lowerIndex+1].center.y;
-        } else { 
-            best_lamps.at<float>(0)=lamps[lowerIndex].center.x + rectROI.x;
-            best_lamps.at<float>(1)=lamps[lowerIndex].center.y + rectROI.y;
-            best_lamps.at<float>(4)=lamps[lowerIndex+1].center.x + rectROI.x;
-            best_lamps.at<float>(5)=lamps[lowerIndex+1].center.y + rectROI.y;
-        }
-        best_lamps.at<float>(2)=lamps[lowerIndex].size.height;
-        best_lamps.at<float>(3)=lamps[lowerIndex].angle;
-        best_lamps.at<float>(6)=lamps[lowerIndex+1].size.height;
-        best_lamps.at<float>(7)=lamps[lowerIndex+1].angle;
-    }
-}
-
-bool AutoAim::resizeROI(Rect &origin, Rect &current){ 
-    //记录调用resize的次数
-    if(resizeCount==3){
- 	    resizeCount=0;
-        return false;
-    }	
-    
-    //将ROI区域扩大
-    current.x = origin.x-origin.width/2 ;
-    current.y = origin.y-origin.height/2 ;
-    current.height = origin.height+origin.height ;
-    current.width = origin.width+origin.width ;
-    
-    //判断ROI是否越界
-    bool isSuccess = checkBorder();
-    if(isSuccess){
-        ++resizeCount;
-    }
-    return isSuccess;
+bool cmp_rect(Point2f &p1, Point2f &p2){
+   return p1.y<p2.y;
 }
 
 Point2d cal_x_y(int x,int y,int H,float angle,int is_up){
@@ -365,128 +100,272 @@ Point2d cal_x_y(int x,int y,int H,float angle,int is_up){
     return point;
 }
 
-Point2f AutoAim::calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw){ 
-    Point2f angle;
-    float aveg;
-/*
-    if(z_list.size()>5){
-    	aveg = std::accumulate(z_list.begin(), z_list.end(), 0.0f)/z_list.size();
-	cout<<"aveg  "<<aveg<<"  z  "<<z<<endl<<"  bestCenter.x  "<<bestCenter.x<<" "<<abs(z-aveg)/aveg<<endl;
-	if(abs(z-aveg)/aveg < 0.05){
-	    z_list.pop_front();
-	    z_list.push_back(z);
-	    z = std::accumulate(z_list.begin(), z_list.end(), 0.0f)/z_list.size();
-	}
-        else {
-	    cout<<"dist  "<<distPoint(bestCenter, lastPoint)<<endl;
-	    if(distPoint(bestCenter, lastPoint) < 10) return Point2f(180,180);
-     	    z_list.clear();
-	    z_list.push_back(z);
-	}
+float AutoAim::cal_angle(Point2f point[4]){
+    
+    int x1 = (point[0].x + point[1].x)/2;
+    int y1 = (point[0].y + point[1].y)/2;
+    int x2 = (point[2].x + point[3].x)/2;
+    int y2 = (point[2].y + point[3].y)/2;
+    if(x1==x2) return 90;
+    else return 90-(atan((y1-y2)/(x1-x2)*180/CV_PI));
+}
+
+void AutoAim::resetROI(){
+    rectROI.x = 0;
+    rectROI.y = 0;
+    rectROI.width = IMG_WIDTH;
+    rectROI.height = IMG_HEIGHT;
+}
+
+//图像预处理
+bool AutoAim::setImage(Mat &img){
+    if(img.empty()) return false;
+    Mat channel[3];
+    mask = img(rectROI);
+    
+    GaussianBlur(mask, mask, Size(5,5), 0, 0);
+    split(mask,channel); 
+    if(enemyColor == color_blue){
+        threshold(channel[0] - channel[2], mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
+    } else if (enemyColor == color_red){
+        threshold(channel[2] - channel[0], mask, 0, 255, THRESH_BINARY+THRESH_OTSU); //自适应阈值
     } else {
-	if(distPoint(bestCenter, lastPoint) > 10){
-	    z_list.clear();
-	}
-	z_list.push_back(z);
+        cout<<"enemyColor has an improper value, please check it again!!!";
+        return false;
     }
-*/
-    cout<<"!!!!!!     "<<z<<"    !!!!!!!"<<endl;
-    angle.x = MathTools::gravityKiller((z+170)/1000.0, y/1000.0, 15, currPitch); //pitch
-    //angle.x = atanf((y+60)/(z+170))*180/CV_PI;
-    angle.y = -atanf((x+z/54)/(z+170))*180/CV_PI;   //yaw
-
-    return angle;
+	Mat element = getStructuringElement(MORPH_ELLIPSE,Size(1,4));  
+	for(int i=0; i<2; i++){
+        dilate(mask,mask,element);
+    }
+    Canny(mask, mask, 3, 9, 3);
+    return true;                            
 }
 
-void draw4Point4f(cv::Mat &img, vector<Point2f> &point2fs) {
-    RNG rng(12345);
-    Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-    for( int j = 0; j < 4; j++ )
-        line( img, point2fs[j], point2fs[(j+1)%4], color, 1, 8 );
+//寻找灯管
+void AutoAim::findLamp_rect(Mat &img,vector<Armor_lamps> &pre_armor_lamps){
+    pre_armor_lamps.clear();
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarcy;
+    //寻找轮廓，将满足条件的轮廓放入待确定的数组中去
+    findContours(mask,contours,hierarcy,CV_RETR_EXTERNAL,CHAIN_APPROX_NONE);
+
+    RotatedRect temp;
+    Armor_lamps armor_lamp;
+    float lastCenterX = 0, lastCenterY = 0;
+    if(contours.size()<40){
+        for(int i=0;i<contours.size();i++){
+            if(contours[i].size()>5){
+                temp=minAreaRect(contours[i]);//寻找最小外接矩形
+
+                if(abs(temp.angle)>45) continue;//旋转矩形角度小于45度，则忽略
+                temp.points(armor_lamp.point);
+                if(temp.size.height<temp.size.width) continue;
+                sort(armor_lamp.point,armor_lamp.point+4,cmp_rect);
+
+                armor_lamp.angle=cal_angle(armor_lamp.point);
+                //cout<<armor_lamp.angle<<endl;
+                armor_lamp.width=abs(armor_lamp.point[0].x-armor_lamp.point[1].x);
+                armor_lamp.height=abs(armor_lamp.point[0].y-armor_lamp.point[3].y);
+                armor_lamp.x=((armor_lamp.point[0].x+armor_lamp.point[1].x)/2+(armor_lamp.point[2].x-armor_lamp.point[3].x)/2);
+                armor_lamp.y=((armor_lamp.point[0].y+armor_lamp.point[1].y)/2+(armor_lamp.point[2].y-armor_lamp.point[3].y)/2);
+                //cout<<armor_lamp.x<<endl;
+                if(armor_lamp.width>armor_lamp.height) continue;
+                ImageTool::draw4Point4f(img, armor_lamp.point);
+                //putText(img,to_string(i),Point(armor_lamp.point[3].x+10,armor_lamp.point[3].y+50),FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,0),4,8);
+                pre_armor_lamps.push_back(armor_lamp);
+            }
+        }
+    }
+
+}
+//匹配灯管
+void AutoAim::match_lamps(Mat &img,vector<Armor_lamps> &pre_armor_lamps,vector<Armor_lamps> &real_armor_lamps){
+    //权重
+    int angle_diff_weight = 3;
+    int height_diff_weight = 2;
+    //初始化
+    int size = pre_armor_lamps.size();
+    vector<float> diff(size,0);
+    vector<float> best_match_index(size,0);
+    for(int i=0; i<size; i++){
+        diff[i] = 0x3f3f3f3f;
+        best_match_index[i] = -1;
+    }
+    //计算灯管匹配之间的花费
+    int dist, avg_height, diff_angle, diff_height, ratio, totalDiff,inside_angle,diff_width;
+    int i,j;
+    for(i=0; i<size; i++){
+        float currDiff = 0x3f3f3f3f;
+        int currIndex = -1;
+        const Armor_lamps &current = pre_armor_lamps[i];
+        int theta_current=current.angle;
+        for(j=i+1;j<size; j++){
+            //计算比例，筛选灯管
+            const Armor_lamps &compare = pre_armor_lamps[j];
+            int theta_compare=compare.angle;
+            
+            diff_angle = abs(theta_compare - theta_current);
+            //cout<<"diff_angle"<<diff_angle<<endl;
+            if(diff_angle > param_diff_angle) continue;//灯条角度差超过设定角度忽略
+            if(abs(current.y-compare.y)==0) inside_angle=90;
+            else inside_angle=int(atanf(abs(current.x-compare.x)/abs(current.y-compare.y))*180/CV_PI);
+            //cout<<"inside"<<inside_angle<<endl;
+            if(inside_angle<param_inside_angle) continue;//内角小于设定角度忽略
+            
+            diff_height = abs(compare.height - current.height);
+            //cout<<"diffhight"<<diff_height<<endl;
+            if(diff_height>param_diff_height) continue;//两灯条高度差超过30个像素点忽略
+            diff_width=abs(compare.width-current.width);
+            //cout<<"diffwidth"<<diff_width<<endl;
+            if(diff_width>param_diff_width) continue;//两灯条宽度差超过20个像素点忽略    
+            dist = ImageTool::calc2PointApproDistance(Point2f(compare.x,compare.y),Point2f(current.x,current.y));
+            //cout<<"dist"<<dist<<endl;
+            if(dist<10) continue;//灯条间距小于10个像素点忽略
+            avg_height = (compare.height + current.height) / 2;
+            ratio = dist / avg_height;
+            //cout<<"ratio: "<<ratio<<endl;
+            if(ratio > 10) continue;//|| ratio < 1) continue;//两灯条间距与灯条高度比值大于10或小于1忽略
+            
+            totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height+1*dist;
+            //cout<<"Diff: "<<totalDiff<<endl;
+            if(totalDiff < currDiff){
+                currDiff = totalDiff;
+                currIndex = j;
+            }
+        }
+
+        //一对灯管肯定花费是最少的，所以如果当前花费比两个的花费都要少，就记录是最优
+        if(currIndex==-1) continue;
+        if(currDiff < diff[i] && currDiff < diff[currIndex]){
+            diff[i] = currDiff;
+            diff[currIndex] = currDiff;
+            best_match_index[i] = currIndex;
+            best_match_index[currIndex] = i;
+        }
+    }
+
+    for(i=0; i<size; i++){
+        cout<<best_match_index[i]<<endl;
+        int index = best_match_index[i];
+        if(index == -1 || index <= i) continue;
+        if(i == best_match_index[index]){
+            real_armor_lamps.push_back(pre_armor_lamps[i]);
+            real_armor_lamps.push_back(pre_armor_lamps[index]);
+        }
+    }
+}
+//选择最优装甲板
+void AutoAim::select_armor(vector<Armor_lamps> real_armor_lamps,Mat &best_lamps){
+    int lowerY=0;
+    int lowerIndex=-1;
+    for(int i=0; i<real_armor_lamps.size(); i+=2){
+        if(i+1 >= real_armor_lamps.size()) break;
+        int y = (real_armor_lamps[i].y + real_armor_lamps[i+1].y)/2;
+        if(y > lowerY){
+            lowerY = y;
+            lowerIndex = i;
+        }
+    }
+    //优先锁定图像下方装甲板
+    if(lowerIndex == -1){
+        resizeCount++;
+        if(!broadenRect(rectROI) || resizeCount>3){
+            resetROI();
+            resizeCount = 0;
+        }
+    } else {
+        resizeCount = 0;
+        //cout<<real_armor_lamps[lowerIndex].x<<"  "<<real_armor_lamps[lowerIndex+1].x<<endl;
+	    if(real_armor_lamps[lowerIndex].x>real_armor_lamps[lowerIndex+1].x){
+            swap(real_armor_lamps[lowerIndex],real_armor_lamps[lowerIndex+1]);//确保偶数为左灯条，奇数为右灯条
+        }
+        int height = (real_armor_lamps[lowerIndex].height + real_armor_lamps[lowerIndex+1].height)/2;
+        if(height > 10){//当灯条高度小于10个像素点时放弃锁定，重新寻找合适目标
+            //cout<<rectROI.x<<" "<<rectROI.y<<endl;
+            bestCenter.x = (real_armor_lamps[lowerIndex].x + real_armor_lamps[lowerIndex+1].x)/2 + rectROI.x;
+            bestCenter.y = (real_armor_lamps[lowerIndex].y + real_armor_lamps[lowerIndex+1].y)/2 + rectROI.y;
+            //cout<<bestCenter<<endl;
+        } else resetROI();
+    }
+
+    if(bestCenter.x!=-1){
+        clock_t finish = clock();
+        best_lamps.at<int>(0)=real_armor_lamps[lowerIndex].x + rectROI.x;
+        best_lamps.at<int>(1)=real_armor_lamps[lowerIndex].y + rectROI.y;
+        best_lamps.at<int>(4)=real_armor_lamps[lowerIndex+1].x + rectROI.x;
+        best_lamps.at<int>(5)=real_armor_lamps[lowerIndex+1].y + rectROI.y;
+        best_lamps.at<int>(2)=real_armor_lamps[lowerIndex].height;
+        best_lamps.at<int>(3)=real_armor_lamps[lowerIndex].angle;
+        best_lamps.at<int>(6)=real_armor_lamps[lowerIndex+1].height;
+        best_lamps.at<int>(7)=real_armor_lamps[lowerIndex+1].angle;
+        //cout<<best_lamps<<"bestlamps"<<endl;
+        rectROI.x = ((real_armor_lamps[lowerIndex].x + real_armor_lamps[lowerIndex+1].x)/2)+rectROI.x - (real_armor_lamps[lowerIndex+1].x - real_armor_lamps[lowerIndex].x);
+        rectROI.y = (real_armor_lamps[lowerIndex].y + real_armor_lamps[lowerIndex+1].y)/2+rectROI.y - ( real_armor_lamps[lowerIndex].height + real_armor_lamps[lowerIndex+1].height)/2;
+        rectROI.width = real_armor_lamps[lowerIndex].height + real_armor_lamps[lowerIndex+1].height;
+        rectROI.height = 2*(real_armor_lamps[lowerIndex+1].x - real_armor_lamps[lowerIndex].x);
+        if(!makeRectSafe(rectROI))
+            resetROI();
+    }
 }
 
-Point2f AutoAim::aim(Mat &src, int color, float currPitch, float currYaw, int is_predict,double time_delay){
-    clock_t start = clock();
-    Mat mask;
+BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2f &pitYaw){
+    if(!setImage(src))
+        return AIM_IMAGE_ERROR;
 
-    vector<Point2f> points;
+    vector<AutoAim::Armor_lamps> pre_armor_lamps;
+    vector<AutoAim::Armor_lamps> real_armor_lamps;
+    bestCenter.x = -1;
 
-    Point2f angle;
-    if(src.empty()) 
-        return Point2f(180,180);
-    if(color == AutoAim::color_red)
-        setImage(src, mask, AutoAim::color_red);
-    else    
-        setImage(src,mask, AutoAim::color_blue);
-    findLamp(mask, lamps);
-    bestCenter.x = -1;  
-    findBestArmor(lamps, bestCenter, posAndSpeed, best_lamps, start);
-
+    findLamp_rect(src, pre_armor_lamps);
+    match_lamps(src, pre_armor_lamps, real_armor_lamps);
+    select_armor(real_armor_lamps, best_lamps);
+    /*
     if(bestCenter.x != -1){
-        //circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        rectangle(src, rectROI, Scalar(255,0,0), 10);
     }
-    //circle(src, Point(IMG_WIDTH/2, IMG_HEIGHT/2), 20, Scalar(255,0,0), 5);
-    //rectangle(src, rectROI, Scalar(255,0,0), 10);
-
-    if(bestCenter.x != -1){
-        measurement.at<float>(2)= (float)posAndSpeed[1].x;  
-        measurement.at<float>(3) = (float)posAndSpeed[1].y;
-        kf.statePost=(Mat_<float>(4, 1) <<  bestCenter.x,bestCenter.y,posAndSpeed[1].x,posAndSpeed[1].y);
-
-        Mat Predict = this->kf.predict();
-        kf.correct(measurement);
-
+    */
+    if(bestCenter.x!=-1){
         int h1=best_lamps.at<float>(2);
         int a1=best_lamps.at<float>(3);//first angle
         int h2=best_lamps.at<float>(6);//第二个灯条 hight
         int a2=best_lamps.at<float>(7);
         int xc1,xc2,yc1,yc2;
-
-        if(is_predict==0){
-            xc1=best_lamps.at<float>(0);//first center x 
-            yc1=best_lamps.at<float>(1);//first center y
-            xc2=best_lamps.at<float>(4);//第二个灯条 x
-            yc2=best_lamps.at<float>(5);//第二个灯条 y
-        }else{
-            int xc=Predict.at<float>(0)+Predict.at<float>(2)*time_delay;
-            int yc=Predict.at<float>(1)+Predict.at<float>(3)*time_delay;
-            int xc1=best_lamps.at<float>(0)+(xc-bestCenter.x);
-            int yc1=best_lamps.at<float>(1)+(yc-bestCenter.y);
-            int xc2=best_lamps.at<float>(4)+(xc-bestCenter.x);
-            int yc2=best_lamps.at<float>(5)+(yc-bestCenter.y);
-        }
-
-        if(xc2-xc1>0)
-        {    
-            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P1
-            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P2
-            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P4
-            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P3
-	        points.push_back(cal_x_y(xc1,yc1,h1,a1,1));
-            points.push_back(cal_x_y(xc1,yc1,h1,a1,0));
-	        points.push_back(cal_x_y(xc2,yc2,h2,a2,1));
-	        points.push_back(cal_x_y(xc2,yc2,h2,a2,0));
-        }else{
-            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P1
-            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P3
-            pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P4
-            pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P2
-	        points.push_back(cal_x_y(xc2,yc2,h2,a2,1));
-            points.push_back(cal_x_y(xc2,yc2,h2,a2,0));
-	        points.push_back(cal_x_y(xc1,yc1,h1,a1,1));
-	        points.push_back(cal_x_y(xc1,yc1,h1,a1,0));
-        }
-	    //draw4Point4f(src, points);
-
+        xc1=best_lamps.at<float>(0);//first center x 
+        yc1=best_lamps.at<float>(1);//first center y
+        xc2=best_lamps.at<float>(4);//第二个灯条 x
+        yc2=best_lamps.at<float>(5);//第二个灯条 y
+        //circle(src, Point(xc1,yc1), 20, Scalar(255,255,0), 2);
+        //circle(src, Point(xc2,yc2), 20, Scalar(255,255,0), 2);
+ 
+        pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,1));//P1
+        pnpSolver.pushPoints2D(cal_x_y(xc1,yc1,h1,a1,0));//P3
+        pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,1));//P2
+        pnpSolver.pushPoints2D(cal_x_y(xc2,yc2,h2,a2,0));//P4
         pnpSolver.solvePnP();
-	    pnpSolver.showParams();
         pnpSolver.clearPoints2D();
+        //pnpSolver.showParams();
         Point3d tvec = pnpSolver.getTvec();
-	    cout<<tvec<<endl;
-        angle=calPitchAndYaw(tvec.x, tvec.y, tvec.z, currPitch, currYaw);
+        //imshow("src",src);
+        //waitKey(0);
+        if(isPredict){
+            measurement.at<float>(0)= tvec.x;
+            measurement.at<float>(1) = tvec.y;  
+            measurement.at<float>(2)= tvec.z;  
+            measurement.at<float>(3) = (last_tvec.x-tvec.x)/timeDelay;
+            measurement.at<float>(4) = (last_tvec.y-tvec.y)/timeDelay;
+            measurement.at<float>(5) = (last_tvec.z-tvec.z)/timeDelay;
 
-        return angle;
-    } else {
-        return Point2f(180,180);
+            Mat Predict = this->kf.predict();
+            kf.correct(measurement);
+            float x = Predict.at<float>(0) + Predict.at<float>(3)*dt;
+            float y = Predict.at<float>(1) + Predict.at<float>(4)*dt;
+            float z = Predict.at<float>(2) + Predict.at<float>(5)*dt;
+            pitYaw = calPitchAndYaw(x, y, z, currPitch, currYaw);
+        }else{   
+            pitYaw = calPitchAndYaw(tvec.x, tvec.y, tvec.z, currPitch, currYaw);
+        }
+        return AIM_TARGET_FOUND;
     }
+    return AIM_TARGET_NOT_FOUND;
 }

@@ -23,11 +23,18 @@ public:
 public:
     static void showRGBSplitImg(cv::Mat img);
     static void showHSVInRangeImg(cv::Mat img);
+
     static void drawRotatedRect(cv::Mat &img,cv::RotatedRect r);
     static void draw4Point4f(cv::Mat &img,cv::Point2f point2fs[4]);
+
     static float calc2PointDistance(cv::Point2f point1,cv::Point2f point2);
+    //计算两点间的近似距离，用两个直角边的和近似代替斜边的长度
+    static float calc2PointApproDistance(cv::Point2f point1, cv::Point2f point2);
     static float calc2PointAngle(cv::Point2f point1,cv::Point2f point2);
     static float calcTriangleInnerAngle(cv::Point2f vertexPoint,cv::Point2f point1,cv::Point2f point2);
+
+    static double gravityKiller(double z_distance, double y_distance, double bullet_speed, double current_pitch);
+
     static void timeInit();
     static void timeCout();
     static void timeInitClock();

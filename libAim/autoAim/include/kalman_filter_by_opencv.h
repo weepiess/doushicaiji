@@ -51,42 +51,13 @@ kf.measurementMatrix=(Mat_<float>(4, 4) <<
             1,0,0,0,   
             0,1,0,0,   
             0,0,1,0,   
-<<<<<<< HEAD
             0,0,0,1 );  
-=======
-<<<<<<< HEAD
-            0,0,0,1 );
-=======
-            0,0,0,1 );  
->>>>>>> ce0e0c7f5c84b877bdeaad99c65a529e9ca3ca59
->>>>>>> e4d60c1f8cddb3391a682ec47717fb50ab8f9893
 kf.measurementNoiseCov(Mat_<float>(4, 4) <<   
             2000,0,0,0,   
             0,2000,0,0,   
             0,0,10000,0,   
             0,0,0,10000 );
 kf.init(4,1e-5,1e-1,1/50);
-measurement.at<float>(0)= (float)x;  
-measurement.at<float>(1) = (float)y;  
-measurement.at<float>(2)= (float)vx;  
-measurement.at<float>(3) = (float)vy;  
-psoestate=kf.predict();
-kf.correct(measurement)
-*/
-/*example of using kalman_filter_by_opencv CV modle
-Kalman_filter kf;
-Mat measurement = Mat::zeros(4, 1, CV_32F); 
-kf.measurementMatrix=(Mat_<float>(4, 4) <<   
-            1,0,0,0,0,0,   
-            0,1,0,0,0,0,   
-            0,0,1,0,0,0   
-            0,0,0,1 );
-kf.measurementNoiseCov(Mat_<float>(4, 4) <<   
-            2000,0,0,0,   
-            0,2000,0,0,   
-            0,0,10000,0,   
-            0,0,0,10000 );
-kf.init(6,1e-1,1/50);
 measurement.at<float>(0)= (float)x;  
 measurement.at<float>(1) = (float)y;  
 measurement.at<float>(2)= (float)vx;  

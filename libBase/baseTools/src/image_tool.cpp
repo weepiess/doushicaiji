@@ -10,8 +10,10 @@
 ///修订历史：
 ////////////////////////////////////////////////////////////////////////////////
 #include "image_tool.h"
+
 using namespace std;
 using namespace cv;
+
 //绘制旋转矩形
 void ImageTool::drawRotatedRect(cv::Mat &img,cv::RotatedRect r){
     RNG rng(12345);
@@ -31,6 +33,10 @@ void ImageTool::draw4Point4f(cv::Mat &img, cv::Point2f *point2fs) {
 
 float ImageTool::calc2PointDistance(cv::Point2f point1, cv::Point2f point2) {
     return sqrt(((point1.x-point2.x)*(point1.x-point2.x)+(point1.y-point2.y)*(point1.y-point2.y)));
+}
+
+float ImageTool::calc2PointApproDistance(cv::Point2f point1, cv::Point2f point2){
+    return abs(point1.x - point2.x) + abs(point1.y - point2.y);
 }
 
 float ImageTool::calc2PointAngle(cv::Point2f point1, cv::Point2f point2) {
@@ -55,10 +61,25 @@ float ImageTool::calcTriangleInnerAngle(cv::Point2f vertexPoint, cv::Point2f poi
 
 }
 
+double ImageTool::gravityKiller(double z_distance, double y_distance, double bullet_speed, double current_pitch){
+    constexpr double GRAVITY = 9.7913;
+    double alpha = current_pitch*CV_PI/180;
+    double x = -y_distance*sin(alpha)+z_distance*cos(alpha);
+    double y = z_distance*sin(alpha)+y_distance*cos(alpha);
+    double v = bullet_speed;
+    double m = 2*((y*GRAVITY+v*v)-sqrt((y*GRAVITY+v*v)*(y*GRAVITY+v*v)-GRAVITY*GRAVITY*(y_distance*y_distance+z_distance*z_distance)))/(GRAVITY*GRAVITY);
+    double time = sqrt(m);
+    double beta = asin((2*y-GRAVITY*time*time)/(2*v*time))*180/CV_PI;
+    double offset = beta-current_pitch;
+    return offset;
+}
+
+
 
 struct timeval ImageTool::start={0};
 struct timeval ImageTool::end={0};
 clock_t ImageTool::currentClock=clock();
+
 void ImageTool::timeInit() {
     gettimeofday(&start,NULL);
 }

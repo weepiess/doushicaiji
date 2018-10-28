@@ -20,8 +20,6 @@
   
 using namespace std;  
   
-
-
 class BaseThread  
 {  
 public:

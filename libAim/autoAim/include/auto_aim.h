@@ -2,62 +2,62 @@
 #define AUTO_AIM_H
 
 #include <opencv2/opencv.hpp>
-#include <list>
+#include <base_aim.h>
 #include "time.h"
 #include "kalman_filter_by_opencv.h"
 #include "usb_capture_with_opencv.h"
-#include "pnp_solver.h"
-#include "math_tools.h"
 
 using namespace cv;
 using namespace std;
 
-class AutoAim{
+class AutoAim: public BaseAim{
 public:
     AutoAim();
-    AutoAim(int width, int height);
+    AutoAim(int width, int height,float dt_);
     ~AutoAim();
 
-    Point2f aim(Mat &src, int color, float currPitch, float currYaw, int is_predict, double time_delay);
-
 public:
-    const static int color_red = 0;
-    const static int color_blue = 1;
+    typedef struct {
+        Point2f point[4];
+        int angle;
+        int height;
+        int width;
+        int x;
+        int y;
+    }Armor_lamps;
+
+    BaseAim::AimResult aim(Mat &src, float currPitch, float currYaw, Point2f &pitYaw);
 
 private:
-    bool checkBorder();
-    void setImage(Mat &src, Mat &mask , int enemyColor);
-    void findLamp(Mat &mask, vector<RotatedRect> &lamps);
-    void findBestArmor(vector<RotatedRect> &lamps, Point &bestCenter, vector<Point2f> &posAndSpeed,Mat &best_lamps, clock_t &start);
-    bool resizeROI(Rect &origin, Rect &current);
-    void change_roi(int &x, int &y, int &width, int &hight);
-    Point2f calPitchAndYaw(float x, float y, float z, float currPitch, float currYaw);
+    bool setImage(Mat &src);
+    float cal_angle(Point2f point[4]);
+    void resetROI();
+    void findLamp_rect(Mat &img, vector<Armor_lamps> &pre_armor_lamps); //搜索所有可能灯条
+    void match_lamps(Mat &img, vector<Armor_lamps> &pre_armor_lamps, vector<Armor_lamps> &real_armor_lamps); //匹配灯条
+    void select_armor(vector<Armor_lamps> real_armor_lamps, Mat &best_lamps); //锁定装甲板
 
 private:
-    const static float max_offset_angle;
+    int param_diff_angle;
+    int param_inside_angle;
+    int param_diff_height;
+    int param_diff_width;
 
-    PNPSolver pnpSolver;
-    Point2f lastPoint;
-    int IMG_WIDTH;
-    int IMG_HEIGHT;
+    Point3d last_tvec;
     int resizeCount;
-    bool hasROI;
     Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
     Mat temp = Mat::zeros(8, 1, CV_32F);
-    Mat measurement = Mat::zeros(4, 1, CV_32F);
-
+    Mat measurement = Mat::zeros(6, 1, CV_32F);
+    Mat mask;
+    float dt;
     Point bestCenter;
     Point Armorsize;
-
-    list<double> z_list;
-
-    vector<double> z_vector;
+    
     vector<RotatedRect> lamps;
-    vector<Point2f> posAndSpeed;
+
     bool camera_is_open;
 
     Rect rectROI;
     Kalman_filter kf;
-};                                                                                                                                  
+};                                                                                                      
 
 #endif
