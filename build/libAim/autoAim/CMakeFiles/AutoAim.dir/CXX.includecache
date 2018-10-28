@@ -34,6 +34,14 @@ iostream
 pthread.h
 -
 
+../libBase/include/image_tool.h
+opencv2/opencv.hpp
+../libBase/include/opencv2/opencv.hpp
+sys/time.h
+../libBase/include/sys/time.h
+time.h
+../libBase/include/time.h
+
 ../libHardWare/usbCapture/include/usb_capture_with_opencv.h
 opencv2/opencv.hpp
 -
@@ -59,6 +67,8 @@ iostream
 -
 algorithm
 -
+image_tool.h
+/home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/image_tool.h
 
 /home/pc/PROJECT/RM_TRAIN_PROJECT/Aim/libAim/autoAim/src/kalman_filter_by_opencv.cpp
 kalman_filter_by_opencv.h

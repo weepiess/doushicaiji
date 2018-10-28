@@ -17,7 +17,7 @@ public:
     AutoAim(int width, int height,float dt_);
     ~AutoAim();
 
-    Point2f aim(Mat src,Mat &best_lamps , float currPitch, float currYaw, int is_predict, double time_delay);
+    Point2f aim(Mat src,vector<int> &best_lamps , float currPitch, float currYaw, int is_predict, double time_delay);
 
 public:
     typedef struct 
@@ -35,7 +35,7 @@ public:
     void setImage(Mat &src, int enemyColor);                                                      //图像预处理
     void findLamp_rect(Mat &img,vector<Armor_lamps> &pre_armor_lamps);                                     //搜索所有可能灯条
     void match_lamps(Mat &img,vector<Armor_lamps> &pre_armor_lamps,vector<Armor_lamps> &real_armor_lamps); //匹配灯条
-    void select_armor(vector<Armor_lamps> real_armor_lamps,Mat &best_lamps);                      //锁定装甲板
+    void select_armor(vector<Armor_lamps> real_armor_lamps,vector<int> &best_lamps);                      //锁定装甲板
 
 private:
     

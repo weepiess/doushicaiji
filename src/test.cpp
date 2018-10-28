@@ -19,8 +19,9 @@ int main(int agrc, char *argv[]){
     //SerialInterface sInterface;
     //sInterface.init("/dev/ttyUSB0");
     //SerialPacket recvPacket;
-    float pitch, yaw;
-    Mat src=imread("../res/pic-final/my_photo-196.jpg");
+    float pitch=1; 
+    float yaw=1;
+    Mat src=imread("../res/pic-final/my_photo-194.jpg");
     //imshow("s",src);
     //waitKey(0);
     
@@ -29,7 +30,7 @@ int main(int agrc, char *argv[]){
        Point2f angle;
        vector<AutoAim::Armor_lamps> pre_armor_lamps;
        vector<AutoAim::Armor_lamps> real_armor_lamps;
-       Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
+       vector<int> best_lamps; //= Mat::zeros(8, 1, CV_32F); 
        //if(CAP.getImg(src)!=0) break;
        //cap>>src;
        //sInterface.getAbsYunTaiDelta();
@@ -46,6 +47,8 @@ int main(int agrc, char *argv[]){
        autoAim.select_armor(real_armor_lamps,best_lamps);
        angle=autoAim.aim(src,best_lamps,pitch,yaw,0,0);
        cout<<angle<<endl;
+        imshow("src",src);
+        waitKey(0);
        //if(angle.x==180 && angle.y==180) continue;
        //sInterface.YunTaiDeltaSet(angle.x, angle.y);
        //clock_t finish = clock();
