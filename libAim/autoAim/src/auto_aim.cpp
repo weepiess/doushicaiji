@@ -196,8 +196,8 @@ void AutoAim::findLamp_rect(Mat &img,vector<Armor_lamps> &pre_armor_lamps){
                 cout<<armor_lamp.angle<<endl;
                 armor_lamp.width=abs(armor_lamp.point[0].x-armor_lamp.point[1].x);
                 armor_lamp.height=abs(armor_lamp.point[0].y-armor_lamp.point[3].y);
-                armor_lamp.x=((armor_lamp.point[0].x+armor_lamp.point[1].x)/2+(armor_lamp.point[2].x-armor_lamp.point[3].x)/2);
-                armor_lamp.y=((armor_lamp.point[0].y+armor_lamp.point[1].y)/2+(armor_lamp.point[2].y-armor_lamp.point[3].y)/2);
+                armor_lamp.x=((armor_lamp.point[0].x+armor_lamp.point[1].x)/2+(armor_lamp.point[2].x+armor_lamp.point[3].x)/2)/2;
+                armor_lamp.y=((armor_lamp.point[0].y+armor_lamp.point[1].y)/2+(armor_lamp.point[2].y+armor_lamp.point[3].y)/2)/2;
                 cout<<armor_lamp.x<<endl;
                 if(armor_lamp.width>armor_lamp.height) continue;
                 /*for(int i=0;i<4;i++){
