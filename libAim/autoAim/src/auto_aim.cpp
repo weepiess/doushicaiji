@@ -307,10 +307,8 @@ void AutoAim::select_armor(vector<Armor_lamps> real_armor_lamps,vector<int> &bes
         }
         int height = (real_armor_lamps[lowerIndex].height + real_armor_lamps[lowerIndex+1].height)/2;
         if(height > 1){//当灯条高度小于10个像素点时放弃锁定，重新寻找合适目标
-            cout<<rectROI.x<<" "<<rectROI.y<<endl;
             bestCenter.x = (real_armor_lamps[lowerIndex].x + real_armor_lamps[lowerIndex+1].x)/2 + rectROI.x;
             bestCenter.y = (real_armor_lamps[lowerIndex].y + real_armor_lamps[lowerIndex+1].y)/2 + rectROI.y;
-            cout<<bestCenter<<endl;
             //if(!checkBorder()) bestCenter.x = -1;
         } else {
             rectROI.x = 0;
