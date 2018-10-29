@@ -3,10 +3,11 @@
 
 libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libAim/autoAim/include/auto_aim.h
 libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libAim/autoAim/include/kalman_filter_by_opencv.h
-libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libBase/include/base_thread.h
+libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libAim/include/base_aim.h
+libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libBase/baseClasses/include/base_thread.h
+libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libBase/baseTools/include/image_tool.h
+libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libBase/baseTools/include/pnp_solver.h
 libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libHardWare/usbCapture/include/usb_capture_with_opencv.h
-libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libTools/include/math_tools.h
-libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libTools/include/pnp_solver.h
 libAim/autoAim/CMakeFiles/AutoAim.dir/src/auto_aim.cpp.o: ../libAim/autoAim/src/auto_aim.cpp
 
 libAim/autoAim/CMakeFiles/AutoAim.dir/src/kalman_filter_by_opencv.cpp.o: ../libAim/autoAim/include/kalman_filter_by_opencv.h

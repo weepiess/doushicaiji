@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/two/RM2019/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/two/RM2019/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -124,17 +124,30 @@ example/fast:
 .PHONY : example/fast
 
 #=============================================================================
-# Target rules for targets named Base
+# Target rules for targets named BaseClasses
 
 # Build rule for target.
-Base: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Base
-.PHONY : Base
+BaseClasses: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 BaseClasses
+.PHONY : BaseClasses
 
 # fast build rule for target.
-Base/fast:
-	$(MAKE) -f libBase/CMakeFiles/Base.dir/build.make libBase/CMakeFiles/Base.dir/build
-.PHONY : Base/fast
+BaseClasses/fast:
+	$(MAKE) -f libBase/baseClasses/CMakeFiles/BaseClasses.dir/build.make libBase/baseClasses/CMakeFiles/BaseClasses.dir/build
+.PHONY : BaseClasses/fast
+
+#=============================================================================
+# Target rules for targets named BaseTools
+
+# Build rule for target.
+BaseTools: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 BaseTools
+.PHONY : BaseTools
+
+# fast build rule for target.
+BaseTools/fast:
+	$(MAKE) -f libBase/baseTools/CMakeFiles/BaseTools.dir/build.make libBase/baseTools/CMakeFiles/BaseTools.dir/build
+.PHONY : BaseTools/fast
 
 #=============================================================================
 # Target rules for targets named SerialPort
@@ -163,6 +176,19 @@ UsbCapture/fast:
 .PHONY : UsbCapture/fast
 
 #=============================================================================
+# Target rules for targets named BaseAim
+
+# Build rule for target.
+BaseAim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 BaseAim
+.PHONY : BaseAim
+
+# fast build rule for target.
+BaseAim/fast:
+	$(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/build
+.PHONY : BaseAim/fast
+
+#=============================================================================
 # Target rules for targets named AutoAim
 
 # Build rule for target.
@@ -188,45 +214,113 @@ MarkAim/fast:
 	$(MAKE) -f libAim/markAim/CMakeFiles/MarkAim.dir/build.make libAim/markAim/CMakeFiles/MarkAim.dir/build
 .PHONY : MarkAim/fast
 
-#=============================================================================
-# Target rules for targets named Tools
+src/control_model.o: src/control_model.cpp.o
 
-# Build rule for target.
-Tools: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Tools
-.PHONY : Tools
-
-# fast build rule for target.
-Tools/fast:
-	$(MAKE) -f libTools/CMakeFiles/Tools.dir/build.make libTools/CMakeFiles/Tools.dir/build
-.PHONY : Tools/fast
-
-src/test.o: src/test.cpp.o
-
-.PHONY : src/test.o
+.PHONY : src/control_model.o
 
 # target to build an object file
-src/test.cpp.o:
-	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
+src/control_model.cpp.o:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/control_model.cpp.o
+.PHONY : src/control_model.cpp.o
 
-src/test.i: src/test.cpp.i
+src/control_model.i: src/control_model.cpp.i
 
-.PHONY : src/test.i
+.PHONY : src/control_model.i
 
 # target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
+src/control_model.cpp.i:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/control_model.cpp.i
+.PHONY : src/control_model.cpp.i
 
-src/test.s: src/test.cpp.s
+src/control_model.s: src/control_model.cpp.s
 
-.PHONY : src/test.s
+.PHONY : src/control_model.s
 
 # target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
+src/control_model.cpp.s:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/control_model.cpp.s
+.PHONY : src/control_model.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
+src/robot_model.o: src/robot_model.cpp.o
+
+.PHONY : src/robot_model.o
+
+# target to build an object file
+src/robot_model.cpp.o:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/robot_model.cpp.o
+.PHONY : src/robot_model.cpp.o
+
+src/robot_model.i: src/robot_model.cpp.i
+
+.PHONY : src/robot_model.i
+
+# target to preprocess a source file
+src/robot_model.cpp.i:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/robot_model.cpp.i
+.PHONY : src/robot_model.cpp.i
+
+src/robot_model.s: src/robot_model.cpp.s
+
+.PHONY : src/robot_model.s
+
+# target to generate assembly for a file
+src/robot_model.cpp.s:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/robot_model.cpp.s
+.PHONY : src/robot_model.cpp.s
+
+src/serial_listen_thread.o: src/serial_listen_thread.cpp.o
+
+.PHONY : src/serial_listen_thread.o
+
+# target to build an object file
+src/serial_listen_thread.cpp.o:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/serial_listen_thread.cpp.o
+.PHONY : src/serial_listen_thread.cpp.o
+
+src/serial_listen_thread.i: src/serial_listen_thread.cpp.i
+
+.PHONY : src/serial_listen_thread.i
+
+# target to preprocess a source file
+src/serial_listen_thread.cpp.i:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/serial_listen_thread.cpp.i
+.PHONY : src/serial_listen_thread.cpp.i
+
+src/serial_listen_thread.s: src/serial_listen_thread.cpp.s
+
+.PHONY : src/serial_listen_thread.s
+
+# target to generate assembly for a file
+src/serial_listen_thread.cpp.s:
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/serial_listen_thread.cpp.s
+.PHONY : src/serial_listen_thread.cpp.s
 
 # Help Target
 help:
@@ -237,15 +331,25 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... example"
-	@echo "... Base"
+	@echo "... BaseClasses"
+	@echo "... BaseTools"
 	@echo "... SerialPort"
 	@echo "... UsbCapture"
+	@echo "... BaseAim"
 	@echo "... AutoAim"
 	@echo "... MarkAim"
-	@echo "... Tools"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
+	@echo "... src/control_model.o"
+	@echo "... src/control_model.i"
+	@echo "... src/control_model.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/robot_model.o"
+	@echo "... src/robot_model.i"
+	@echo "... src/robot_model.s"
+	@echo "... src/serial_listen_thread.o"
+	@echo "... src/serial_listen_thread.i"
+	@echo "... src/serial_listen_thread.s"
 .PHONY : help
 
 

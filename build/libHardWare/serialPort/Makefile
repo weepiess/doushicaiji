@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/two/RM2019/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/two/RM2019/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles /home/two/RM2019/wyx/doushicaiji/build/libHardWare/serialPort/CMakeFiles/progress.marks
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles /home/wyx/程序/wyx/doushicaiji/build/libHardWare/serialPort/CMakeFiles/progress.marks
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/clean
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/rule:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/CMakeFiles/SerialPort.dir/rule
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/serialPort/CMakeFiles/SerialPort.dir/rule
 .PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ SerialPort: libHardWare/serialPort/CMakeFiles/SerialPort.dir/rule
 
 # fast build rule for target.
 SerialPort/fast:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/build
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/build
 .PHONY : SerialPort/fast
 
 src/serial_interface.o: src/serial_interface.cpp.o
@@ -131,7 +131,7 @@ src/serial_interface.o: src/serial_interface.cpp.o
 
 # target to build an object file
 src/serial_interface.cpp.o:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.o
 .PHONY : src/serial_interface.cpp.o
 
 src/serial_interface.i: src/serial_interface.cpp.i
@@ -140,7 +140,7 @@ src/serial_interface.i: src/serial_interface.cpp.i
 
 # target to preprocess a source file
 src/serial_interface.cpp.i:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.i
 .PHONY : src/serial_interface.cpp.i
 
 src/serial_interface.s: src/serial_interface.cpp.s
@@ -149,7 +149,7 @@ src/serial_interface.s: src/serial_interface.cpp.s
 
 # target to generate assembly for a file
 src/serial_interface.cpp.s:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_interface.cpp.s
 .PHONY : src/serial_interface.cpp.s
 
 src/serial_packet.o: src/serial_packet.cpp.o
@@ -158,7 +158,7 @@ src/serial_packet.o: src/serial_packet.cpp.o
 
 # target to build an object file
 src/serial_packet.cpp.o:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.o
 .PHONY : src/serial_packet.cpp.o
 
 src/serial_packet.i: src/serial_packet.cpp.i
@@ -167,7 +167,7 @@ src/serial_packet.i: src/serial_packet.cpp.i
 
 # target to preprocess a source file
 src/serial_packet.cpp.i:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.i
 .PHONY : src/serial_packet.cpp.i
 
 src/serial_packet.s: src/serial_packet.cpp.s
@@ -176,7 +176,7 @@ src/serial_packet.s: src/serial_packet.cpp.s
 
 # target to generate assembly for a file
 src/serial_packet.cpp.s:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_packet.cpp.s
 .PHONY : src/serial_packet.cpp.s
 
 src/serial_port.o: src/serial_port.cpp.o
@@ -185,7 +185,7 @@ src/serial_port.o: src/serial_port.cpp.o
 
 # target to build an object file
 src/serial_port.cpp.o:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.o
 .PHONY : src/serial_port.cpp.o
 
 src/serial_port.i: src/serial_port.cpp.i
@@ -194,7 +194,7 @@ src/serial_port.i: src/serial_port.cpp.i
 
 # target to preprocess a source file
 src/serial_port.cpp.i:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.i
 .PHONY : src/serial_port.cpp.i
 
 src/serial_port.s: src/serial_port.cpp.s
@@ -203,7 +203,7 @@ src/serial_port.s: src/serial_port.cpp.s
 
 # target to generate assembly for a file
 src/serial_port.cpp.s:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port.cpp.s
 .PHONY : src/serial_port.cpp.s
 
 src/serial_port_debug.o: src/serial_port_debug.cpp.o
@@ -212,7 +212,7 @@ src/serial_port_debug.o: src/serial_port_debug.cpp.o
 
 # target to build an object file
 src/serial_port_debug.cpp.o:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.o
 .PHONY : src/serial_port_debug.cpp.o
 
 src/serial_port_debug.i: src/serial_port_debug.cpp.i
@@ -221,7 +221,7 @@ src/serial_port_debug.i: src/serial_port_debug.cpp.i
 
 # target to preprocess a source file
 src/serial_port_debug.cpp.i:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.i
 .PHONY : src/serial_port_debug.cpp.i
 
 src/serial_port_debug.s: src/serial_port_debug.cpp.s
@@ -230,7 +230,7 @@ src/serial_port_debug.s: src/serial_port_debug.cpp.s
 
 # target to generate assembly for a file
 src/serial_port_debug.cpp.s:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/src/serial_port_debug.cpp.s
 .PHONY : src/serial_port_debug.cpp.s
 
 # Help Target
@@ -265,6 +265,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

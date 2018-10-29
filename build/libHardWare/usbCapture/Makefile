@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/two/RM2019/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/two/RM2019/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles /home/two/RM2019/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/progress.marks
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/progress.marks
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/clean
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/rule:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/rule
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/rule
 .PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ UsbCapture: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/rule
 
 # fast build rule for target.
 UsbCapture/fast:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build
 .PHONY : UsbCapture/fast
 
 src/usb_capture.o: src/usb_capture.cpp.o
@@ -131,7 +131,7 @@ src/usb_capture.o: src/usb_capture.cpp.o
 
 # target to build an object file
 src/usb_capture.cpp.o:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o
 .PHONY : src/usb_capture.cpp.o
 
 src/usb_capture.i: src/usb_capture.cpp.i
@@ -140,7 +140,7 @@ src/usb_capture.i: src/usb_capture.cpp.i
 
 # target to preprocess a source file
 src/usb_capture.cpp.i:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.i
 .PHONY : src/usb_capture.cpp.i
 
 src/usb_capture.s: src/usb_capture.cpp.s
@@ -149,7 +149,7 @@ src/usb_capture.s: src/usb_capture.cpp.s
 
 # target to generate assembly for a file
 src/usb_capture.cpp.s:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.s
 .PHONY : src/usb_capture.cpp.s
 
 src/usb_capture_with_opencv.o: src/usb_capture_with_opencv.cpp.o
@@ -158,7 +158,7 @@ src/usb_capture_with_opencv.o: src/usb_capture_with_opencv.cpp.o
 
 # target to build an object file
 src/usb_capture_with_opencv.cpp.o:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o
 .PHONY : src/usb_capture_with_opencv.cpp.o
 
 src/usb_capture_with_opencv.i: src/usb_capture_with_opencv.cpp.i
@@ -167,7 +167,7 @@ src/usb_capture_with_opencv.i: src/usb_capture_with_opencv.cpp.i
 
 # target to preprocess a source file
 src/usb_capture_with_opencv.cpp.i:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.i
 .PHONY : src/usb_capture_with_opencv.cpp.i
 
 src/usb_capture_with_opencv.s: src/usb_capture_with_opencv.cpp.s
@@ -176,7 +176,7 @@ src/usb_capture_with_opencv.s: src/usb_capture_with_opencv.cpp.s
 
 # target to generate assembly for a file
 src/usb_capture_with_opencv.cpp.s:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.s
 .PHONY : src/usb_capture_with_opencv.cpp.s
 
 src/usb_capture_with_thread.o: src/usb_capture_with_thread.cpp.o
@@ -185,7 +185,7 @@ src/usb_capture_with_thread.o: src/usb_capture_with_thread.cpp.o
 
 # target to build an object file
 src/usb_capture_with_thread.cpp.o:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o
 .PHONY : src/usb_capture_with_thread.cpp.o
 
 src/usb_capture_with_thread.i: src/usb_capture_with_thread.cpp.i
@@ -194,7 +194,7 @@ src/usb_capture_with_thread.i: src/usb_capture_with_thread.cpp.i
 
 # target to preprocess a source file
 src/usb_capture_with_thread.cpp.i:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.i
 .PHONY : src/usb_capture_with_thread.cpp.i
 
 src/usb_capture_with_thread.s: src/usb_capture_with_thread.cpp.s
@@ -203,7 +203,7 @@ src/usb_capture_with_thread.s: src/usb_capture_with_thread.cpp.s
 
 # target to generate assembly for a file
 src/usb_capture_with_thread.cpp.s:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.s
 .PHONY : src/usb_capture_with_thread.cpp.s
 
 # Help Target
@@ -235,6 +235,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/two/RM2019/wyx/doushicaiji/libAim
+# Install script for directory: /home/wyx/程序/wyx/doushicaiji/libAim
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/two/RM2019/wyx/doushicaiji/build/libAim/autoAim/cmake_install.cmake")
-  include("/home/two/RM2019/wyx/doushicaiji/build/libAim/markAim/cmake_install.cmake")
+  include("/home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/cmake_install.cmake")
+  include("/home/wyx/程序/wyx/doushicaiji/build/libAim/markAim/cmake_install.cmake")
 
 endif()
 

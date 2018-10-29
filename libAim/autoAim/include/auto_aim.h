@@ -2,7 +2,7 @@
 #define AUTO_AIM_H
 
 #include <opencv2/opencv.hpp>
-#include <base_aim.h>
+#include "base_aim.h"
 #include "time.h"
 #include "kalman_filter_by_opencv.h"
 #include "usb_capture_with_opencv.h"
@@ -13,28 +13,20 @@ using namespace std;
 class AutoAim: public BaseAim{
 public:
     AutoAim();
-    AutoAim(int width, int height,float dt_);
+    AutoAim(int width, int height, float dt_);
     ~AutoAim();
 
 public:
-    typedef struct {
-        Point2f point[4];
-        int angle;
-        int height;
-        int width;
-        int x;
-        int y;
-    }Armor_lamps;
-
-    BaseAim::AimResult aim(Mat &src, float currPitch, float currYaw, Point2f &pitYaw);
+    //aim()的形式不固定，但是返回值必须是AimResult类型
+    AimResult aim(Mat &src, float currPitch, float currYaw, Point2f &pitYaw);
+    void set_parameters(int angle,int inside_angle, int height, int width);
 
 private:
     bool setImage(Mat &src);
-    float cal_angle(Point2f point[4]);
     void resetROI();
-    void findLamp_rect(Mat &img, vector<Armor_lamps> &pre_armor_lamps); //搜索所有可能灯条
-    void match_lamps(Mat &img, vector<Armor_lamps> &pre_armor_lamps, vector<Armor_lamps> &real_armor_lamps); //匹配灯条
-    void select_armor(vector<Armor_lamps> real_armor_lamps, Mat &best_lamps); //锁定装甲板
+    void findLamp_rect(Mat &img, vector<RotatedRect> &pre_armor_lamps); //搜索所有可能灯条
+    void match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector<RotatedRect> &real_armor_lamps); //匹配灯条
+    void select_armor(vector<RotatedRect> real_armor_lamps); //锁定装甲板
 
 private:
     int param_diff_angle;
@@ -44,17 +36,11 @@ private:
 
     Point3d last_tvec;
     int resizeCount;
-    Mat best_lamps = Mat::zeros(8, 1, CV_32F); 
-    Mat temp = Mat::zeros(8, 1, CV_32F);
+    RotatedRect best_lamps[2];
     Mat measurement = Mat::zeros(6, 1, CV_32F);
-    Mat mask;
     float dt;
     Point bestCenter;
-    Point Armorsize;
-    
-    vector<RotatedRect> lamps;
-
-    bool camera_is_open;
+    Mat mask;
 
     Rect rectROI;
     Kalman_filter kf;

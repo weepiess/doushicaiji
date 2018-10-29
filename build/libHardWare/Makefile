@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/two/RM2019/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/two/RM2019/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles /home/two/RM2019/wyx/doushicaiji/build/libHardWare/CMakeFiles/progress.marks
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles /home/wyx/程序/wyx/doushicaiji/build/libHardWare/CMakeFiles/progress.marks
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/clean
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,17 +97,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libHardWare/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -129,6 +129,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -12,6 +12,12 @@ void BaseAim::setTimeDelay(double timeDelay){
     this->timeDelay = timeDelay;
 }
 
+void BaseAim::setImgSize(Size imgSize){
+    IMG_WIDTH = imgSize.width;
+    IMG_HEIGHT = imgSize.height;
+
+}
+
 Point2f BaseAim::calPitchAndYaw(float x_offset, float y_offset, float z_offset, float currPitch, float currYaw, bool useExtrinsicGuess, int flags){
     pnpSolver.solvePnP(useExtrinsicGuess, flags);
 	//pnpSolver.showParams();

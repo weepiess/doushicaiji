@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libAim/include/base_aim.h
+opencv2/opencv.hpp
+-
+pnp_solver.h
+-
+image_tool.h
+-
+iostream
+-
+
+../libBase/baseTools/include/image_tool.h
+opencv2/opencv.hpp
+../libBase/baseTools/include/opencv2/opencv.hpp
+sys/time.h
+../libBase/baseTools/include/sys/time.h
+time.h
+../libBase/baseTools/include/time.h
+
+../libBase/baseTools/include/pnp_solver.h
+opencv2/opencv.hpp
+-
+iostream
+-
+
+/home/wyx/程序/wyx/doushicaiji/libAim/src/base_aim.cpp
+base_aim.h
+/home/wyx/程序/wyx/doushicaiji/libAim/src/base_aim.h
+

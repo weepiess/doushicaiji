@@ -1,4 +1,4 @@
-# Install script for directory: /home/two/RM2019/wyx/doushicaiji/libBase
+# Install script for directory: /home/wyx/程序/wyx/doushicaiji/libBase
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -30,5 +30,12 @@ endif()
 # Install shared libraries without execute permission?
 if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/home/wyx/程序/wyx/doushicaiji/build/libBase/baseClasses/cmake_install.cmake")
+  include("/home/wyx/程序/wyx/doushicaiji/build/libBase/baseTools/cmake_install.cmake")
+
 endif()
 

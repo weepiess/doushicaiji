@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBaseAim.a  CMakeFiles/BaseAim.dir/src/base_aim.cpp.o
+/usr/bin/ranlib libBaseAim.a

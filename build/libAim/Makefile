@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/two/RM2019/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/two/RM2019/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles /home/two/RM2019/wyx/doushicaiji/build/libAim/CMakeFiles/progress.marks
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles /home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/progress.marks
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/clean
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,18 +97,60 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/preinstall
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+libAim/CMakeFiles/BaseAim.dir/rule:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f CMakeFiles/Makefile2 libAim/CMakeFiles/BaseAim.dir/rule
+.PHONY : libAim/CMakeFiles/BaseAim.dir/rule
+
+# Convenience name for target.
+BaseAim: libAim/CMakeFiles/BaseAim.dir/rule
+
+.PHONY : BaseAim
+
+# fast build rule for target.
+BaseAim/fast:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/build
+.PHONY : BaseAim/fast
+
+src/base_aim.o: src/base_aim.cpp.o
+
+.PHONY : src/base_aim.o
+
+# target to build an object file
+src/base_aim.cpp.o:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.o
+.PHONY : src/base_aim.cpp.o
+
+src/base_aim.i: src/base_aim.cpp.i
+
+.PHONY : src/base_aim.i
+
+# target to preprocess a source file
+src/base_aim.cpp.i:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.i
+.PHONY : src/base_aim.cpp.i
+
+src/base_aim.s: src/base_aim.cpp.s
+
+.PHONY : src/base_aim.s
+
+# target to generate assembly for a file
+src/base_aim.cpp.s:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.s
+.PHONY : src/base_aim.cpp.s
 
 # Help Target
 help:
@@ -118,6 +160,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... BaseAim"
+	@echo "... src/base_aim.o"
+	@echo "... src/base_aim.i"
+	@echo "... src/base_aim.s"
 .PHONY : help
 
 
@@ -129,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

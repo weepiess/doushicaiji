@@ -15,10 +15,12 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../libAim/autoAim/CMakeLists.txt"
   "../libAim/markAim/CMakeLists.txt"
   "../libBase/CMakeLists.txt"
+  "../libBase/baseClasses/CMakeLists.txt"
+  "../libBase/baseTools/CMakeLists.txt"
   "../libHardWare/CMakeLists.txt"
   "../libHardWare/serialPort/CMakeLists.txt"
   "../libHardWare/usbCapture/CMakeLists.txt"
-  "../libTools/CMakeLists.txt"
+  "/opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
   "/usr/local/share/OpenCV/OpenCVModules-release.cmake"
@@ -53,22 +55,24 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "libBase/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libBase/baseClasses/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libBase/baseTools/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libHardWare/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libHardWare/serialPort/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libHardWare/usbCapture/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libAim/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libAim/autoAim/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libAim/markAim/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libTools/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/example.dir/DependInfo.cmake"
-  "libBase/CMakeFiles/Base.dir/DependInfo.cmake"
+  "libBase/baseClasses/CMakeFiles/BaseClasses.dir/DependInfo.cmake"
+  "libBase/baseTools/CMakeFiles/BaseTools.dir/DependInfo.cmake"
   "libHardWare/serialPort/CMakeFiles/SerialPort.dir/DependInfo.cmake"
   "libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake"
+  "libAim/CMakeFiles/BaseAim.dir/DependInfo.cmake"
   "libAim/autoAim/CMakeFiles/AutoAim.dir/DependInfo.cmake"
   "libAim/markAim/CMakeFiles/MarkAim.dir/DependInfo.cmake"
-  "libTools/CMakeFiles/Tools.dir/DependInfo.cmake"
   )

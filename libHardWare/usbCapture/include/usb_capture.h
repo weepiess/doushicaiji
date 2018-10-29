@@ -110,11 +110,4 @@ public:
     int changeVideoFormat(int width, int height, bool mjpeg=true);
 
 };
-
-
-
-
-
-
-
 #endif //LIB_USB_CAPTURE_H

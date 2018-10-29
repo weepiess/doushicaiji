@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libBase/baseClasses/include/base_thread.h
+unistd.h
+-
+iostream
+-
+pthread.h
+-
+
+/home/wyx/程序/wyx/doushicaiji/libBase/baseClasses/src/base_thread.cpp
+base_thread.h
+/home/wyx/程序/wyx/doushicaiji/libBase/baseClasses/src/base_thread.h
+

@@ -9,18 +9,14 @@
 ../libAim/autoAim/include/auto_aim.h
 opencv2/opencv.hpp
 -
-list
--
+base_aim.h
+../libAim/autoAim/include/base_aim.h
 time.h
 ../libAim/autoAim/include/time.h
 kalman_filter_by_opencv.h
 ../libAim/autoAim/include/kalman_filter_by_opencv.h
 usb_capture_with_opencv.h
 ../libAim/autoAim/include/usb_capture_with_opencv.h
-pnp_solver.h
-../libAim/autoAim/include/pnp_solver.h
-math_tools.h
-../libAim/autoAim/include/math_tools.h
 
 ../libAim/autoAim/include/kalman_filter_by_opencv.h
 opencv2/opencv.hpp
@@ -28,12 +24,36 @@ opencv2/opencv.hpp
 iostream
 -
 
-../libBase/include/base_thread.h
+../libAim/include/base_aim.h
+opencv2/opencv.hpp
+-
+pnp_solver.h
+-
+image_tool.h
+-
+iostream
+-
+
+../libBase/baseClasses/include/base_thread.h
 unistd.h
 -
 iostream
 -
 pthread.h
+-
+
+../libBase/baseTools/include/image_tool.h
+opencv2/opencv.hpp
+../libBase/baseTools/include/opencv2/opencv.hpp
+sys/time.h
+../libBase/baseTools/include/sys/time.h
+time.h
+../libBase/baseTools/include/time.h
+
+../libBase/baseTools/include/pnp_solver.h
+opencv2/opencv.hpp
+-
+iostream
 -
 
 ../libHardWare/usbCapture/include/usb_capture_with_opencv.h
@@ -42,19 +62,9 @@ opencv2/opencv.hpp
 base_thread.h
 ../libHardWare/usbCapture/include/base_thread.h
 
-../libTools/include/math_tools.h
-opencv2/opencv.hpp
--
-
-../libTools/include/pnp_solver.h
-opencv2/opencv.hpp
--
-iostream
--
-
-/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/auto_aim.cpp
+/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/auto_aim.cpp
 auto_aim.h
-/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/auto_aim.h
+/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/auto_aim.h
 string
 -
 iostream
@@ -64,7 +74,7 @@ algorithm
 numeric
 -
 
-/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.cpp
+/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.cpp
 kalman_filter_by_opencv.h
-/home/two/RM2019/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.h
+/home/wyx/程序/wyx/doushicaiji/libAim/autoAim/src/kalman_filter_by_opencv.h
 

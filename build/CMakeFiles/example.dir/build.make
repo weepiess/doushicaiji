@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/two/RM2019/wyx/doushicaiji
+CMAKE_SOURCE_DIR = /home/wyx/程序/wyx/doushicaiji
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/two/RM2019/wyx/doushicaiji/build
+CMAKE_BINARY_DIR = /home/wyx/程序/wyx/doushicaiji/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/example.dir/depend.make
@@ -57,65 +57,143 @@ include CMakeFiles/example.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/example.dir/flags.make
 
-CMakeFiles/example.dir/src/test.cpp.o: CMakeFiles/example.dir/flags.make
-CMakeFiles/example.dir/src/test.cpp.o: ../src/test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/two/RM2019/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/example.dir/src/test.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/example.dir/src/test.cpp.o -c /home/two/RM2019/wyx/doushicaiji/src/test.cpp
+CMakeFiles/example.dir/src/main.cpp.o: CMakeFiles/example.dir/flags.make
+CMakeFiles/example.dir/src/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/example.dir/src/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/example.dir/src/main.cpp.o -c /home/wyx/程序/wyx/doushicaiji/src/main.cpp
 
-CMakeFiles/example.dir/src/test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/example.dir/src/test.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/two/RM2019/wyx/doushicaiji/src/test.cpp > CMakeFiles/example.dir/src/test.cpp.i
+CMakeFiles/example.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/example.dir/src/main.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/src/main.cpp > CMakeFiles/example.dir/src/main.cpp.i
 
-CMakeFiles/example.dir/src/test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/example.dir/src/test.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/two/RM2019/wyx/doushicaiji/src/test.cpp -o CMakeFiles/example.dir/src/test.cpp.s
+CMakeFiles/example.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/example.dir/src/main.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/src/main.cpp -o CMakeFiles/example.dir/src/main.cpp.s
 
-CMakeFiles/example.dir/src/test.cpp.o.requires:
+CMakeFiles/example.dir/src/main.cpp.o.requires:
 
-.PHONY : CMakeFiles/example.dir/src/test.cpp.o.requires
+.PHONY : CMakeFiles/example.dir/src/main.cpp.o.requires
 
-CMakeFiles/example.dir/src/test.cpp.o.provides: CMakeFiles/example.dir/src/test.cpp.o.requires
-	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/test.cpp.o.provides.build
-.PHONY : CMakeFiles/example.dir/src/test.cpp.o.provides
+CMakeFiles/example.dir/src/main.cpp.o.provides: CMakeFiles/example.dir/src/main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/main.cpp.o.provides.build
+.PHONY : CMakeFiles/example.dir/src/main.cpp.o.provides
 
-CMakeFiles/example.dir/src/test.cpp.o.provides.build: CMakeFiles/example.dir/src/test.cpp.o
+CMakeFiles/example.dir/src/main.cpp.o.provides.build: CMakeFiles/example.dir/src/main.cpp.o
+
+
+CMakeFiles/example.dir/src/robot_model.cpp.o: CMakeFiles/example.dir/flags.make
+CMakeFiles/example.dir/src/robot_model.cpp.o: ../src/robot_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/example.dir/src/robot_model.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/example.dir/src/robot_model.cpp.o -c /home/wyx/程序/wyx/doushicaiji/src/robot_model.cpp
+
+CMakeFiles/example.dir/src/robot_model.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/example.dir/src/robot_model.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/src/robot_model.cpp > CMakeFiles/example.dir/src/robot_model.cpp.i
+
+CMakeFiles/example.dir/src/robot_model.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/example.dir/src/robot_model.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/src/robot_model.cpp -o CMakeFiles/example.dir/src/robot_model.cpp.s
+
+CMakeFiles/example.dir/src/robot_model.cpp.o.requires:
+
+.PHONY : CMakeFiles/example.dir/src/robot_model.cpp.o.requires
+
+CMakeFiles/example.dir/src/robot_model.cpp.o.provides: CMakeFiles/example.dir/src/robot_model.cpp.o.requires
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/robot_model.cpp.o.provides.build
+.PHONY : CMakeFiles/example.dir/src/robot_model.cpp.o.provides
+
+CMakeFiles/example.dir/src/robot_model.cpp.o.provides.build: CMakeFiles/example.dir/src/robot_model.cpp.o
+
+
+CMakeFiles/example.dir/src/control_model.cpp.o: CMakeFiles/example.dir/flags.make
+CMakeFiles/example.dir/src/control_model.cpp.o: ../src/control_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/example.dir/src/control_model.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/example.dir/src/control_model.cpp.o -c /home/wyx/程序/wyx/doushicaiji/src/control_model.cpp
+
+CMakeFiles/example.dir/src/control_model.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/example.dir/src/control_model.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/src/control_model.cpp > CMakeFiles/example.dir/src/control_model.cpp.i
+
+CMakeFiles/example.dir/src/control_model.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/example.dir/src/control_model.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/src/control_model.cpp -o CMakeFiles/example.dir/src/control_model.cpp.s
+
+CMakeFiles/example.dir/src/control_model.cpp.o.requires:
+
+.PHONY : CMakeFiles/example.dir/src/control_model.cpp.o.requires
+
+CMakeFiles/example.dir/src/control_model.cpp.o.provides: CMakeFiles/example.dir/src/control_model.cpp.o.requires
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/control_model.cpp.o.provides.build
+.PHONY : CMakeFiles/example.dir/src/control_model.cpp.o.provides
+
+CMakeFiles/example.dir/src/control_model.cpp.o.provides.build: CMakeFiles/example.dir/src/control_model.cpp.o
+
+
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: CMakeFiles/example.dir/flags.make
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../src/serial_listen_thread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/example.dir/src/serial_listen_thread.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/example.dir/src/serial_listen_thread.cpp.o -c /home/wyx/程序/wyx/doushicaiji/src/serial_listen_thread.cpp
+
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/example.dir/src/serial_listen_thread.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/src/serial_listen_thread.cpp > CMakeFiles/example.dir/src/serial_listen_thread.cpp.i
+
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/example.dir/src/serial_listen_thread.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/src/serial_listen_thread.cpp -o CMakeFiles/example.dir/src/serial_listen_thread.cpp.s
+
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.requires:
+
+.PHONY : CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.requires
+
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.provides: CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.requires
+	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.provides.build
+.PHONY : CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.provides
+
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.provides.build: CMakeFiles/example.dir/src/serial_listen_thread.cpp.o
 
 
 # Object files for target example
 example_OBJECTS = \
-"CMakeFiles/example.dir/src/test.cpp.o"
+"CMakeFiles/example.dir/src/main.cpp.o" \
+"CMakeFiles/example.dir/src/robot_model.cpp.o" \
+"CMakeFiles/example.dir/src/control_model.cpp.o" \
+"CMakeFiles/example.dir/src/serial_listen_thread.cpp.o"
 
 # External object files for target example
 example_EXTERNAL_OBJECTS =
 
-example: CMakeFiles/example.dir/src/test.cpp.o
+example: CMakeFiles/example.dir/src/main.cpp.o
+example: CMakeFiles/example.dir/src/robot_model.cpp.o
+example: CMakeFiles/example.dir/src/control_model.cpp.o
+example: CMakeFiles/example.dir/src/serial_listen_thread.cpp.o
 example: CMakeFiles/example.dir/build.make
-example: libBase/libBase.a
 example: libHardWare/serialPort/libSerialPort.a
 example: libHardWare/usbCapture/libUsbCapture.a
 example: libAim/autoAim/libAutoAim.a
 example: libAim/markAim/libMarkAim.a
-example: libTools/libTools.a
+example: libBase/baseClasses/libBaseClasses.a
+example: libBase/baseTools/libBaseTools.a
 example: /usr/local/lib/libopencv_videostab.so.3.4.3
-example: /usr/local/lib/libopencv_superres.so.3.4.3
+example: /usr/local/lib/libopencv_photo.so.3.4.3
+example: /usr/local/lib/libopencv_stitching.so.3.4.3
 example: /usr/local/lib/libopencv_objdetect.so.3.4.3
 example: /usr/local/lib/libopencv_shape.so.3.4.3
 example: /usr/local/lib/libopencv_dnn.so.3.4.3
-example: /usr/local/lib/libopencv_video.so.3.4.3
 example: /usr/local/lib/libopencv_ml.so.3.4.3
-example: /usr/local/lib/libopencv_photo.so.3.4.3
-example: /usr/local/lib/libopencv_stitching.so.3.4.3
-example: libBase/libBase.a
 example: /usr/local/lib/libopencv_calib3d.so.3.4.3
+example: /usr/local/lib/libopencv_superres.so.3.4.3
+example: libAim/libBaseAim.a
 example: /usr/local/lib/libopencv_features2d.so.3.4.3
+example: /usr/local/lib/libopencv_flann.so.3.4.3
 example: /usr/local/lib/libopencv_highgui.so.3.4.3
+example: /usr/local/lib/libopencv_video.so.3.4.3
 example: /usr/local/lib/libopencv_videoio.so.3.4.3
 example: /usr/local/lib/libopencv_imgcodecs.so.3.4.3
 example: /usr/local/lib/libopencv_imgproc.so.3.4.3
-example: /usr/local/lib/libopencv_flann.so.3.4.3
 example: /usr/local/lib/libopencv_core.so.3.4.3
 example: CMakeFiles/example.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/two/RM2019/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable example"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/example.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,7 +201,10 @@ CMakeFiles/example.dir/build: example
 
 .PHONY : CMakeFiles/example.dir/build
 
-CMakeFiles/example.dir/requires: CMakeFiles/example.dir/src/test.cpp.o.requires
+CMakeFiles/example.dir/requires: CMakeFiles/example.dir/src/main.cpp.o.requires
+CMakeFiles/example.dir/requires: CMakeFiles/example.dir/src/robot_model.cpp.o.requires
+CMakeFiles/example.dir/requires: CMakeFiles/example.dir/src/control_model.cpp.o.requires
+CMakeFiles/example.dir/requires: CMakeFiles/example.dir/src/serial_listen_thread.cpp.o.requires
 
 .PHONY : CMakeFiles/example.dir/requires
 
@@ -132,6 +213,6 @@ CMakeFiles/example.dir/clean:
 .PHONY : CMakeFiles/example.dir/clean
 
 CMakeFiles/example.dir/depend:
-	cd /home/two/RM2019/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/two/RM2019/wyx/doushicaiji /home/two/RM2019/wyx/doushicaiji /home/two/RM2019/wyx/doushicaiji/build /home/two/RM2019/wyx/doushicaiji/build /home/two/RM2019/wyx/doushicaiji/build/CMakeFiles/example.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wyx/程序/wyx/doushicaiji /home/wyx/程序/wyx/doushicaiji /home/wyx/程序/wyx/doushicaiji/build /home/wyx/程序/wyx/doushicaiji/build /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles/example.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/example.dir/depend
 

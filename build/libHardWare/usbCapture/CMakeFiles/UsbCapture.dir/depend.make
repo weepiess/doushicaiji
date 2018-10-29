@@ -4,11 +4,11 @@
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o: ../libHardWare/usbCapture/include/usb_capture.h
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture.cpp.o: ../libHardWare/usbCapture/src/usb_capture.cpp
 
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o: ../libBase/include/base_thread.h
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o: ../libBase/baseClasses/include/base_thread.h
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o: ../libHardWare/usbCapture/include/usb_capture_with_opencv.h
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_opencv.cpp.o: ../libHardWare/usbCapture/src/usb_capture_with_opencv.cpp
 
-libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: ../libBase/include/base_thread.h
+libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: ../libBase/baseClasses/include/base_thread.h
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: ../libHardWare/usbCapture/include/usb_capture_with_thread.h
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/src/usb_capture_with_thread.cpp.o: ../libHardWare/usbCapture/src/usb_capture_with_thread.cpp
 

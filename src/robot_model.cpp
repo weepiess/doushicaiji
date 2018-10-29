@@ -48,7 +48,7 @@ int RobotModel::init(){
     }else{
         cout << "[robot model init ]:UsbCapture init failed!" <<endl;
     }
-    mCurrentMode=ROBOT_MODE_ZERO;
+    mCurrentMode=ROBOT_MODE_MARKAIM;
 
 }
 
@@ -65,8 +65,6 @@ UsbCaptureWithThread* RobotModel::getpUsbCapture() {
 SerialInterface* RobotModel::getpSerialInterface() {
     return &mSerialInterface;
 }
-
-
 
 //机器人数据接口
 void RobotModel::setCurrentMode(RobotMode robotMode) {
@@ -99,9 +97,3 @@ float RobotModel::getCurrentYaw() {
     pthread_mutex_unlock(&dataMutex);
     return tmp;
 }
-
-
-
-
-
-

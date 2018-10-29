@@ -31,14 +31,10 @@ public:
         AIM_IMAGE_ERROR
     }AimResult;
 
-    /** 子类必须实现该函数，方便切换模式时直接利用多态性质
-     * @param: src, 输入的原图
-     * @param: currPitch, 当前pitch轴的绝对转角，向下为正
-     * @param: currYaw, 当前yaw轴的绝对转角，逆时针为正
-     * @param: pitYaw, 用于接收返回的pitch和yaw转角
-     * @return: int, 操作的结果
+    /** 设置屏幕的宽高
+     * @param: winSize, 新屏幕宽高
      */
-    virtual AimResult aim(Mat &src, float currPitch, float currYaw, Point2f &pitYaw) = 0;
+    void setImgSize(Size imgSize);
 
     /** 在实例化时如果子类需要使用预测值，则调用此方法开启预测
      * @return: void
@@ -94,19 +90,19 @@ protected:
      * @param: right, 右边的旋转矩形
      * @return: RotatedRect, 以两个矩形为对边的旋转矩形
      */
-    RotatedRect BaseAim::boundingRRect(const RotatedRect &left, const RotatedRect &right);
+    RotatedRect boundingRRect(const RotatedRect &left, const RotatedRect &right);
 
     /** 调整rect的大小，使得在接触边界时能够自动贴边
      * @param: rect, 需要调整的rect
      * @return: bool, 如果调整到rect.width<0或者rect.height<0则返回false, 否则返回true
      */
-    bool BaseAim::makeRectSafe(Rect & rect);
+    bool makeRectSafe(Rect & rect);
 
     /** 扩大rect
      * @param: rect, 需要扩大的rect
      * @return: bool, 内部调用makeRectSafe(Rect &rect)返回是否还能调整大小
      */
-    bool BaseAim::broadenRect(Rect & rect);
+    bool broadenRect(Rect & rect);
 
 protected:
     //每一个子类中都默认拥有，方便调用pnp解算
@@ -127,12 +123,3 @@ protected:
 };
 
 #endif
-
-/*
-多态的使用方法如下：
-
-BaseAim *aim;
-if(当前模式为自瞄模式){
-    aim = new 
-}
-*/

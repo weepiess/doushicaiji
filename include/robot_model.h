@@ -20,8 +20,8 @@
 
 
 typedef enum :unsigned char {
-    ROBOT_MODE_ZERO=0x00,
-    ROBOT_MODE_ONE=0x01,
+    ROBOT_MODE_AUTOAIM=0x00,
+    ROBOT_MODE_MARKAIM=0x01
 } RobotMode;
 
 

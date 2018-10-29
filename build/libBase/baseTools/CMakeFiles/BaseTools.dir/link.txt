@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBaseTools.a  CMakeFiles/BaseTools.dir/src/pnp_solver.cpp.o CMakeFiles/BaseTools.dir/src/basic_tool.cpp.o CMakeFiles/BaseTools.dir/src/image_tool.cpp.o
+/usr/bin/ranlib libBaseTools.a

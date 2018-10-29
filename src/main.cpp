@@ -17,7 +17,6 @@
 
 using  namespace std;
 
-
 int main(){
     RobotModel robotModel;
     cout<<"[robot init]robot model start to initialize!"<<endl;
@@ -27,9 +26,9 @@ int main(){
     ControlModel controlModel;
     controlModel.init(&robotModel);
     cout<<"[robot init]robot serial port start to listen!"<<endl;
-    SerialListenThread serialListenThread;
-    serialListenThread.init(&robotModel,&controlModel);
-    serialListenThread.start();
+    //SerialListenThread serialListenThread;
+    //serialListenThread.init(&robotModel,&controlModel);
+    //serialListenThread.start();
     cout<<"[robot init]robot init end!"<<endl;
     //debug模块
     //SerialPortDebug serialPortDebug;
@@ -39,9 +38,9 @@ int main(){
     while(true){
         controlModel.processFSM();
     }
-    serialListenThread.join();
+    //serialListenThread.join();
     cout<<"error end!"<<endl;
-    getchar();//防止监听线程意外结束直接退出。
+    //getchar();//防止监听线程意外结束直接退出。
     return 0;
 }
 
