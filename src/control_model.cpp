@@ -47,8 +47,15 @@ void ControlModel::serialListenDataProcess(SerialPacket recvPacket) {
         //关机命令
         cout << "shutdown!!!!!!!!!!" << endl;
         system("shutdown -h now");
-    } else{
-
+    } else if(CMD_SERIAL_ABS_YUNTAI_DELTA==CMD){
+        Mat src;
+        UsbCaptureWithThread *cap = pRobotModel->getpUsbCapture();
+        if(cap->getImg(src)!=0) cout<<"src is error"<<endl;
+        SerialInterface *interface = pRobotModel->getpSerialInterface();
+        Point2f angle;
+        if(autoAim->aim(src, recvPacket.getFloatInBuffer(2), recvPacket.getFloatInBuffer(6), angle)==BaseAim::AIM_TARGET_FOUND){
+            interface->YunTaiDeltaSet(angle.x, angle.y);
+        }
     }
 }
 
@@ -58,7 +65,7 @@ void ControlModel::processFSM(){
         pRobotModel->setCurrentMode(mSetMode);
         switch (mSetMode){
             case ROBOT_MODE_AUTOAIM:{
-                autoAim->set_parameters(5,60,30,20);
+                autoAim->set_parameters(3,45,30,20);
                 autoAim->setEnemyColor(BaseAim::color_red);
                 break;
             }
@@ -69,12 +76,8 @@ void ControlModel::processFSM(){
     switch (pRobotModel->getCurrentMode()){
         case ROBOT_MODE_AUTOAIM:{
             //Mat src = imread("/home/wyx/图片/pic-final/my_photo-196.jpg");
-            Mat src;
-            UsbCaptureWithThread *cap = pRobotModel->getpUsbCapture();
-            if(cap->getImg(src)!=0) cout<<"src is error"<<endl;
-            Point2f point;
-            autoAim->aim(src, 0, 0, point);
-            cout<<point<<endl;
+            SerialInterface *interface = pRobotModel->getpSerialInterface();
+            interface->getAbsYunTaiDelta();
             break;
         }
         default:

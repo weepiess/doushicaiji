@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
-#include <numeric>
 
 AutoAim::AutoAim(){}
 
@@ -14,13 +13,13 @@ AutoAim::AutoAim(int width, int height, float dt_){
     dt=dt_;
 
     //初始化三维坐标点
-    pnpSolver.pushPoints3D(-70.5, -18, 10);
-    pnpSolver.pushPoints3D(70.5, -18, 10);
-    pnpSolver.pushPoints3D(70.5, 18, -10);
-    pnpSolver.pushPoints3D(-70.5, 18, -10);
+    pnpSolver.pushPoints3D(-72, -30, 0);
+    pnpSolver.pushPoints3D(72, -30, 0);
+    pnpSolver.pushPoints3D(72, 30, 0);
+    pnpSolver.pushPoints3D(-72, 30, 0);
     //初始化相机参数
     pnpSolver.setCameraMatrix(1020.80666, 0., 695.74256, 0.,1020.80666,388.82902, 0., 0., 1.);
-    pnpSolver.setDistortionCoef(0.0058917, 0.269857,0.0026559, 0.00903601,0.393959);
+    pnpSolver.setDistortionCoef(0.0058917, 0.269857, 0.0026559, 0.00903601,0.393959);
 
     kf.transitionMatrix=(Mat_<float>(6, 6) <<   
             1,0,dt,0,0,0,   
@@ -81,26 +80,35 @@ void AutoAim::set_parameters(int angle,int inside_angle, int height, int width){
 //图像预处理
 bool AutoAim::setImage(Mat &img){
     if(img.empty()) return false;
-    Mat channel[3];
+    Mat channel[3], Mask, diff;
+    int thresh = 40, substract_thresh = 100;
     resetROI();
     mask = img(rectROI);
-    GaussianBlur(mask, mask, Size(5,5), 0, 0);
     split(mask, channel);
+    Mask = channel[2];
+    diff = channel[2] - channel[1];
+    GaussianBlur(Mask, Mask, Size(5,5), 0);
+    threshold(Mask, Mask, thresh, 255, THRESH_BINARY);
+    threshold(diff, diff, substract_thresh, 255, THRESH_BINARY);
+    Mat element = getStructuringElement( MORPH_ELLIPSE, Size(1, 3));
+    for (int i = 0; i < 8; ++i){
+        dilate( diff, diff, element);
+    }   
+    bitwise_and(Mask, diff, mask);
+    
+    /*
     if(enemyColor == color_blue){
-        threshold(channel[0] - channel[2], mask, 10, 255, THRESH_BINARY);
+        threshold(channel[0] - channel[2], mask, 0, 255, THRESH_BINARY+THRESH_OTSU);
     } else if (enemyColor == color_red){
-        threshold(channel[2] - channel[0], mask, 0, 255, THRESH_BINARY+THRESH_OTSU);
+        threshold(channel[2] - channel[0], mask, 75, 255, THRESH_BINARY);
     } else {
         cout<<"enemyColor has an improper value, please check it again!!!";
         return false;
     }
-	Mat element = getStructuringElement(MORPH_ELLIPSE, Size(1,4));  
-	for(int i=0; i<2; i++){
-        dilate(mask,mask,element);
-    }
-    Canny(mask, mask, 3, 9, 3);
+    */
+    //Canny(mask, mask, 3, 9, 3);
     imshow("mask", mask);
-    return true;                            
+    return true;
 }
 
 //寻找灯管
@@ -154,35 +162,33 @@ void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector
             
             //灯条角度差超过设定角度忽略
             diff_angle = abs(theta_compare - theta_current);
-            cout<<"diff_angle"<<diff_angle<<endl;
+            //cout<<"diff_angle"<<diff_angle<<" "<<theta_compare<<" "<<theta_current<<endl;
             if(diff_angle > param_diff_angle) continue;
 
             //内角小于设定角度忽略
             if(abs(current.center.y - compare.center.y)==0) inside_angle=90;
             else inside_angle = atanf(abs(current.center.x-compare.center.x)/abs(current.center.y-compare.center.y))*180/CV_PI;
-            cout<<"inside"<<inside_angle<<endl;
+            //cout<<"inside"<<inside_angle<<endl;
             if(inside_angle<param_inside_angle) continue;
             
-            //两灯条高度差超过30个像素点忽略
-            diff_height = abs(compare.size.height - current.size.height);
-            cout<<"diffhight"<<diff_height<<endl;
-            if(diff_height>param_diff_height) continue;
+            //两灯条高度比例不在范围内则忽略，用比例代替高度差
+            if(compare.size.height/current.size.height > 1.5 || compare.size.height/current.size.height<0.7) continue;
 
             //两灯条宽度差超过20个像素点忽略
             diff_width=abs(compare.size.width - current.size.width);
-            cout<<"diffwidth"<<diff_width<<endl;
+            //cout<<"diffwidth"<<diff_width<<endl;
             if(diff_width>param_diff_width) continue;
 
             dist = ImageTool::calc2PointApproDistance(compare.center, current.center);
-            cout<<"dist"<<dist<<endl;
-            //灯条间距小于10个像素点忽略
-            if(dist<10) continue;
+            //cout<<"dist"<<dist<<endl;
+            //灯条间距小于20个像素点忽略
+            if(dist<20) continue;
             avg_height = (compare.size.height + current.size.height) / 2;
             ratio = dist / avg_height;
-            cout<<"ratio: "<<ratio<<endl;
-            if(ratio > 4 || ratio < 1) continue;
+            //cout<<"ratio: "<<ratio<<endl;
+            if(ratio > 3 || ratio < 1) continue;
             
-            totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height+1*dist;
+            totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height;
             if(totalDiff < currDiff){
                 currDiff = totalDiff;
                 currIndex = j;
@@ -200,7 +206,7 @@ void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector
     }
 
     for(i=0; i<size; i++){
-        cout<<best_match_index[i]<<endl;
+        //cout<<best_match_index[i]<<endl;
         int index = best_match_index[i];
         if(index == -1 || index <= i) continue;
         if(i == best_match_index[index]){
@@ -235,7 +241,8 @@ void AutoAim::select_armor(vector<RotatedRect> real_armor_lamps){
             swap(real_armor_lamps[lowerIndex],real_armor_lamps[lowerIndex+1]);//确保偶数为左灯条，奇数为右灯条
         }
         int height = (real_armor_lamps[lowerIndex].size.height + real_armor_lamps[lowerIndex+1].size.height)/2;
-        if(height > 10){//当灯条高度小于10个像素点时放弃锁定，重新寻找合适目标
+        //当灯条高度小于10个像素点时放弃锁定，重新寻找合适目标
+        if(height > 10){
             //cout<<rectROI.x<<" "<<rectROI.y<<endl;
             bestCenter.x = (real_armor_lamps[lowerIndex].center.x + real_armor_lamps[lowerIndex+1].center.x)/2 + rectROI.x;
             bestCenter.y = (real_armor_lamps[lowerIndex].center.y + real_armor_lamps[lowerIndex+1].center.y)/2 + rectROI.y;
@@ -269,7 +276,7 @@ BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2
     match_lamps(src, pre_armor_lamps, real_armor_lamps);
     select_armor(real_armor_lamps);
 
-    cout<<bestCenter.x<<endl;
+    //cout<<bestCenter.x<<endl;
     if(bestCenter.x != -1){
         circle(src, bestCenter, 20, Scalar(255,255,255), 5);
         rectangle(src, rectROI, Scalar(255,0,0), 2);
@@ -289,6 +296,7 @@ BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2
         pnpSolver.clearPoints2D();
         //pnpSolver.showParams();
         Point3d tvec = pnpSolver.getTvec();
+        cout<<tvec<<endl;
         if(isPredict){
             measurement.at<float>(0)= tvec.x;
             measurement.at<float>(1) = tvec.y;  
@@ -304,7 +312,7 @@ BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2
             float z = Predict.at<float>(2) + Predict.at<float>(5)*dt;
             pitYaw = calPitchAndYaw(x, y, z, currPitch, currYaw);
         }else{   
-            pitYaw = calPitchAndYaw(tvec.x, tvec.y, tvec.z, currPitch, currYaw);
+            pitYaw = calPitchAndYaw(tvec.x, tvec.y, tvec.z, tvec.z/17, -90, 170, currPitch, currYaw);
         }
         return AIM_TARGET_FOUND;
     }
