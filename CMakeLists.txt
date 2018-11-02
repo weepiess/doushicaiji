@@ -1,23 +1,33 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5)
 
-project(deepcam_test)
+project(enginenear)
 set(OpenCV_DIR /usr/local/share/openCV)
 set(CMAKE_CXX_STANDARD 11)
 
-link_directories(${CAMDRIVER_LIBRARY_DIRS})
-add_definitions(${CAMDRIVER_DEFINITIONS})
+include_directories(${PROJECT_SOURCE_DIR}/include)
+#include_directories(${PROJECT_SOURCE_DIR}/libBase/include)
+#include_directories(${PROJECT_SOURCE_DIR}/libHardWare/serialPort/include)
+#include_directories(${PROJECT_SOURCE_DIR}/libTools/include)
+#include_directories(${PROJECT_SOURCE_DIR}/deepcam/include)
+
+#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/libBase)
+#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/libHardWare)
+#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/libTools)
+#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/deepcam)
+
+
+AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src DIR_SRCS)
+
+add_executable(example ${DIR_SRCS})
+
+#target_link_libraries(example Base)
+#target_link_libraries(example SerialPort)
+#target_link_libraries(example pthread)
+#target_link_libraries(example Tools)
+#target_link_libraries(example deepcam)
+
 include_directories($ENV{OPENNI2_INCLUDE})
 link_directories($ENV{OPENNI2_REDIST})
-message($ENV{OPENNI2_INCLUDE})
-message($ENV{OPENNI2_REDIST})
-
-#find_package(PCL 1.8 REQUIRED)
-#include_directories(${PCL_INCLUDE_DIRS})
-#link_directories(${PCL_LIBRARY_DIRS})
-#add_definitions(${PCL_DEFINITIONS})
 
 find_package(OpenCV 3.4.3 REQUIRED)
-include_directories(${PROJECT_SOURCE_DIR}/include)
-AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src DIR_SRCS)
-add_executable (${PROJECT_NAME} ${DIR_SRCS})
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} libOpenNI2.so )
+target_link_libraries(example ${OpenCV_LIBS} libOpenNI2.so)
