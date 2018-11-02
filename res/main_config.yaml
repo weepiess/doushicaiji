@@ -4,4 +4,4 @@ robot_id: 1
 enemy_is_red : 0
 #dev path
 serial_path: "/dev/xRMRobotSP"
-capture_path : "/dev/"
+capture_path : "/dev/video0"

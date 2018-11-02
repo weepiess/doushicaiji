@@ -17,6 +17,7 @@
 #include "opencv2/opencv.hpp"
 #include "robot_model.h"
 #include "auto_aim.h"
+#include "mind_vision.h"
 
 class ControlModel{
 public:
@@ -32,12 +33,15 @@ public:
 private:
     //机器人临时模式变量
     RobotMode mSetMode;
-
-    AutoAim *autoAim;
 private:
     RobotModel* pRobotModel;
     //相关临时变量
     bool mEnemyIsRed;
+
+    AutoAim autoAim;
+
+    int hCamera;
+    MindVision mVision;
 };
 
 #endif //RMDEMO_CONTROL_MODEL_H

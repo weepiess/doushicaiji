@@ -67,12 +67,13 @@ CMakeFiles/example.dir/all: libBase/baseClasses/CMakeFiles/BaseClasses.dir/all
 CMakeFiles/example.dir/all: libBase/baseTools/CMakeFiles/BaseTools.dir/all
 CMakeFiles/example.dir/all: libHardWare/serialPort/CMakeFiles/SerialPort.dir/all
 CMakeFiles/example.dir/all: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/all
+CMakeFiles/example.dir/all: libHardWare/mindVision/CMakeFiles/MindVision.dir/all
 CMakeFiles/example.dir/all: libAim/CMakeFiles/BaseAim.dir/all
 CMakeFiles/example.dir/all: libAim/autoAim/CMakeFiles/AutoAim.dir/all
 CMakeFiles/example.dir/all: libAim/markAim/CMakeFiles/MarkAim.dir/all
 	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/depend
 	$(MAKE) -f CMakeFiles/example.dir/build.make CMakeFiles/example.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=23,24,25,26,27 "Built target example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=25,26,27,28,29 "Built target example"
 .PHONY : CMakeFiles/example.dir/all
 
 # Include target in all.
@@ -82,7 +83,7 @@ all: CMakeFiles/example.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 27
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 29
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/example.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : CMakeFiles/example.dir/rule
@@ -239,18 +240,21 @@ clean: libBase/baseTools/CMakeFiles/BaseTools.dir/clean
 # Convenience name for "all" pass in the directory.
 libHardWare/all: libHardWare/serialPort/all
 libHardWare/all: libHardWare/usbCapture/all
+libHardWare/all: libHardWare/mindVision/all
 
 .PHONY : libHardWare/all
 
 # Convenience name for "clean" pass in the directory.
 libHardWare/clean: libHardWare/serialPort/clean
 libHardWare/clean: libHardWare/usbCapture/clean
+libHardWare/clean: libHardWare/mindVision/clean
 
 .PHONY : libHardWare/clean
 
 # Convenience name for "preinstall" pass in the directory.
 libHardWare/preinstall: libHardWare/serialPort/preinstall
 libHardWare/preinstall: libHardWare/usbCapture/preinstall
+libHardWare/preinstall: libHardWare/mindVision/preinstall
 
 .PHONY : libHardWare/preinstall
 
@@ -279,7 +283,7 @@ libHardWare/serialPort/preinstall:
 libHardWare/serialPort/CMakeFiles/SerialPort.dir/all:
 	$(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/depend
 	$(MAKE) -f libHardWare/serialPort/CMakeFiles/SerialPort.dir/build.make libHardWare/serialPort/CMakeFiles/SerialPort.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=14,15,16,17,18 "Built target SerialPort"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=16,17,18,19,20 "Built target SerialPort"
 .PHONY : libHardWare/serialPort/CMakeFiles/SerialPort.dir/all
 
 # Include target in all.
@@ -334,7 +338,7 @@ libHardWare/usbCapture/preinstall:
 libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/all: libBase/baseClasses/CMakeFiles/BaseClasses.dir/all
 	$(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/depend
 	$(MAKE) -f libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build.make libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=19,20,21,22 "Built target UsbCapture"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=21,22,23,24 "Built target UsbCapture"
 .PHONY : libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/all
 
 # Include target in all.
@@ -361,6 +365,61 @@ libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/clean:
 
 # clean rule for target.
 clean: libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory libHardWare/mindVision
+
+# Convenience name for "all" pass in the directory.
+libHardWare/mindVision/all: libHardWare/mindVision/CMakeFiles/MindVision.dir/all
+
+.PHONY : libHardWare/mindVision/all
+
+# Convenience name for "clean" pass in the directory.
+libHardWare/mindVision/clean: libHardWare/mindVision/CMakeFiles/MindVision.dir/clean
+
+.PHONY : libHardWare/mindVision/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libHardWare/mindVision/preinstall:
+
+.PHONY : libHardWare/mindVision/preinstall
+
+#=============================================================================
+# Target rules for target libHardWare/mindVision/CMakeFiles/MindVision.dir
+
+# All Build rule for target.
+libHardWare/mindVision/CMakeFiles/MindVision.dir/all:
+	$(MAKE) -f libHardWare/mindVision/CMakeFiles/MindVision.dir/build.make libHardWare/mindVision/CMakeFiles/MindVision.dir/depend
+	$(MAKE) -f libHardWare/mindVision/CMakeFiles/MindVision.dir/build.make libHardWare/mindVision/CMakeFiles/MindVision.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=14,15 "Built target MindVision"
+.PHONY : libHardWare/mindVision/CMakeFiles/MindVision.dir/all
+
+# Include target in all.
+all: libHardWare/mindVision/CMakeFiles/MindVision.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+libHardWare/mindVision/CMakeFiles/MindVision.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 libHardWare/mindVision/CMakeFiles/MindVision.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
+.PHONY : libHardWare/mindVision/CMakeFiles/MindVision.dir/rule
+
+# Convenience name for target.
+MindVision: libHardWare/mindVision/CMakeFiles/MindVision.dir/rule
+
+.PHONY : MindVision
+
+# clean rule for target.
+libHardWare/mindVision/CMakeFiles/MindVision.dir/clean:
+	$(MAKE) -f libHardWare/mindVision/CMakeFiles/MindVision.dir/build.make libHardWare/mindVision/CMakeFiles/MindVision.dir/clean
+.PHONY : libHardWare/mindVision/CMakeFiles/MindVision.dir/clean
+
+# clean rule for target.
+clean: libHardWare/mindVision/CMakeFiles/MindVision.dir/clean
 
 .PHONY : clean
 
@@ -446,7 +505,7 @@ libAim/autoAim/preinstall:
 # Target rules for target libAim/autoAim/CMakeFiles/AutoAim.dir
 
 # All Build rule for target.
-libAim/autoAim/CMakeFiles/AutoAim.dir/all: libAim/CMakeFiles/BaseAim.dir/all
+libAim/autoAim/CMakeFiles/AutoAim.dir/all:
 	$(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/depend
 	$(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=1,2,3 "Built target AutoAim"
@@ -459,7 +518,7 @@ all: libAim/autoAim/CMakeFiles/AutoAim.dir/all
 
 # Build rule for subdir invocation for target.
 libAim/autoAim/CMakeFiles/AutoAim.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 libAim/autoAim/CMakeFiles/AutoAim.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/程序/wyx/doushicaiji/build/CMakeFiles 0
 .PHONY : libAim/autoAim/CMakeFiles/AutoAim.dir/rule

@@ -13,13 +13,13 @@ using namespace std;
 class AutoAim: public BaseAim{
 public:
     AutoAim();
-    AutoAim(int width, int height, float dt_);
     ~AutoAim();
 
 public:
     //aim()的形式不固定，但是返回值必须是AimResult类型
-    AimResult aim(Mat &src, float currPitch, float currYaw, Point2f &pitYaw);
+    AimResult aim(Mat &src, Point2f &pitYaw);
     void set_parameters(int angle,int inside_angle, int height, int width);
+    void init(int width, int height, float dt_);
 
 private:
     bool setImage(Mat &src);

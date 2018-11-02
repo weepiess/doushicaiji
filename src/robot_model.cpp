@@ -40,7 +40,8 @@ int RobotModel::init(){
     } else{
         cout<<"[robot model init ]: RobotSerialInterface init failed!"<<endl;
     }
-     //初始化摄像头
+    //初始化摄像头
+    /*
     if(mUsbCapture.init(videoPath,1280,720)==0){
         cout << "[robot model init ]:UsbCapture init successed!" <<endl;
         usleep(1000000);//等待1s
@@ -48,6 +49,7 @@ int RobotModel::init(){
     }else{
         cout << "[robot model init ]:UsbCapture init failed!" <<endl;
     }
+    */
     mCurrentMode=ROBOT_MODE_MARKAIM;
 
 }

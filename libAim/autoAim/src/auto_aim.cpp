@@ -3,13 +3,16 @@
 #include <iostream>
 #include <algorithm>
 
-AutoAim::AutoAim(){}
-
-AutoAim::AutoAim(int width, int height, float dt_){
-    IMG_WIDTH = width;
-    IMG_HEIGHT = height;
+AutoAim::AutoAim(){
     resetROI();
     resizeCount = 0;
+}
+
+AutoAim::~AutoAim(){}
+
+void AutoAim::init(int width, int height, float dt_){
+    IMG_WIDTH = width;
+    IMG_HEIGHT = height;
     dt=dt_;
 
     //初始化三维坐标点
@@ -47,9 +50,6 @@ AutoAim::AutoAim(int width, int height, float dt_){
     kf.init(6,20000,0);
 }
 
-
-AutoAim::~AutoAim(){}
-
 Point2d cal_x_y(RotatedRect &rect, int is_up){
     float angle = (90-rect.angle)*CV_PI/180;
     Point2d point;
@@ -82,31 +82,30 @@ bool AutoAim::setImage(Mat &img){
     if(img.empty()) return false;
     Mat channel[3], Mask, diff;
     int thresh = 40, substract_thresh = 100;
+
     resetROI();
     mask = img(rectROI);
     split(mask, channel);
-    Mask = channel[2];
-    diff = channel[2] - channel[1];
-    GaussianBlur(Mask, Mask, Size(5,5), 0);
-    threshold(Mask, Mask, thresh, 255, THRESH_BINARY);
-    threshold(diff, diff, substract_thresh, 255, THRESH_BINARY);
-    Mat element = getStructuringElement( MORPH_ELLIPSE, Size(1, 3));
-    for (int i = 0; i < 8; ++i){
-        dilate( diff, diff, element);
-    }   
-    bitwise_and(Mask, diff, mask);
-    
-    /*
     if(enemyColor == color_blue){
-        threshold(channel[0] - channel[2], mask, 0, 255, THRESH_BINARY+THRESH_OTSU);
+        diff = channel[0] - channel[2];
+        Mask = channel[0];
     } else if (enemyColor == color_red){
-        threshold(channel[2] - channel[0], mask, 75, 255, THRESH_BINARY);
+        diff = channel[2] - channel[0];
+        Mask = channel[2];
     } else {
         cout<<"enemyColor has an improper value, please check it again!!!";
         return false;
     }
-    */
-    //Canny(mask, mask, 3, 9, 3);
+
+    GaussianBlur(Mask, Mask, Size(5,5), 0);
+    threshold(Mask, Mask, thresh, 255, THRESH_BINARY);
+    threshold(diff, diff, substract_thresh, 255, THRESH_BINARY);
+
+    Mat element = getStructuringElement(MORPH_ELLIPSE, Size(1, 3));
+    for (int i = 0; i < 8; ++i){
+        dilate( diff, diff, element);
+    }   
+    bitwise_and(Mask, diff, mask);
     imshow("mask", mask);
     return true;
 }
@@ -264,7 +263,7 @@ void AutoAim::select_armor(vector<RotatedRect> real_armor_lamps){
     }
 }
 
-BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2f &pitYaw){
+AimResult AutoAim::aim(Mat &src, Point2f &pitYaw){
     if(!setImage(src))
         return AIM_IMAGE_ERROR;
 
@@ -276,18 +275,15 @@ BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2
     match_lamps(src, pre_armor_lamps, real_armor_lamps);
     select_armor(real_armor_lamps);
 
-    //cout<<bestCenter.x<<endl;
     if(bestCenter.x != -1){
         circle(src, bestCenter, 20, Scalar(255,255,255), 5);
         rectangle(src, rectROI, Scalar(255,0,0), 2);
+        //cout<<"bestCenter: !!!!!!!!!!!"<<bestCenter.x<<" "<<bestCenter.y<<endl;
     }
     imshow("src", src);
     waitKey(1);
     
     if(bestCenter.x!=-1){
-        //circle(src, Point(xc1,yc1), 20, Scalar(255,255,0), 2);
-        //circle(src, Point(xc2,yc2), 20, Scalar(255,255,0), 2);
- 
         pnpSolver.pushPoints2D(cal_x_y(best_lamps[0],1));//P1
         pnpSolver.pushPoints2D(cal_x_y(best_lamps[1],1));//P3
         pnpSolver.pushPoints2D(cal_x_y(best_lamps[1],0));//P2
@@ -296,7 +292,7 @@ BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2
         pnpSolver.clearPoints2D();
         //pnpSolver.showParams();
         Point3d tvec = pnpSolver.getTvec();
-        cout<<tvec<<endl;
+        //cout<<tvec<<endl;
         if(isPredict){
             measurement.at<float>(0)= tvec.x;
             measurement.at<float>(1) = tvec.y;  
@@ -310,9 +306,9 @@ BaseAim::AimResult AutoAim::aim(Mat &src, float currPitch, float currYaw, Point2
             float x = Predict.at<float>(0) + Predict.at<float>(3)*dt;
             float y = Predict.at<float>(1) + Predict.at<float>(4)*dt;
             float z = Predict.at<float>(2) + Predict.at<float>(5)*dt;
-            pitYaw = calPitchAndYaw(x, y, z, currPitch, currYaw);
+            pitYaw = calPitchAndYaw(x, y, z);
         }else{   
-            pitYaw = calPitchAndYaw(tvec.x, tvec.y, tvec.z, tvec.z/17, -90, 170, currPitch, currYaw);
+            pitYaw = calPitchAndYaw(tvec.x, tvec.y, tvec.z, tvec.z/17, -90, 170);
         }
         return AIM_TARGET_FOUND;
     }

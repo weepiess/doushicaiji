@@ -170,6 +170,8 @@ example: CMakeFiles/example.dir/src/serial_listen_thread.cpp.o
 example: CMakeFiles/example.dir/build.make
 example: libHardWare/serialPort/libSerialPort.a
 example: libHardWare/usbCapture/libUsbCapture.a
+example: libHardWare/mindVision/libMindVision.a
+example: libAim/libBaseAim.a
 example: libAim/autoAim/libAutoAim.a
 example: libAim/markAim/libMarkAim.a
 example: libBase/baseClasses/libBaseClasses.a
@@ -183,7 +185,6 @@ example: /usr/local/lib/libopencv_dnn.so.3.4.3
 example: /usr/local/lib/libopencv_ml.so.3.4.3
 example: /usr/local/lib/libopencv_calib3d.so.3.4.3
 example: /usr/local/lib/libopencv_superres.so.3.4.3
-example: libAim/libBaseAim.a
 example: /usr/local/lib/libopencv_features2d.so.3.4.3
 example: /usr/local/lib/libopencv_flann.so.3.4.3
 example: /usr/local/lib/libopencv_highgui.so.3.4.3

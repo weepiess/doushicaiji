@@ -11,6 +11,10 @@ CMakeFiles/example.dir/src/control_model.cpp.o
  ../libBase/baseTools/include/basic_tool.h
  ../libBase/baseTools/include/image_tool.h
  ../libBase/baseTools/include/pnp_solver.h
+ ../libHardWare/mindVision/include/CameraApi.h
+ ../libHardWare/mindVision/include/CameraDefine.h
+ ../libHardWare/mindVision/include/CameraStatus.h
+ ../libHardWare/mindVision/include/mind_vision.h
  ../libHardWare/serialPort/include/serial_interface.h
  ../libHardWare/serialPort/include/serial_packet.h
  ../libHardWare/serialPort/include/serial_port.h
@@ -26,6 +30,7 @@ CMakeFiles/example.dir/src/control_model.cpp.o
  /usr/local/include/opencv2/core/base.hpp
  /usr/local/include/opencv2/core/bufferpool.hpp
  /usr/local/include/opencv2/core/check.hpp
+ /usr/local/include/opencv2/core/core.hpp
  /usr/local/include/opencv2/core/core_c.h
  /usr/local/include/opencv2/core/cuda.hpp
  /usr/local/include/opencv2/core/cuda.inl.hpp
@@ -92,6 +97,7 @@ CMakeFiles/example.dir/src/control_model.cpp.o
  /usr/local/include/opencv2/flann/saving.h
  /usr/local/include/opencv2/flann/timer.h
  /usr/local/include/opencv2/highgui.hpp
+ /usr/local/include/opencv2/highgui/highgui.hpp
  /usr/local/include/opencv2/highgui/highgui_c.h
  /usr/local/include/opencv2/imgcodecs.hpp
  /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h
@@ -157,6 +163,10 @@ CMakeFiles/example.dir/src/main.cpp.o
  ../libBase/baseClasses/include/base_thread.h
  ../libBase/baseTools/include/image_tool.h
  ../libBase/baseTools/include/pnp_solver.h
+ ../libHardWare/mindVision/include/CameraApi.h
+ ../libHardWare/mindVision/include/CameraDefine.h
+ ../libHardWare/mindVision/include/CameraStatus.h
+ ../libHardWare/mindVision/include/mind_vision.h
  ../libHardWare/serialPort/include/serial_interface.h
  ../libHardWare/serialPort/include/serial_packet.h
  ../libHardWare/serialPort/include/serial_port.h
@@ -172,6 +182,7 @@ CMakeFiles/example.dir/src/main.cpp.o
  /usr/local/include/opencv2/core/base.hpp
  /usr/local/include/opencv2/core/bufferpool.hpp
  /usr/local/include/opencv2/core/check.hpp
+ /usr/local/include/opencv2/core/core.hpp
  /usr/local/include/opencv2/core/core_c.h
  /usr/local/include/opencv2/core/cuda.hpp
  /usr/local/include/opencv2/core/cuda.inl.hpp
@@ -238,6 +249,7 @@ CMakeFiles/example.dir/src/main.cpp.o
  /usr/local/include/opencv2/flann/saving.h
  /usr/local/include/opencv2/flann/timer.h
  /usr/local/include/opencv2/highgui.hpp
+ /usr/local/include/opencv2/highgui/highgui.hpp
  /usr/local/include/opencv2/highgui/highgui_c.h
  /usr/local/include/opencv2/imgcodecs.hpp
  /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h
@@ -441,6 +453,10 @@ CMakeFiles/example.dir/src/serial_listen_thread.cpp.o
  ../libBase/baseClasses/include/base_thread.h
  ../libBase/baseTools/include/image_tool.h
  ../libBase/baseTools/include/pnp_solver.h
+ ../libHardWare/mindVision/include/CameraApi.h
+ ../libHardWare/mindVision/include/CameraDefine.h
+ ../libHardWare/mindVision/include/CameraStatus.h
+ ../libHardWare/mindVision/include/mind_vision.h
  ../libHardWare/serialPort/include/serial_interface.h
  ../libHardWare/serialPort/include/serial_packet.h
  ../libHardWare/serialPort/include/serial_port.h
@@ -455,6 +471,7 @@ CMakeFiles/example.dir/src/serial_listen_thread.cpp.o
  /usr/local/include/opencv2/core/base.hpp
  /usr/local/include/opencv2/core/bufferpool.hpp
  /usr/local/include/opencv2/core/check.hpp
+ /usr/local/include/opencv2/core/core.hpp
  /usr/local/include/opencv2/core/core_c.h
  /usr/local/include/opencv2/core/cuda.hpp
  /usr/local/include/opencv2/core/cuda.inl.hpp
@@ -521,6 +538,7 @@ CMakeFiles/example.dir/src/serial_listen_thread.cpp.o
  /usr/local/include/opencv2/flann/saving.h
  /usr/local/include/opencv2/flann/timer.h
  /usr/local/include/opencv2/highgui.hpp
+ /usr/local/include/opencv2/highgui/highgui.hpp
  /usr/local/include/opencv2/highgui/highgui_c.h
  /usr/local/include/opencv2/imgcodecs.hpp
  /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h

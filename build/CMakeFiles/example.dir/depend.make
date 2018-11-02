@@ -10,6 +10,10 @@ CMakeFiles/example.dir/src/control_model.cpp.o: ../libBase/baseClasses/include/b
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libBase/baseTools/include/basic_tool.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libBase/baseTools/include/image_tool.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libBase/baseTools/include/pnp_solver.h
+CMakeFiles/example.dir/src/control_model.cpp.o: ../libHardWare/mindVision/include/CameraApi.h
+CMakeFiles/example.dir/src/control_model.cpp.o: ../libHardWare/mindVision/include/CameraDefine.h
+CMakeFiles/example.dir/src/control_model.cpp.o: ../libHardWare/mindVision/include/CameraStatus.h
+CMakeFiles/example.dir/src/control_model.cpp.o: ../libHardWare/mindVision/include/mind_vision.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libHardWare/serialPort/include/serial_interface.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libHardWare/serialPort/include/serial_packet.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libHardWare/serialPort/include/serial_port.h
@@ -25,6 +29,7 @@ CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/check.hpp
+CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/core.hpp
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/core_c.h
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
@@ -91,6 +96,7 @@ CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/flann
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/flann/saving.h
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/flann/timer.h
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/highgui.hpp
+CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/highgui/highgui.hpp
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/highgui/highgui_c.h
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/imgcodecs.hpp
 CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h
@@ -156,6 +162,10 @@ CMakeFiles/example.dir/src/main.cpp.o: ../libAim/include/base_aim.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libBase/baseClasses/include/base_thread.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libBase/baseTools/include/image_tool.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libBase/baseTools/include/pnp_solver.h
+CMakeFiles/example.dir/src/main.cpp.o: ../libHardWare/mindVision/include/CameraApi.h
+CMakeFiles/example.dir/src/main.cpp.o: ../libHardWare/mindVision/include/CameraDefine.h
+CMakeFiles/example.dir/src/main.cpp.o: ../libHardWare/mindVision/include/CameraStatus.h
+CMakeFiles/example.dir/src/main.cpp.o: ../libHardWare/mindVision/include/mind_vision.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libHardWare/serialPort/include/serial_interface.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libHardWare/serialPort/include/serial_packet.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libHardWare/serialPort/include/serial_port.h
@@ -171,6 +181,7 @@ CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/affine.hp
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/check.hpp
+CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/core.hpp
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/core_c.h
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
@@ -237,6 +248,7 @@ CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/flann/sampling
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/flann/saving.h
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/flann/timer.h
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/highgui.hpp
+CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/highgui/highgui.hpp
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/highgui/highgui_c.h
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/imgcodecs.hpp
 CMakeFiles/example.dir/src/main.cpp.o: /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h
@@ -440,6 +452,10 @@ CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libAim/include/base_ai
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libBase/baseClasses/include/base_thread.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libBase/baseTools/include/image_tool.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libBase/baseTools/include/pnp_solver.h
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libHardWare/mindVision/include/CameraApi.h
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libHardWare/mindVision/include/CameraDefine.h
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libHardWare/mindVision/include/CameraStatus.h
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libHardWare/mindVision/include/mind_vision.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libHardWare/serialPort/include/serial_interface.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libHardWare/serialPort/include/serial_packet.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libHardWare/serialPort/include/serial_port.h
@@ -454,6 +470,7 @@ CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/core/check.hpp
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/core/core.hpp
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/core/core_c.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
@@ -520,6 +537,7 @@ CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/flann/saving.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/flann/timer.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/highgui.hpp
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/highgui/highgui.hpp
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/highgui/highgui_c.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/imgcodecs.hpp
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h

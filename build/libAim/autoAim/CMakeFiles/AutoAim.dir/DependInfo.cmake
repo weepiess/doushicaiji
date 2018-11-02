@@ -14,6 +14,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "../libHardWare/serialPort/include"
   "../libHardWare/usbCapture/include"
+  "../libHardWare/mindVision/include"
   "../libAim/include"
   "../libAim/autoAim/include"
   "../libAim/markAim/include"
@@ -24,7 +25,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/BaseAim.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

@@ -176,6 +176,19 @@ UsbCapture/fast:
 .PHONY : UsbCapture/fast
 
 #=============================================================================
+# Target rules for targets named MindVision
+
+# Build rule for target.
+MindVision: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MindVision
+.PHONY : MindVision
+
+# fast build rule for target.
+MindVision/fast:
+	$(MAKE) -f libHardWare/mindVision/CMakeFiles/MindVision.dir/build.make libHardWare/mindVision/CMakeFiles/MindVision.dir/build
+.PHONY : MindVision/fast
+
+#=============================================================================
 # Target rules for targets named BaseAim
 
 # Build rule for target.
@@ -335,6 +348,7 @@ help:
 	@echo "... BaseTools"
 	@echo "... SerialPort"
 	@echo "... UsbCapture"
+	@echo "... MindVision"
 	@echo "... BaseAim"
 	@echo "... AutoAim"
 	@echo "... MarkAim"

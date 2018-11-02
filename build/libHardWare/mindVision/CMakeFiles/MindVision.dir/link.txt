@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMindVision.a  CMakeFiles/MindVision.dir/src/mind_vision.cpp.o
+/usr/bin/ranlib libMindVision.a

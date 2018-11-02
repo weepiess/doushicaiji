@@ -20,17 +20,17 @@
 using namespace cv;
 using namespace std;
 
+//aim()返回的结果标志位
+typedef enum: unsigned char{
+    AIM_TARGET_FOUND,
+    AIM_TARGET_NOT_FOUND,
+    AIM_IMAGE_ERROR
+}AimResult;
+
 //该类作为所有瞄准的父类，不能被实例化，只能继承
 class BaseAim{
 
 public:
-    //aim()返回的结果标志位
-    typedef enum: unsigned char{
-        AIM_TARGET_FOUND,
-        AIM_TARGET_NOT_FOUND,
-        AIM_IMAGE_ERROR
-    }AimResult;
-
     /** 设置屏幕的宽高
      * @param: winSize, 新屏幕宽高
      */
@@ -52,6 +52,12 @@ public:
      */
     void setTimeDelay(double timeDelay);
 
+    /** 更新当前的pitch和yaw轴
+     * @param: pitch, 当前最新的pitch轴信息
+     * @param: yaw, 当前最新的yaw轴信息
+     */
+    void setPitchAndYaw(float pitch, float yaw);
+
 public:
     //敌方颜色，调用时只能使用变量名，不能直接使用0或１
     const static int color_red = 0;
@@ -66,8 +72,7 @@ protected:
      * @param: flags, 使用的解算方法
      * @return: Point2f，计算出来的转移角度
      */
-    Point2f calPitchAndYaw(float x_offset, float y_offset, float z_offset, float currPitch, float currYaw, 
-                            bool useExtrinsicGuess = false, int flags = SOLVEPNP_ITERATIVE);
+    Point2f calPitchAndYaw(float x_offset, float y_offset, float z_offset, bool useExtrinsicGuess = false, int flags = SOLVEPNP_ITERATIVE);
 
     /** 该函数与上面的区别是内部没有封装pnp解算的步骤，传入的值是tvec的偏移量和手动调整的参数offset
      * 调用该函数前需要调用pnpSolver.getTvec()获取tvec矩阵，然后传入相应的值就可获取偏移角度
@@ -77,20 +82,20 @@ protected:
      * @param: currYaw，当前yaw角度
      * @return: Point2f，计算出来的转移角度 
      */
-    Point2f calPitchAndYaw(float x, float y, float z, float x_offset, float y_offset, float z_offset, float currPitch, float currYaw);
+    Point2f calPitchAndYaw(float x, float y, float z, float x_offset, float y_offset, float z_offset);
 
     /** 纠正矩形拟合后矩形的宽不一定比长短的情况
      * @param: rect, 需要进行变换的旋转矩形，一般为矩形拟合后调用
      * @return: RotatedRect, 变换后的旋转矩形，长一定比宽长
      */
-    RotatedRect adjustRRect(const RotatedRect & rect);
+    cv::RotatedRect adjustRRect(const cv::RotatedRect & rect);
 
     /** 两个旋转矩形顶点依次相连构成四边形
      * @param: left, 左边的旋转矩形
      * @param: right, 右边的旋转矩形
      * @return: RotatedRect, 以两个矩形为对边的旋转矩形
      */
-    RotatedRect boundingRRect(const RotatedRect &left, const RotatedRect &right);
+    cv::RotatedRect boundingRRect(const cv::RotatedRect &left, const cv::RotatedRect &right);
 
     /** 调整rect的大小，使得在接触边界时能够自动贴边
      * @param: rect, 需要调整的rect
@@ -116,6 +121,10 @@ protected:
 
     //用在预测过程中，用于通过时延计算下一帧预测位置
     double timeDelay = 0;
+
+    //当前的pitch和yaw轴
+    float currPitch = 180;
+    float currYaw = 180;
 
     //图像的宽高
     int IMG_WIDTH;

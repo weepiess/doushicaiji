@@ -69,7 +69,7 @@ void SerialPortDebug::testSerialPort() {
 
 void SerialPortDebug::testSerialPortListenPrint(SerialPacket recvPacket) {
     unsigned CMD=recvPacket.getCMD();
-    if(CMD==CMD_SERIAL_DATA_UPDATE){
+    if(CMD==CMD_SERIAL_ABS_YUNTAI_DELTA){
         float pitch=recvPacket.getFloatInBuffer(2);
         float yaw=recvPacket.getFloatInBuffer(6);
         short int location = recvPacket.getShortIntInBuffer(10);

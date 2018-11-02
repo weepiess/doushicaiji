@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libHardWare/mindVision/include/CameraApi.h
+CameraDefine.h
+../libHardWare/mindVision/include/CameraDefine.h
+CameraStatus.h
+../libHardWare/mindVision/include/CameraStatus.h
+
+../libHardWare/mindVision/include/CameraDefine.h
+CameraStatus.h
+../libHardWare/mindVision/include/CameraStatus.h
+
+../libHardWare/mindVision/include/CameraStatus.h
+
+../libHardWare/mindVision/include/mind_vision.h
+CameraApi.h
+../libHardWare/mindVision/include/CameraApi.h
+opencv2/core/core.hpp
+../libHardWare/mindVision/include/opencv2/core/core.hpp
+opencv2/highgui/highgui.hpp
+../libHardWare/mindVision/include/opencv2/highgui/highgui.hpp
+stdio.h
+-
+iostream
+-
+
+/home/wyx/程序/wyx/doushicaiji/libHardWare/mindVision/src/mind_vision.cpp
+mind_vision.h
+/home/wyx/程序/wyx/doushicaiji/libHardWare/mindVision/src/mind_vision.h
+

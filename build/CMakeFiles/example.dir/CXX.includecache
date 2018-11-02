@@ -13,6 +13,8 @@ robot_model.h
 ../include/robot_model.h
 auto_aim.h
 ../include/auto_aim.h
+mind_vision.h
+../include/mind_vision.h
 
 ../include/robot_model.h
 serial_port.h
@@ -78,6 +80,30 @@ time.h
 
 ../libBase/baseTools/include/pnp_solver.h
 opencv2/opencv.hpp
+-
+iostream
+-
+
+../libHardWare/mindVision/include/CameraApi.h
+CameraDefine.h
+../libHardWare/mindVision/include/CameraDefine.h
+CameraStatus.h
+../libHardWare/mindVision/include/CameraStatus.h
+
+../libHardWare/mindVision/include/CameraDefine.h
+CameraStatus.h
+../libHardWare/mindVision/include/CameraStatus.h
+
+../libHardWare/mindVision/include/CameraStatus.h
+
+../libHardWare/mindVision/include/mind_vision.h
+CameraApi.h
+../libHardWare/mindVision/include/CameraApi.h
+opencv2/core/core.hpp
+../libHardWare/mindVision/include/opencv2/core/core.hpp
+opencv2/highgui/highgui.hpp
+../libHardWare/mindVision/include/opencv2/highgui/highgui.hpp
+stdio.h
 -
 iostream
 -
@@ -241,6 +267,10 @@ opencv2/core/check.hpp
 /usr/local/include/opencv2/core/check.hpp
 opencv2/core/base.hpp
 -
+
+/usr/local/include/opencv2/core/core.hpp
+opencv2/core.hpp
+/usr/local/include/opencv2/core/opencv2/core.hpp
 
 /usr/local/include/opencv2/core/core_c.h
 opencv2/core/types_c.h
@@ -993,6 +1023,10 @@ opencv2/videoio.hpp
 /usr/local/include/opencv2/opencv2/videoio.hpp
 opencv2/highgui/highgui_c.h
 /usr/local/include/opencv2/opencv2/highgui/highgui_c.h
+
+/usr/local/include/opencv2/highgui/highgui.hpp
+opencv2/highgui.hpp
+/usr/local/include/opencv2/highgui/opencv2/highgui.hpp
 
 /usr/local/include/opencv2/highgui/highgui_c.h
 opencv2/core/core_c.h

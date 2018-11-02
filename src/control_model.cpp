@@ -23,7 +23,9 @@ ControlModel::~ControlModel(){}
 
 void ControlModel::init(RobotModel* robotModel){
     pRobotModel=robotModel;
-    autoAim = new AutoAim(1280, 720, 1/50);
+    autoAim.init(1280, 720, 1/50);
+    hCamera = mVision.init();
+    mVision.startPlay(hCamera);
     //配置文件
     cv::FileStorage f("../res/main_config.yaml", cv::FileStorage::READ);
     f["enemy_is_red"] >> mEnemyIsRed;//自瞄敌方颜色
@@ -40,22 +42,14 @@ void ControlModel::serialListenDataProcess(SerialPacket recvPacket) {
     //SerialPortDebug::testSerialPortListenPrint(recvPacket);
     unsigned char CMD= recvPacket.getCMD();
    // cout<<"CMD:"<<(int)CMD<<edl;
-    if(CMD_SERIAL_DATA_UPDATE==CMD){
+    if(CMD_SERIAL_ABS_YUNTAI_DELTA==CMD){
         //底层数据更新,pitch/yaw
          pRobotModel->mcuDataUpdate(recvPacket.getFloatInBuffer(2),recvPacket.getFloatInBuffer(6));
+         autoAim.setPitchAndYaw(recvPacket.getFloatInBuffer(2), recvPacket.getFloatInBuffer(6));
     } else if(CMD_SERIAL_MINIPC_SHUTDOWN==CMD){
         //关机命令
         cout << "shutdown!!!!!!!!!!" << endl;
         system("shutdown -h now");
-    } else if(CMD_SERIAL_ABS_YUNTAI_DELTA==CMD){
-        Mat src;
-        UsbCaptureWithThread *cap = pRobotModel->getpUsbCapture();
-        if(cap->getImg(src)!=0) cout<<"src is error"<<endl;
-        SerialInterface *interface = pRobotModel->getpSerialInterface();
-        Point2f angle;
-        if(autoAim->aim(src, recvPacket.getFloatInBuffer(2), recvPacket.getFloatInBuffer(6), angle)==BaseAim::AIM_TARGET_FOUND){
-            interface->YunTaiDeltaSet(angle.x, angle.y);
-        }
     }
 }
 
@@ -65,8 +59,8 @@ void ControlModel::processFSM(){
         pRobotModel->setCurrentMode(mSetMode);
         switch (mSetMode){
             case ROBOT_MODE_AUTOAIM:{
-                autoAim->set_parameters(3,45,30,20);
-                autoAim->setEnemyColor(BaseAim::color_red);
+                autoAim.set_parameters(3,45,30,20);
+                autoAim.setEnemyColor(BaseAim::color_red);
                 break;
             }
         }
@@ -75,9 +69,13 @@ void ControlModel::processFSM(){
     //模式运行
     switch (pRobotModel->getCurrentMode()){
         case ROBOT_MODE_AUTOAIM:{
-            //Mat src = imread("/home/wyx/图片/pic-final/my_photo-196.jpg");
-            SerialInterface *interface = pRobotModel->getpSerialInterface();
-            interface->getAbsYunTaiDelta();
+            autoAim.setPitchAndYaw(0, 0);
+            cv::Mat src;
+            if(mVision.getImg(src)!=0) break;
+            Point2f angle;
+            //报错invalid use of non-static member function，应该是在函数中不能去调用其他指针的函数
+            //AimResult result = autoAim.aim(src, pRobotModel->getCurrentPitch, pRobotModel->getCurrentYaw, py);
+            autoAim.aim(src, angle);
             break;
         }
         default:

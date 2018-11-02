@@ -17,6 +17,9 @@
 /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/rebuild_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/edit_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libHardWare/usbCapture/CMakeFiles/UsbCapture.dir
+/home/wyx/程序/wyx/doushicaiji/build/libHardWare/mindVision/CMakeFiles/edit_cache.dir
+/home/wyx/程序/wyx/doushicaiji/build/libHardWare/mindVision/CMakeFiles/rebuild_cache.dir
+/home/wyx/程序/wyx/doushicaiji/build/libHardWare/mindVision/CMakeFiles/MindVision.dir
 /home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/edit_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/rebuild_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/BaseAim.dir
