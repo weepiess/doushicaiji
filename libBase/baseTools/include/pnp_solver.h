@@ -27,7 +27,7 @@ public:
     //设置相机参数矩阵
     void setCameraMatrix(float a, float b, float c, float d, float e, float f, float g, float h, float i);
     //设置相机畸变矩阵
-    void setDistortionCoef(float a, float b, float c, float d, float e);
+    void setDistortionCoef(float a, float b, float c, float d);
 
     //压入三维世界坐标点
     void pushPoints3D(double x, double y, double z);

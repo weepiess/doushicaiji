@@ -11,8 +11,6 @@ opencv2/opencv.hpp
 -
 base_aim.h
 ../libAim/autoAim/include/base_aim.h
-time.h
-../libAim/autoAim/include/time.h
 kalman_filter_by_opencv.h
 ../libAim/autoAim/include/kalman_filter_by_opencv.h
 usb_capture_with_opencv.h

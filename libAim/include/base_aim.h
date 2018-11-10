@@ -107,7 +107,7 @@ protected:
      * @param: rect, 需要扩大的rect
      * @return: bool, 内部调用makeRectSafe(Rect &rect)返回是否还能调整大小
      */
-    bool broadenRect(Rect & rect);
+    bool broadenRect(int widthAdded, int heightAdded, Rect &rect);
 
 protected:
     //每一个子类中都默认拥有，方便调用pnp解算

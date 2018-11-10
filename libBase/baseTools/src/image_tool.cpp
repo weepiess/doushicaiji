@@ -74,8 +74,6 @@ double ImageTool::gravityKiller(double z_distance, double y_distance, double bul
     return offset;
 }
 
-
-
 struct timeval ImageTool::start={0};
 struct timeval ImageTool::end={0};
 clock_t ImageTool::currentClock=clock();
@@ -88,6 +86,12 @@ void ImageTool::timeCout() {
     gettimeofday(&end,NULL);
     cout<<"Running time: "<<(end.tv_sec-start.tv_sec)*1000+((double)(end.tv_usec-start.tv_usec))/1000<<"ms"<<endl;
 }
+
+double ImageTool::timeCount(){
+    gettimeofday(&end, NULL);
+    return (end.tv_sec-start.tv_sec)*1000+((double)(end.tv_usec-start.tv_usec))/1000;
+}
+
 double ImageTool::timeGet() {
     struct timeval tv;
     gettimeofday(&tv,NULL);

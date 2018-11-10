@@ -76,10 +76,10 @@ bool BaseAim::makeRectSafe(Rect & rect){
     return true;
 }
 
-bool BaseAim::broadenRect(Rect & rect){
-    rect.x -= rect.width/2;
-    rect.width += rect.width;
-    rect.y -= rect.height/2;
-    rect.height += rect.height;
+bool BaseAim::broadenRect(int widthAdded, int heightAdded, Rect &rect){
+    rect.x -= widthAdded;
+    rect.width += 2*widthAdded;
+    rect.y -= heightAdded;
+    rect.height += 2*heightAdded;
     return makeRectSafe(rect);
 }

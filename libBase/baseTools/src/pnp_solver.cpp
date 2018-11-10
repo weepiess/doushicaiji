@@ -18,8 +18,8 @@ void PNPSolver::setCameraMatrix(float a, float b, float c, float d, float e, flo
     camera_matrix = (Mat_<float>(3,3) << a,b,c,d,e,f,g,h,i);
 }
 
-void PNPSolver::setDistortionCoef(float a, float b, float c, float d, float e){
-    distortion_coef = (Mat_<float>(5,1) << a,b,c,d,e);
+void PNPSolver::setDistortionCoef(float a, float b, float c, float d){
+    distortion_coef = (Mat_<float>(4,1) << a,b,c,d);
 }
 
 void PNPSolver::pushPoints3D(double x, double y, double z){

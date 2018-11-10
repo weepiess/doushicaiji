@@ -69,17 +69,17 @@ int MindVision::startPlay(int hCamera_){
     #endif
 
     //帧率
-    CameraSetFrameSpeed(hCamera, 2);
+    CameraSetFrameSpeed(hCamera, 1); //1
     //gamma值
-    CameraSetGamma(hCamera, 80);
+    CameraSetGamma(hCamera, 20); //55
     //曝光时间
-    CameraSetExposureTime(hCamera, 2000);
+    CameraSetExposureTime(hCamera, 1000); //25000
     //对比度
-    CameraSetContrast(hCamera, 128);
+    CameraSetContrast(hCamera, 150); //65
     //是否自动曝光
-    CameraSetAeState(hCamera, false);
+    CameraSetAeState(hCamera, FALSE); //FALSE
     //白平衡
-    CameraSetWbMode(hCamera, TRUE);
+    //CameraSetWbMode(hCamera, TRUE);
     /*
     //色温
     CameraSetPresetClrTemp(hCamera, 2);

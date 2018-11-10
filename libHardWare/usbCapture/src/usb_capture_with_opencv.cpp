@@ -26,9 +26,7 @@ UsbCaptureWithOpenCV::UsbCaptureWithOpenCV(){
     mIsChangeFormat= false;
 }
 
-UsbCaptureWithOpenCV::~UsbCaptureWithOpenCV(){
-
-}
+UsbCaptureWithOpenCV::~UsbCaptureWithOpenCV(){}
 
 int UsbCaptureWithOpenCV::init(){
     if(mIsOpen){
@@ -43,11 +41,7 @@ int UsbCaptureWithOpenCV::init(){
         return 0;
     }
     return -1;
-
-
 }
-
-
 
 int UsbCaptureWithOpenCV::init(std::string videoPath, int width, int height) {
     if(mIsOpen){
@@ -131,9 +125,6 @@ int UsbCaptureWithOpenCV::getImg(Mat &img){
         return -1;
     }
 }
-
-
-
 
 void UsbCaptureWithOpenCV::run() {
     while(true){

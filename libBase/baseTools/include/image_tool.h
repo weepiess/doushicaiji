@@ -37,6 +37,8 @@ public:
 
     static void timeInit();
     static void timeCout();
+    //毫秒计时
+    static double timeCount();
     static void timeInitClock();
     static void timeCoutClock();
     static double timeGet();

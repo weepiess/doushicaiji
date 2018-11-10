@@ -35,8 +35,6 @@ opencv2/opencv.hpp
 -
 base_aim.h
 ../libAim/autoAim/include/base_aim.h
-time.h
-../libAim/autoAim/include/time.h
 kalman_filter_by_opencv.h
 ../libAim/autoAim/include/kalman_filter_by_opencv.h
 usb_capture_with_opencv.h
@@ -169,6 +167,8 @@ serial_port_debug.h
 /home/wyx/程序/wyx/doushicaiji/src/serial_port_debug.h
 usb_capture_with_thread.h
 /home/wyx/程序/wyx/doushicaiji/src/usb_capture_with_thread.h
+stdlib.h
+-
 
 /home/wyx/程序/wyx/doushicaiji/src/main.cpp
 iostream

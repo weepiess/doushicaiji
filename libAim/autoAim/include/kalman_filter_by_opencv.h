@@ -7,61 +7,21 @@
 using namespace std;
 using namespace cv;
 
-class Kalman_filter{
+class SimpleKalmanFilter{
 public:
-    Kalman_filter();
-    ~Kalman_filter();
+    SimpleKalmanFilter();
+    ~SimpleKalmanFilter();
 
 public:
-    void init(int measureParams, double Noise, int controlParams);
-    
-    Mat predict();
-    void correct(Mat measurement);
-    
+    //初始化与KalmanFilter相同，给出了一些初始状态时的默认值
+    void init(int dynamParams, int measureParams, int controlParams = 0, int type = CV_32F, float processNoiseCov = 1e-5, 
+                float measurementNoiseCov = 1e-1, float statePostCov = 0.1);
 public:
-    //int dynamParams;
-    int measureParams;
-    int controlParams;
-    //Mat transitionMatrix;
-    Mat statePre;           //!< predicted state (x'(k)): x(k)=A*x(k-1)+B*u(k)  
-    Mat statePost;          //!< corrected state (x(k)): x(k)=x'(k)+K(k)*(z(k)-H*x'(k))  
-    Mat transitionMatrix;   //!< state transition matrix (A)  
-    Mat controlMatrix;      //!< control matrix (B) (not used if there is no control)  
-    Mat measurementMatrix;  //!< measurement matrix (H)  
-    Mat processNoiseCov;    //!< process noise covariance matrix (Q)  
-    Mat measurementNoiseCov;//!< measurement noise covariance matrix (R)  
-    Mat errorCovPre;        //!< priori error estimate covariance matrix (P'(k)): P'(k)=A*P(k-1)*At + Q)*/  
-    Mat gain;               //!< Kalman gain matrix (K(k)): K(k)=P'(k)*Ht*inv(H*P'(k)*Ht+R)  
-    Mat errorCovPost;
+    //opencv自带的卡尔曼类,需要预测时直接调用该变量的函数，不对其做封装，减少数据复制和赋值
+    KalmanFilter kFilter;
 
-private:
-    KalmanFilter Kf;
+    //观测矩阵
+    cv::Mat measurement;
 };
 
 #endif
-/*example of using kalman_filter_by_opencv CV modle
-Kalman_filter kf;
-Mat measurement = Mat::zeros(4, 1, CV_32F); 
-kf.transitionMatrix=(Mat_<float>(4, 4) <<   
-            1,0,dt,0,   
-            0,1,0,dt,   
-            0,0,1,0,   
-            0,0,0,1 );
-kf.measurementMatrix=(Mat_<float>(4, 4) <<   
-            1,0,0,0,   
-            0,1,0,0,   
-            0,0,1,0,   
-            0,0,0,1 );  
-kf.measurementNoiseCov(Mat_<float>(4, 4) <<   
-            2000,0,0,0,   
-            0,2000,0,0,   
-            0,0,10000,0,   
-            0,0,0,10000 );
-kf.init(4,1e-5,1e-1,1/50);
-measurement.at<float>(0)= (float)x;  
-measurement.at<float>(1) = (float)y;  
-measurement.at<float>(2)= (float)vx;  
-measurement.at<float>(3) = (float)vy;  
-psoestate=kf.predict();
-kf.correct(measurement)
-*/

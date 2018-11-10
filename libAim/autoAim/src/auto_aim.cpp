@@ -3,17 +3,21 @@
 #include <iostream>
 #include <algorithm>
 
-AutoAim::AutoAim(){
-    resetROI();
-    resizeCount = 0;
-}
+#define DEBUG
+
+AutoAim::AutoAim(){}
 
 AutoAim::~AutoAim(){}
 
-void AutoAim::init(int width, int height, float dt_){
+void AutoAim::init(int width, int height){
     IMG_WIDTH = width;
     IMG_HEIGHT = height;
-    dt=dt_;
+    //一定要放在宽高初始化之后
+    resetROI();
+    resizeCount = 0;
+    //第一帧初始化避免开始测距不对的情况
+    //lastValiableTvec.z = 0;
+    farEnsureCount = nearEnsureCount = landspaceEnsureCount = 0;
 
     //初始化三维坐标点
     pnpSolver.pushPoints3D(-72, -30, 0);
@@ -21,44 +25,45 @@ void AutoAim::init(int width, int height, float dt_){
     pnpSolver.pushPoints3D(72, 30, 0);
     pnpSolver.pushPoints3D(-72, 30, 0);
     //初始化相机参数
-    pnpSolver.setCameraMatrix(1020.80666, 0., 695.74256, 0.,1020.80666,388.82902, 0., 0., 1.);
-    pnpSolver.setDistortionCoef(0.0058917, 0.269857, 0.0026559, 0.00903601,0.393959);
+    pnpSolver.setCameraMatrix(1022.9, 0, 636.8581, 0, 1026.5, 529.7976, 0, 0, 1);
+    pnpSolver.setDistortionCoef(-0.0986, 0.0413, 0, 0);
 
-    kf.transitionMatrix=(Mat_<float>(6, 6) <<   
-            1,0,dt,0,0,0,   
-            0,1,0,dt,0,0,   
-            0,0,1,0,dt,0,   
+    //初始化卡尔曼滤波
+    //需要调的参数为倒数三个，分别为过程噪声协方差、测量噪声协方差、初始状态不确定度
+    simpleKF.init(6, 6, 0, 5, 10000, 0, 0.1);
+
+    simpleKF.kFilter.transitionMatrix=(Mat_<float>(6, 6) <<
+            1,0,0,1,0,0,
+            0,1,0,0,1,0,
+            0,0,1,0,0,1,
             0,0,0,1,0,0,
             0,0,0,0,1,0,
-            0,0,0,0,0,1 );
-    kf.measurementMatrix=(Mat_<float>(6, 6) <<   
-            1,0,0,0,0,0,   
-            0,1,0,0,0,0,   
-            0,0,1,0,0,0,   
-            0,0,0,1,0,0,
-            0,0,0,0,1,0,
-            0,0,0,0,0,1);  
-    kf.measurementNoiseCov=(Mat_<float>(6, 6) <<   
-            2000,0,0,0,0,0,  
-            0,2000,0,0,0,0,   
-            0,0,2000,0,0,0,   
-            0,0,0,10000,0,0, 
+            0,0,0,0,0,1 
+    );
+
+    simpleKF.kFilter.measurementNoiseCov=(Mat_<float>(6,6) <<
+            2000,0,0,0,0,0,
+            0,2000,0,0,0,0,
+            0,0,2000,0,0,0,
+            0,0,0,10000,0,0,
             0,0,0,0,10000,0,
-            0,0,0,0,0,10000);
-    kf.statePost=(Mat_<float>(6, 1) <<  0,0,1,0,0,0);
-    
-    kf.init(6,20000,0);
+            0,0,0,0,0,10000
+    );
 }
 
-Point2d cal_x_y(RotatedRect &rect, int is_up){
+bool AutoAim::isGlobalSearch(){
+    return rectROI.x==0 && rectROI.y==0 && rectROI.width==IMG_WIDTH && rectROI.height==IMG_HEIGHT;
+}
+
+Point2d AutoAim::cal_x_y(RotatedRect &rect, int is_up){
     float angle = (90-rect.angle)*CV_PI/180;
     Point2d point;
     if(is_up){
-        point.x = rect.center.x + rect.size.height/2*cos(angle);
-        point.y = rect.center.y - rect.size.height/2*sin(angle);
+        point.x = rect.center.x + rect.size.height/2*cos(angle) + rectROI.x;
+        point.y = rect.center.y - rect.size.height/2*sin(angle) + rectROI.y;
     } else {
-        point.x = rect.center.x - rect.size.height/2*cos(angle);
-        point.y = rect.center.y + rect.size.height/2*sin(angle);
+        point.x = rect.center.x - rect.size.height/2*cos(angle) + rectROI.x;
+        point.y = rect.center.y + rect.size.height/2*sin(angle) + rectROI.y;
     }
     return point;
 }
@@ -68,6 +73,7 @@ void AutoAim::resetROI(){
     rectROI.y = 0;
     rectROI.width = IMG_WIDTH;
     rectROI.height = IMG_HEIGHT;
+    frameCount = 0;
 }
 
 void AutoAim::set_parameters(int angle,int inside_angle, int height, int width){
@@ -81,16 +87,24 @@ void AutoAim::set_parameters(int angle,int inside_angle, int height, int width){
 bool AutoAim::setImage(Mat &img){
     if(img.empty()) return false;
     Mat channel[3], Mask, diff;
-    int thresh = 40, substract_thresh = 100;
+    int thresh = 50, substract_thresh = 100;
 
-    resetROI();
-    mask = img(rectROI);
-    split(mask, channel);
+    if(++frameCount >= 120){ //强制全局搜索
+        resetROI();
+        split(img, channel);
+    } else if(isGlobalSearch()){//正常情况下的全局搜索
+        //不用mask=img(rectROI)，减少复制矩阵的时间
+        split(img, channel);
+    } else {
+        //resetROI();
+        mask = img(rectROI);
+        split(mask, channel);
+    }
     if(enemyColor == color_blue){
-        diff = channel[0] - channel[2];
+        diff = channel[0] - channel[1];
         Mask = channel[0];
     } else if (enemyColor == color_red){
-        diff = channel[2] - channel[0];
+        diff = channel[2] - channel[1];
         Mask = channel[2];
     } else {
         cout<<"enemyColor has an improper value, please check it again!!!";
@@ -101,17 +115,16 @@ bool AutoAim::setImage(Mat &img){
     threshold(Mask, Mask, thresh, 255, THRESH_BINARY);
     threshold(diff, diff, substract_thresh, 255, THRESH_BINARY);
 
-    Mat element = getStructuringElement(MORPH_ELLIPSE, Size(1, 3));
-    for (int i = 0; i < 8; ++i){
-        dilate( diff, diff, element);
-    }   
+    //Mat element = getStructuringElement(MORPH_ELLIPSE, Size(1, 3));
+    //dilate(diff, diff, element, Point(-1, -1), 2);
+
     bitwise_and(Mask, diff, mask);
-    imshow("mask", mask);
+    //imshow("mask", mask);
     return true;
 }
 
 //寻找灯管
-void AutoAim::findLamp_rect(Mat &img, vector<RotatedRect> &pre_armor_lamps){
+void AutoAim::findLamp_rect(vector<RotatedRect> &pre_armor_lamps){
     pre_armor_lamps.clear();
     vector<vector<Point> > contours;
     vector<Vec4i> hierarcy;
@@ -120,20 +133,22 @@ void AutoAim::findLamp_rect(Mat &img, vector<RotatedRect> &pre_armor_lamps){
 
     RotatedRect temp;
     float lastCenterX = 0, lastCenterY = 0;
-    if(contours.size()<40){
-        for(int i=0;i<contours.size();i++){
-            if(contours[i].size()>5){
+    if(contours.size() < 20){
+        for(int i=0; i<contours.size(); i++){
+            if(contours[i].size() > 5){
                 temp = adjustRRect(minAreaRect(contours[i]));//寻找最小外接矩形
+                //筛选出一定不是灯条的矩形
                 if(abs(temp.angle)>45) continue;//旋转矩形角度小于45度，则忽略
+                if(temp.size.height < temp.size.width*1.2) continue;
 
                 pre_armor_lamps.push_back(temp);
             }
         }
     }
-
 }
+
 //匹配灯管
-void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector<RotatedRect> &real_armor_lamps){
+void AutoAim::match_lamps(vector<RotatedRect> &pre_armor_lamps, vector<RotatedRect> &real_armor_lamps){
     //权重
     int angle_diff_weight = 3;
     int height_diff_weight = 2;
@@ -145,8 +160,14 @@ void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector
         diff[i] = 0x3f3f3f3f;
         best_match_index[i] = -1;
     }
+
+    for(int i=0; i<pre_armor_lamps.size(); i++){
+        //cout<<pre_armor_lamps[i].angle<<" ";
+        //cout<<pre_armor_lamps[i].size.height<<endl;
+    }
+
     //计算灯管匹配之间的花费
-    int dist, avg_height, diff_angle, diff_height, ratio, totalDiff,inside_angle,diff_width;
+    int dist, avg_height, diff_angle, diff_height, ratio, totalDiff, inside_angle, diff_width;
     int i,j;
     for(i=0; i<size; i++){
         float currDiff = 0x3f3f3f3f;
@@ -154,13 +175,13 @@ void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector
         const RotatedRect &current = pre_armor_lamps[i];
         int theta_current = current.angle;
 
+        //cout<<"i: "<<i<<"!!!";
+
         for(j=i+1;j<size; j++){
-            //计算比例，筛选灯管
             const RotatedRect &compare = pre_armor_lamps[j];
-            int theta_compare = compare.angle;
-            
+
             //灯条角度差超过设定角度忽略
-            diff_angle = abs(theta_compare - theta_current);
+            diff_angle = abs(compare.angle - theta_current);
             //cout<<"diff_angle"<<diff_angle<<" "<<theta_compare<<" "<<theta_current<<endl;
             if(diff_angle > param_diff_angle) continue;
 
@@ -168,31 +189,31 @@ void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector
             if(abs(current.center.y - compare.center.y)==0) inside_angle=90;
             else inside_angle = atanf(abs(current.center.x-compare.center.x)/abs(current.center.y-compare.center.y))*180/CV_PI;
             //cout<<"inside"<<inside_angle<<endl;
-            if(inside_angle<param_inside_angle) continue;
+            if(inside_angle < param_inside_angle) continue;
             
-            //两灯条高度比例不在范围内则忽略，用比例代替高度差
+            //两灯条高度比例不在范围内则忽略
+            diff_height = abs(compare.size.height - current.size.height);
             if(compare.size.height/current.size.height > 1.5 || compare.size.height/current.size.height<0.7) continue;
 
             //两灯条宽度差超过20个像素点忽略
-            diff_width=abs(compare.size.width - current.size.width);
+            //diff_width = abs(compare.size.width - current.size.width);
             //cout<<"diffwidth"<<diff_width<<endl;
-            if(diff_width>param_diff_width) continue;
+            //if(diff_width > param_diff_width) continue;
 
             dist = ImageTool::calc2PointApproDistance(compare.center, current.center);
-            //cout<<"dist"<<dist<<endl;
-            //灯条间距小于20个像素点忽略
-            if(dist<20) continue;
             avg_height = (compare.size.height + current.size.height) / 2;
             ratio = dist / avg_height;
             //cout<<"ratio: "<<ratio<<endl;
-            if(ratio > 3 || ratio < 1) continue;
+            if(ratio > 4 || ratio < 1) continue;
             
             totalDiff = angle_diff_weight*diff_angle + height_diff_weight*diff_height;
+            //cout<<j<<":"<<totalDiff<<" --- ";
             if(totalDiff < currDiff){
                 currDiff = totalDiff;
                 currIndex = j;
             }
         }
+        //cout<<endl;
 
         //一对灯管肯定花费是最少的，所以如果当前花费比两个的花费都要少，就记录是最优
         if(currIndex==-1) continue;
@@ -205,7 +226,7 @@ void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector
     }
 
     for(i=0; i<size; i++){
-        //cout<<best_match_index[i]<<endl;
+        //cout<<"i: "<<diff[i]<<endl;
         int index = best_match_index[i];
         if(index == -1 || index <= i) continue;
         if(i == best_match_index[index]){
@@ -214,46 +235,93 @@ void AutoAim::match_lamps(Mat &img, vector<RotatedRect> &pre_armor_lamps, vector
         }
     }
 }
+
 //选择最优装甲板
 void AutoAim::select_armor(vector<RotatedRect> real_armor_lamps){
-    int lowerY=0;
-    int lowerIndex=-1;
+    /*
+    int leftIndex = -1;
+    //由于每次枪管转动之后目标几乎都在相机的正中心，所以可以把上一帧所在的位置近似看在屏幕的正中心
+    //采用权重法，由于y轴的距离很重要，而相机的移动距离是其次
+    //分为roi内的搜索和全局搜索，由于全局搜索可能会导致转角很大，而roi内搜索转角不会很大，所以roi内搜索直接找最下面的点就行了
+    bool isAllAbove = true;
+    int lowerY = -1;
+    if(isGlobalSearch()){
+        int dist = 0x3f3f3f3f;
+        int currIndex = -1;
+        for(int i=0; i<real_armor_lamps.size(); i+=2){
+            if(i+1 >= real_armor_lamps.size()) break;
+            int y = (real_armor_lamps[i].center.y + real_armor_lamps[i+1].center.y)/2;
+            int x = (real_armor_lamps[i].center.x + real_armor_lamps[i+1].center.x)/2;
+            //如果全在镜头上方就找y最大的，有在镜头下方根据dist的大小选择相机转动距离最小的
+            if(y > IMG_HEIGHT/7*4){
+                isAllAbove = false;
+                int currDist = abs(x - IMG_WIDTH/2) + abs(y - IMG_HEIGHT/2);
+                if(currDist < dist){
+                    dist = currDist;
+                    leftIndex = i;
+                }
+            } else if(lowerY < y){
+                lowerY = y;
+                currIndex = i;
+            }
+        }
+        if(isAllAbove)  leftIndex = currIndex;
+    } else {
+        for(int i=0; i<real_armor_lamps.size(); i+=2){
+            if(i+1 >= real_armor_lamps.size()) break;
+            int y = (real_armor_lamps[i].center.y + real_armor_lamps[i+1].center.y)/2;
+            if(y > lowerY){
+                lowerY = y;
+                leftIndex = i;
+            }
+        }
+    }
+    */
+    //由于上面的逻辑实现出来有问题，而且感觉并没有特别大的优势，所以还是采用优先选择最下方的方法
+    int leftIndex = -1;
+    int lowerY = 0;
+    bool isAllAbove = true;
     for(int i=0; i<real_armor_lamps.size(); i+=2){
         if(i+1 >= real_armor_lamps.size()) break;
         int y = (real_armor_lamps[i].center.y + real_armor_lamps[i+1].center.y)/2;
         if(y > lowerY){
             lowerY = y;
-            lowerIndex = i;
+            leftIndex = i;
         }
+        if(max(real_armor_lamps[leftIndex].size.height, real_armor_lamps[leftIndex+1].size.height) > 20) isAllAbove = false;
     }
-    //优先锁定图像下方装甲板
-    if(lowerIndex == -1){
+    if(leftIndex == -1){
         resizeCount++;
-        if(!broadenRect(rectROI) || resizeCount>3){
+        int widthAdded, heightAdded;
+        //说明之前的roi在近处，由于近处车子移动导致像素点变的很快，所以roi扩大的程度需要变快
+        if(rectROI.width > 100 || rectROI.height > 50){
+            widthAdded = 15;
+            heightAdded = 10;
+        } else {
+            widthAdded = 5;
+            heightAdded = 3;
+        }
+        if(!broadenRect(widthAdded, heightAdded, rectROI) || resizeCount>60){
             resetROI();
             resizeCount = 0;
         }
     } else {
         resizeCount = 0;
-        //cout<<real_armor_lamps[lowerIndex].x<<"  "<<real_armor_lamps[lowerIndex+1].x<<endl;
-	    if(real_armor_lamps[lowerIndex].center.x > real_armor_lamps[lowerIndex+1].center.x){
-            swap(real_armor_lamps[lowerIndex],real_armor_lamps[lowerIndex+1]);//确保偶数为左灯条，奇数为右灯条
+        //确保偶数为左灯条，奇数为右灯条
+	    if(real_armor_lamps[leftIndex].center.x > real_armor_lamps[leftIndex+1].center.x){
+            swap(real_armor_lamps[leftIndex],real_armor_lamps[leftIndex+1]);
         }
-        int height = (real_armor_lamps[lowerIndex].size.height + real_armor_lamps[lowerIndex+1].size.height)/2;
-        //当灯条高度小于10个像素点时放弃锁定，重新寻找合适目标
-        if(height > 10){
-            //cout<<rectROI.x<<" "<<rectROI.y<<endl;
-            bestCenter.x = (real_armor_lamps[lowerIndex].center.x + real_armor_lamps[lowerIndex+1].center.x)/2 + rectROI.x;
-            bestCenter.y = (real_armor_lamps[lowerIndex].center.y + real_armor_lamps[lowerIndex+1].center.y)/2 + rectROI.y;
-            //cout<<bestCenter<<endl;
+        int maxHeight = max(real_armor_lamps[leftIndex].size.height, real_armor_lamps[leftIndex+1].size.height);
+        //当灯条高度小于20个像素点时，车子已经跑远了，这时候必须全局搜索一下防止锁定太死
+        if(maxHeight > 20 || isAllAbove){
+            bestCenter.x = (real_armor_lamps[leftIndex].center.x + real_armor_lamps[leftIndex+1].center.x)/2 + rectROI.x;
+            bestCenter.y = (real_armor_lamps[leftIndex].center.y + real_armor_lamps[leftIndex+1].center.y)/2 + rectROI.y;
         } else resetROI();
     }
 
-    if(bestCenter.x!=-1){
-        clock_t finish = clock();
-        best_lamps[0] = real_armor_lamps[lowerIndex];
-        best_lamps[1] = real_armor_lamps[lowerIndex+1];
-        //cout<<best_lamps<<"bestlamps"<<endl;
+    if(bestCenter.x != -1){
+        best_lamps[0] = real_armor_lamps[leftIndex];
+        best_lamps[1] = real_armor_lamps[leftIndex+1];
         rectROI.x = (best_lamps[0].center.x + best_lamps[1].center.x)/2 + rectROI.x - (best_lamps[1].center.x - best_lamps[0].center.x);
         rectROI.y = (best_lamps[0].center.y + best_lamps[1].center.y)/2 + rectROI.y - (best_lamps[0].size.height + best_lamps[1].size.height)/2;
         rectROI.height = best_lamps[0].size.height + best_lamps[1].size.height;
@@ -261,6 +329,29 @@ void AutoAim::select_armor(vector<RotatedRect> real_armor_lamps){
         if(!makeRectSafe(rectROI))
             resetROI();
     }
+}
+
+//现在考虑的使用对vx vy vz都进行滤波，抑制数据跳变
+bool AutoAim::rejudgeByTvec(double x, double y, double z){
+    //根据先验知识，车子原来在中间，不可能突然消失，所以如果在这段时间内检测到了坐标点的tvec变化很大，说明可能出现了误解
+    //x的变化不大，y的变化适中，z的变化可能最大
+    //该方法出现的问题：第一是刚开始时前几帧的测距不稳定，所以很多帧后才会出现打击位置，第二是摄像头也晃动的时候，无法检测到，检测延迟很严重
+    //实测下镜头晃动不是很剧烈的时候，可以检测到，第一帧的延迟通过对lastValiableTvec.x的初始化解决了
+    if(lastValiableTvec.z == 0) return true;
+    if(farEnsureCount >= 180 || nearEnsureCount >= 3 || landspaceEnsureCount>=20){
+        farEnsureCount = nearEnsureCount = landspaceEnsureCount = 0;
+        return true;
+    }
+    if(abs(lastValiableTvec.z-z) > 600){
+        if(lastValiableTvec.z-z < 0) ++farEnsureCount;
+        else ++nearEnsureCount; 
+        return false;
+    }
+    if(abs(lastValiableTvec.x-x)>200 || abs(lastValiableTvec.y-y)>300){
+        ++landspaceEnsureCount;
+        return false;
+    }
+    return true;
 }
 
 AimResult AutoAim::aim(Mat &src, Point2f &pitYaw){
@@ -271,42 +362,57 @@ AimResult AutoAim::aim(Mat &src, Point2f &pitYaw){
     vector<RotatedRect> real_armor_lamps;
     bestCenter.x = -1;
 
-    findLamp_rect(src, pre_armor_lamps);
-    match_lamps(src, pre_armor_lamps, real_armor_lamps);
+    findLamp_rect(pre_armor_lamps);
+    match_lamps(pre_armor_lamps, real_armor_lamps);
     select_armor(real_armor_lamps);
-
-    if(bestCenter.x != -1){
-        circle(src, bestCenter, 20, Scalar(255,255,255), 5);
-        rectangle(src, rectROI, Scalar(255,0,0), 2);
-        //cout<<"bestCenter: !!!!!!!!!!!"<<bestCenter.x<<" "<<bestCenter.y<<endl;
-    }
-    imshow("src", src);
-    waitKey(1);
     
     if(bestCenter.x!=-1){
-        pnpSolver.pushPoints2D(cal_x_y(best_lamps[0],1));//P1
-        pnpSolver.pushPoints2D(cal_x_y(best_lamps[1],1));//P3
-        pnpSolver.pushPoints2D(cal_x_y(best_lamps[1],0));//P2
-        pnpSolver.pushPoints2D(cal_x_y(best_lamps[0],0));//P4
+        pnpSolver.pushPoints2D(cal_x_y(best_lamps[0],1));//左灯条上方
+        pnpSolver.pushPoints2D(cal_x_y(best_lamps[1],1));//右灯条上方
+        pnpSolver.pushPoints2D(cal_x_y(best_lamps[1],0));//右灯条下方
+        pnpSolver.pushPoints2D(cal_x_y(best_lamps[0],0));//左灯条上方
         pnpSolver.solvePnP();
-        pnpSolver.clearPoints2D();
         //pnpSolver.showParams();
+        pnpSolver.clearPoints2D();
         Point3d tvec = pnpSolver.getTvec();
-        //cout<<tvec<<endl;
-        if(isPredict){
-            measurement.at<float>(0)= tvec.x;
-            measurement.at<float>(1) = tvec.y;  
-            measurement.at<float>(2)= tvec.z;  
-            measurement.at<float>(3) = (last_tvec.x-tvec.x)/timeDelay;
-            measurement.at<float>(4) = (last_tvec.y-tvec.y)/timeDelay;
-            measurement.at<float>(5) = (last_tvec.z-tvec.z)/timeDelay;
+        //cout<<"tvec: "<<tvec<<endl;
+        //暂时改成卡尔曼滤波抑制噪点
+        //if(!rejudgeByTvec(tvec.x, tvec.y, tvec.z))
+        //    return AIM_TARGET_NOT_FOUND;
+        //lastValiableTvec = tvec;
 
-            Mat Predict = this->kf.predict();
-            kf.correct(measurement);
-            float x = Predict.at<float>(0) + Predict.at<float>(3)*dt;
-            float y = Predict.at<float>(1) + Predict.at<float>(4)*dt;
-            float z = Predict.at<float>(2) + Predict.at<float>(5)*dt;
-            pitYaw = calPitchAndYaw(x, y, z);
+        #ifdef DEBUG
+        circle(src, bestCenter, 20, Scalar(255,255,255), 5);
+        rectangle(src, rectROI, Scalar(255,0,0), 2);
+        #endif
+
+        if(isPredict){
+            //第一帧做预测，不然后面收敛的很慢
+            if(lastValiableTvec.z == 0){
+                simpleKF.kFilter.predict();
+            }
+            //从开始读入图像到执行到此处所用的时间
+            timeDelay = ImageTool::timeCount();
+
+            simpleKF.measurement.at<float>(0) = tvec.x;
+            simpleKF.measurement.at<float>(1) = tvec.y;
+            simpleKF.measurement.at<float>(2) = tvec.z;
+            simpleKF.measurement.at<float>(3) = (tvec.x - lastValiableTvec.x)/timeDelay;
+            simpleKF.measurement.at<float>(4) = (tvec.y - lastValiableTvec.y)/timeDelay;
+            simpleKF.measurement.at<float>(5) = (tvec.z - lastValiableTvec.z)/timeDelay;
+            
+            //先用测量值去纠正预测值，然后再超前一步预测
+            //预测效果还行，没有上机测试
+            simpleKF.kFilter.correct(simpleKF.measurement);
+            simpleKF.kFilter.predict();
+
+            float x = simpleKF.kFilter.statePost.at<float>(0);
+            float y = simpleKF.kFilter.statePost.at<float>(1);
+            float z = simpleKF.kFilter.statePost.at<float>(2);
+            cout<<tvec.x<<" "<<tvec.y<<" "<<tvec.z<<" "<<x<<" "<<y<<" "<<z<<endl;
+            lastValiableTvec.x = x;
+            lastValiableTvec.y = y;
+            lastValiableTvec.z = z;
         }else{   
             pitYaw = calPitchAndYaw(tvec.x, tvec.y, tvec.z, tvec.z/17, -90, 170);
         }
