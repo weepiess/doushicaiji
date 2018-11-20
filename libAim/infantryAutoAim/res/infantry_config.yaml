@@ -1,0 +1,22 @@
+%YAML:1.1
+#有差异
+red_sbstract_thresh: 90
+blue_sbstract_thresh: 110
+
+#共有的
+max_allow_angle: 45
+max_diff_angle: 6
+min_inside_angle: 70
+max_height_ratio: 1.5
+max_dis_height_ratio: 3.5
+min_dis_height_ratio: 2
+near_lamp_height: 40
+mid_lamp_height: 20
+far_lamp_height: 10
+
+near_roi_width: 80
+near_roi_height: 40
+far_roi_height: 20
+
+img_width: 1280
+img_height: 720

@@ -12,8 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.5.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeSystem.cmake"
   "../libAim/CMakeLists.txt"
-  "../libAim/autoAim/CMakeLists.txt"
-  "../libAim/markAim/CMakeLists.txt"
+  "../libAim/infantryAutoAim/CMakeLists.txt"
   "../libBase/CMakeLists.txt"
   "../libBase/baseClasses/CMakeLists.txt"
   "../libBase/baseTools/CMakeLists.txt"
@@ -63,8 +62,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "libHardWare/usbCapture/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libHardWare/mindVision/CMakeFiles/CMakeDirectoryInformation.cmake"
   "libAim/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libAim/autoAim/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libAim/markAim/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libAim/infantryAutoAim/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -76,6 +74,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "libHardWare/usbCapture/CMakeFiles/UsbCapture.dir/DependInfo.cmake"
   "libHardWare/mindVision/CMakeFiles/MindVision.dir/DependInfo.cmake"
   "libAim/CMakeFiles/BaseAim.dir/DependInfo.cmake"
-  "libAim/autoAim/CMakeFiles/AutoAim.dir/DependInfo.cmake"
-  "libAim/markAim/CMakeFiles/MarkAim.dir/DependInfo.cmake"
+  "libAim/infantryAutoAim/CMakeFiles/InfantryAutoAim.dir/DependInfo.cmake"
   )

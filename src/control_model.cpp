@@ -24,12 +24,14 @@ ControlModel::~ControlModel(){}
 
 void ControlModel::init(RobotModel* robotModel){
     pRobotModel=robotModel;
-    autoAim.init(1280, 720);
-    hCamera = mVision.init();
-    mVision.startPlay(hCamera);
     //配置文件
     cv::FileStorage f("../res/main_config.yaml", cv::FileStorage::READ);
     f["enemy_is_red"] >> mEnemyIsRed;//自瞄敌方颜色
+
+    autoAim.init(mEnemyIsRed);
+    hCamera = mVision.init();
+    mVision.startPlay(hCamera, mEnemyIsRed);
+
     f.release();
     usleep(1000000);//等待1s，等摄像头稳定
     //初始模式初始化
@@ -60,8 +62,6 @@ void ControlModel::processFSM(){
         pRobotModel->setCurrentMode(mSetMode);
         switch (mSetMode){
             case ROBOT_MODE_AUTOAIM:{
-                autoAim.set_parameters(3, 70, 0, 0);
-                autoAim.setEnemyColor(BaseAim::color_red);
                 autoAim.openPredict();
                 break;
             }
@@ -83,6 +83,8 @@ void ControlModel::processFSM(){
             string s = "src";
             imshow(s, src);
             waitKey(1);
+            char c = waitKey(20);
+            mVision.adjustParams(c);
             break;
         }
         default:

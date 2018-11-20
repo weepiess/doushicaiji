@@ -16,6 +16,7 @@
 #include <pnp_solver.h>
 #include <image_tool.h>
 #include <iostream>
+#include <aim_params.h>
 
 using namespace cv;
 using namespace std;
@@ -36,16 +37,15 @@ public:
      */
     void setImgSize(Size imgSize);
 
+    /** 设置敌方颜色
+     * @param: color, 敌方颜色
+     */
+    void setEnemyColor(int color);
+
     /** 在实例化时如果子类需要使用预测值，则调用此方法开启预测
      * @return: void
      */
     void openPredict();
-
-    /** 设置敌方颜色
-     * @param: enemyColor, 敌方颜色，只能用类似BaseAim::color_red去调用，不需要颜色则不调用
-     * @return: void
-     */
-    void setEnemyColor(int enemyColor);
 
     /** 设置预测下一帧所要使用的延时
      * @param: timeDelay, 延时
@@ -60,8 +60,8 @@ public:
 
 public:
     //敌方颜色，调用时只能使用变量名，不能直接使用0或１
-    const static int color_red = 0;
-    const static int color_blue = 1;
+    const static unsigned char color_red = 0;
+    const static unsigned char color_blue = 1;
 
 protected:
     /** 根据pnp解算的tvec矩阵计算需要移动的pitch和yaw轴角度，默认使用迭代法
@@ -113,11 +113,11 @@ protected:
     //每一个子类中都默认拥有，方便调用pnp解算
     PNPSolver pnpSolver;
 
+    //参数类，子类的参数配置可以通过此方法进行
+    AimParams params;
+
     //是否使用预测值，默认为false，对于步兵等自瞄可能需要使用预测值，对于吊射等应该不需要
     bool isPredict = false;
-
-    //目标的颜色，用于分离通道等操作，默认为红色
-    int enemyColor = color_red;
 
     //用在预测过程中，用于通过时延计算下一帧预测位置
     double timeDelay = 0;
@@ -125,10 +125,6 @@ protected:
     //当前的pitch和yaw轴
     float currPitch = 180;
     float currYaw = 180;
-
-    //图像的宽高
-    int IMG_WIDTH;
-    int IMG_HEIGHT;
 };
 
 #endif

@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/wyx/程序/wyx/doushicaiji/libAim/src/base_aim.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.o"
+  "/home/wyx/程序/wyx/doushicaiji/libAim/src/kalman_filter_by_opencv.cpp" "/home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -15,8 +16,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../libHardWare/usbCapture/include"
   "../libHardWare/mindVision/include"
   "../libAim/include"
-  "../libAim/autoAim/include"
-  "../libAim/markAim/include"
+  "../libAim/infantryAutoAim/include"
   "../libBase/baseClasses/include"
   "../libBase/baseTools/include"
   "../libAim/./include"

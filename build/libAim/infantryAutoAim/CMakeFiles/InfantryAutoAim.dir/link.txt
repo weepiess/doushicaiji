@@ -1,0 +1,2 @@
+/usr/bin/ar qc libInfantryAutoAim.a  CMakeFiles/InfantryAutoAim.dir/src/infantry_auto_aim.cpp.o
+/usr/bin/ranlib libInfantryAutoAim.a

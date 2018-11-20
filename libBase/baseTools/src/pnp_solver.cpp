@@ -14,19 +14,25 @@
 PNPSolver::PNPSolver(){}
 PNPSolver::~PNPSolver(){}
 
-void PNPSolver::setCameraMatrix(float a, float b, float c, float d, float e, float f, float g, float h, float i){
-    camera_matrix = (Mat_<float>(3,3) << a,b,c,d,e,f,g,h,i);
+void PNPSolver::setCameraMatrix(float fx, float fy, float cx, float cy){
+    camera_matrix = (Mat_<float>(3,3) << fx,0,cx,0,fy,cy,0,0,1);
 }
 
-void PNPSolver::setDistortionCoef(float a, float b, float c, float d){
-    distortion_coef = (Mat_<float>(4,1) << a,b,c,d);
+void PNPSolver::setDistortionCoef(float rdx, float rdy, float tdx, float tdy){
+    distortion_coef = (Mat_<float>(4,1) << rdx,rdy,tdx,tdy);
 }
 
-void PNPSolver::pushPoints3D(double x, double y, double z){
+void PNPSolver::pushPoints3D(double x_length, double y_length, double z_length, bool is_z_overlook){
     if(Points3D.size() > 4){
         cout<<"you have selected over four points, check your method in PNPSolver::solvePnP() to ensure your input."<<endl;
     }
-    Points3D.push_back(Point3d(x, y, z));
+    if(is_z_overlook){
+        z_length = -z_length;   
+    }
+    Points3D.push_back(Point3d(-x_length/2, -y_length/2, -z_length/2));
+    Points3D.push_back(Point3d(x_length/2, -y_length/2, -z_length/2));
+    Points3D.push_back(Point3d(x_length/2, y_length/2, z_length/2));
+    Points3D.push_back(Point3d(-x_length/2, y_length/2, z_length/2));
 }
 
 void PNPSolver::clearPoints3D(){

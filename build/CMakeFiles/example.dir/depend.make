@@ -3,9 +3,10 @@
 
 CMakeFiles/example.dir/src/control_model.cpp.o: ../include/control_model.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../include/robot_model.h
-CMakeFiles/example.dir/src/control_model.cpp.o: ../libAim/autoAim/include/auto_aim.h
-CMakeFiles/example.dir/src/control_model.cpp.o: ../libAim/autoAim/include/kalman_filter_by_opencv.h
+CMakeFiles/example.dir/src/control_model.cpp.o: ../libAim/include/aim_params.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libAim/include/base_aim.h
+CMakeFiles/example.dir/src/control_model.cpp.o: ../libAim/include/kalman_filter_by_opencv.h
+CMakeFiles/example.dir/src/control_model.cpp.o: ../libAim/infantryAutoAim/include/infantry_auto_aim.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libBase/baseClasses/include/base_thread.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libBase/baseTools/include/basic_tool.h
 CMakeFiles/example.dir/src/control_model.cpp.o: ../libBase/baseTools/include/image_tool.h
@@ -156,9 +157,10 @@ CMakeFiles/example.dir/src/control_model.cpp.o: /usr/local/include/opencv2/video
 CMakeFiles/example.dir/src/main.cpp.o: ../include/control_model.h
 CMakeFiles/example.dir/src/main.cpp.o: ../include/robot_model.h
 CMakeFiles/example.dir/src/main.cpp.o: ../include/serial_listen_thread.h
-CMakeFiles/example.dir/src/main.cpp.o: ../libAim/autoAim/include/auto_aim.h
-CMakeFiles/example.dir/src/main.cpp.o: ../libAim/autoAim/include/kalman_filter_by_opencv.h
+CMakeFiles/example.dir/src/main.cpp.o: ../libAim/include/aim_params.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libAim/include/base_aim.h
+CMakeFiles/example.dir/src/main.cpp.o: ../libAim/include/kalman_filter_by_opencv.h
+CMakeFiles/example.dir/src/main.cpp.o: ../libAim/infantryAutoAim/include/infantry_auto_aim.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libBase/baseClasses/include/base_thread.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libBase/baseTools/include/image_tool.h
 CMakeFiles/example.dir/src/main.cpp.o: ../libBase/baseTools/include/pnp_solver.h
@@ -446,9 +448,10 @@ CMakeFiles/example.dir/src/robot_model.cpp.o: /usr/local/include/opencv2/videost
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../include/control_model.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../include/robot_model.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../include/serial_listen_thread.h
-CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libAim/autoAim/include/auto_aim.h
-CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libAim/autoAim/include/kalman_filter_by_opencv.h
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libAim/include/aim_params.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libAim/include/base_aim.h
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libAim/include/kalman_filter_by_opencv.h
+CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libAim/infantryAutoAim/include/infantry_auto_aim.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libBase/baseClasses/include/base_thread.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libBase/baseTools/include/image_tool.h
 CMakeFiles/example.dir/src/serial_listen_thread.cpp.o: ../libBase/baseTools/include/pnp_solver.h

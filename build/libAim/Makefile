@@ -152,6 +152,33 @@ src/base_aim.cpp.s:
 	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.s
 .PHONY : src/base_aim.cpp.s
 
+src/kalman_filter_by_opencv.o: src/kalman_filter_by_opencv.cpp.o
+
+.PHONY : src/kalman_filter_by_opencv.o
+
+# target to build an object file
+src/kalman_filter_by_opencv.cpp.o:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o
+.PHONY : src/kalman_filter_by_opencv.cpp.o
+
+src/kalman_filter_by_opencv.i: src/kalman_filter_by_opencv.cpp.i
+
+.PHONY : src/kalman_filter_by_opencv.i
+
+# target to preprocess a source file
+src/kalman_filter_by_opencv.cpp.i:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.i
+.PHONY : src/kalman_filter_by_opencv.cpp.i
+
+src/kalman_filter_by_opencv.s: src/kalman_filter_by_opencv.cpp.s
+
+.PHONY : src/kalman_filter_by_opencv.s
+
+# target to generate assembly for a file
+src/kalman_filter_by_opencv.cpp.s:
+	cd /home/wyx/程序/wyx/doushicaiji/build && $(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.s
+.PHONY : src/kalman_filter_by_opencv.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -164,6 +191,9 @@ help:
 	@echo "... src/base_aim.o"
 	@echo "... src/base_aim.i"
 	@echo "... src/base_aim.s"
+	@echo "... src/kalman_filter_by_opencv.o"
+	@echo "... src/kalman_filter_by_opencv.i"
+	@echo "... src/kalman_filter_by_opencv.s"
 .PHONY : help
 
 

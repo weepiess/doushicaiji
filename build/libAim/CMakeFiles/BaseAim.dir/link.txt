@@ -1,2 +1,2 @@
-/usr/bin/ar qc libBaseAim.a  CMakeFiles/BaseAim.dir/src/base_aim.cpp.o
+/usr/bin/ar qc libBaseAim.a  CMakeFiles/BaseAim.dir/src/base_aim.cpp.o CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o
 /usr/bin/ranlib libBaseAim.a

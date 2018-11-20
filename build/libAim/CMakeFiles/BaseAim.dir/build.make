@@ -81,17 +81,43 @@ libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.o.provides: libAim/CMakeFiles/Bas
 libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.o.provides.build: libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.o
 
 
+libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o: libAim/CMakeFiles/BaseAim.dir/flags.make
+libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o: ../libAim/src/kalman_filter_by_opencv.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o"
+	cd /home/wyx/程序/wyx/doushicaiji/build/libAim && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o -c /home/wyx/程序/wyx/doushicaiji/libAim/src/kalman_filter_by_opencv.cpp
+
+libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.i"
+	cd /home/wyx/程序/wyx/doushicaiji/build/libAim && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wyx/程序/wyx/doushicaiji/libAim/src/kalman_filter_by_opencv.cpp > CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.i
+
+libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.s"
+	cd /home/wyx/程序/wyx/doushicaiji/build/libAim && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wyx/程序/wyx/doushicaiji/libAim/src/kalman_filter_by_opencv.cpp -o CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.s
+
+libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.requires:
+
+.PHONY : libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.requires
+
+libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.provides: libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.requires
+	$(MAKE) -f libAim/CMakeFiles/BaseAim.dir/build.make libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.provides.build
+.PHONY : libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.provides
+
+libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.provides.build: libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o
+
+
 # Object files for target BaseAim
 BaseAim_OBJECTS = \
-"CMakeFiles/BaseAim.dir/src/base_aim.cpp.o"
+"CMakeFiles/BaseAim.dir/src/base_aim.cpp.o" \
+"CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o"
 
 # External object files for target BaseAim
 BaseAim_EXTERNAL_OBJECTS =
 
 libAim/libBaseAim.a: libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.o
+libAim/libBaseAim.a: libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o
 libAim/libBaseAim.a: libAim/CMakeFiles/BaseAim.dir/build.make
 libAim/libBaseAim.a: libAim/CMakeFiles/BaseAim.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libBaseAim.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wyx/程序/wyx/doushicaiji/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libBaseAim.a"
 	cd /home/wyx/程序/wyx/doushicaiji/build/libAim && $(CMAKE_COMMAND) -P CMakeFiles/BaseAim.dir/cmake_clean_target.cmake
 	cd /home/wyx/程序/wyx/doushicaiji/build/libAim && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/BaseAim.dir/link.txt --verbose=$(VERBOSE)
 
@@ -101,6 +127,7 @@ libAim/CMakeFiles/BaseAim.dir/build: libAim/libBaseAim.a
 .PHONY : libAim/CMakeFiles/BaseAim.dir/build
 
 libAim/CMakeFiles/BaseAim.dir/requires: libAim/CMakeFiles/BaseAim.dir/src/base_aim.cpp.o.requires
+libAim/CMakeFiles/BaseAim.dir/requires: libAim/CMakeFiles/BaseAim.dir/src/kalman_filter_by_opencv.cpp.o.requires
 
 .PHONY : libAim/CMakeFiles/BaseAim.dir/requires
 

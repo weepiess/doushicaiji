@@ -23,9 +23,6 @@
 /home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/edit_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/rebuild_cache.dir
 /home/wyx/程序/wyx/doushicaiji/build/libAim/CMakeFiles/BaseAim.dir
-/home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/CMakeFiles/rebuild_cache.dir
-/home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/CMakeFiles/edit_cache.dir
-/home/wyx/程序/wyx/doushicaiji/build/libAim/autoAim/CMakeFiles/AutoAim.dir
-/home/wyx/程序/wyx/doushicaiji/build/libAim/markAim/CMakeFiles/edit_cache.dir
-/home/wyx/程序/wyx/doushicaiji/build/libAim/markAim/CMakeFiles/rebuild_cache.dir
-/home/wyx/程序/wyx/doushicaiji/build/libAim/markAim/CMakeFiles/MarkAim.dir
+/home/wyx/程序/wyx/doushicaiji/build/libAim/infantryAutoAim/CMakeFiles/edit_cache.dir
+/home/wyx/程序/wyx/doushicaiji/build/libAim/infantryAutoAim/CMakeFiles/rebuild_cache.dir
+/home/wyx/程序/wyx/doushicaiji/build/libAim/infantryAutoAim/CMakeFiles/InfantryAutoAim.dir

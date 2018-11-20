@@ -25,22 +25,28 @@ public:
 
 public:
     //设置相机参数矩阵
-    void setCameraMatrix(float a, float b, float c, float d, float e, float f, float g, float h, float i);
-    //设置相机畸变矩阵
-    void setDistortionCoef(float a, float b, float c, float d);
+    void setCameraMatrix(float fx, float fy, float cx, float cy);
+    /** 设置相机畸变矩阵
+     * 四个参数分别为x,y径向和切向畸变
+     */
+    void setDistortionCoef(float rdx, float rdy, float tdx, float tdy);
 
-    //压入三维世界坐标点
-    void pushPoints3D(double x, double y, double z);
+    /** 压入三维世界坐标点, 默认以传入正方体的中心作为坐标原点，并且以xy平面的顺时针方向
+     * @param: is_z_overlook, 决定z的顺序，true则物体向下倾斜
+     */
+    void pushPoints3D(double x_length, double y_length, double z_length = 0, bool is_z_overlook = false);
     void clearPoints3D();
 
-    //压入二维点
-    //注意压入的顺序需要和 pushPoints3D() 一致
+    /** 压入二维点注意
+     * 压入的顺序需要和 pushPoints3D() 一致
+     */
     void pushPoints2D(const Point2d points);
     void clearPoints2D();
 
-    //默认使用迭代法
-    //SOLVEPNP_ITERATIVE速度较慢，并且三维坐标的四个点必须共面
-    //SOLVEPNP_P3P和SOLVEPNP_EPNP不要求点共面，P3P适用于四个点的情况，EPNP适用于五个点及以上的情况
+    /** 默认使用迭代法
+     * SOLVEPNP_ITERATIVE速度较慢，并且三维坐标的四个点必须共面
+     * SOLVEPNP_P3P和SOLVEPNP_EPNP不要求点共面，P3P适用于四个点的情况，EPNP适用于五个点及以上的情况
+     */
     void solvePnP(bool useExtrinsicGuess = false, int flags = SOLVEPNP_ITERATIVE);
     Point3d getTvec();
 
@@ -49,16 +55,16 @@ public:
 
 private:
     //相机参数矩阵
-    Mat camera_matrix;
+    cv::Mat camera_matrix;
     //相机畸变矩阵
-    Mat distortion_coef;
+    cv::Mat distortion_coef;
     //世界坐标系
     vector<Point3d> Points3D;
     //相机坐标系二维点
     vector<Point2d> Points2D;
 
-    Mat tvec;
-    Mat rvec;
+    cv::Mat tvec;
+    cv::Mat rvec;
 };
 
 #endif

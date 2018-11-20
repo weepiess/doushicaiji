@@ -1,5 +1,4 @@
-add_subdirectory(autoAim)
-add_subdirectory(markAim)
+add_subdirectory(infantryAutoAim)
 
 include_directories(./include)
 AUX_SOURCE_DIRECTORY(./src BASEAIM_SRCS)

@@ -11,8 +11,8 @@ opencv2/opencv.hpp
 ../include/opencv2/opencv.hpp
 robot_model.h
 ../include/robot_model.h
-auto_aim.h
-../include/auto_aim.h
+infantry_auto_aim.h
+../include/infantry_auto_aim.h
 mind_vision.h
 ../include/mind_vision.h
 
@@ -30,21 +30,7 @@ base_thread.h
 control_model.h
 ../include/control_model.h
 
-../libAim/autoAim/include/auto_aim.h
-opencv2/opencv.hpp
--
-base_aim.h
-../libAim/autoAim/include/base_aim.h
-kalman_filter_by_opencv.h
-../libAim/autoAim/include/kalman_filter_by_opencv.h
-usb_capture_with_opencv.h
-../libAim/autoAim/include/usb_capture_with_opencv.h
-
-../libAim/autoAim/include/kalman_filter_by_opencv.h
-opencv2/opencv.hpp
--
-iostream
--
+../libAim/include/aim_params.h
 
 ../libAim/include/base_aim.h
 opencv2/opencv.hpp
@@ -55,6 +41,24 @@ image_tool.h
 -
 iostream
 -
+aim_params.h
+-
+
+../libAim/include/kalman_filter_by_opencv.h
+opencv2/opencv.hpp
+-
+iostream
+-
+
+../libAim/infantryAutoAim/include/infantry_auto_aim.h
+opencv2/opencv.hpp
+-
+base_aim.h
+../libAim/infantryAutoAim/include/base_aim.h
+kalman_filter_by_opencv.h
+../libAim/infantryAutoAim/include/kalman_filter_by_opencv.h
+usb_capture_with_opencv.h
+../libAim/infantryAutoAim/include/usb_capture_with_opencv.h
 
 ../libBase/baseClasses/include/base_thread.h
 unistd.h

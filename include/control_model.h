@@ -16,7 +16,7 @@
 #define RMDEMO_CONTROL_MODEL_H
 #include "opencv2/opencv.hpp"
 #include "robot_model.h"
-#include "auto_aim.h"
+#include "infantry_auto_aim.h"
 #include "mind_vision.h"
 
 class ControlModel{
@@ -38,7 +38,7 @@ private:
     //相关临时变量
     bool mEnemyIsRed;
 
-    AutoAim autoAim;
+    InfantryAutoAim autoAim;
 
     int hCamera;
     MindVision mVision;

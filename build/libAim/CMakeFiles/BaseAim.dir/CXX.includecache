@@ -6,12 +6,22 @@
 
 #IncludeRegexTransform: 
 
+../libAim/include/aim_params.h
+
 ../libAim/include/base_aim.h
 opencv2/opencv.hpp
 -
 pnp_solver.h
 -
 image_tool.h
+-
+iostream
+-
+aim_params.h
+-
+
+../libAim/include/kalman_filter_by_opencv.h
+opencv2/opencv.hpp
 -
 iostream
 -
@@ -33,4 +43,8 @@ iostream
 /home/wyx/程序/wyx/doushicaiji/libAim/src/base_aim.cpp
 base_aim.h
 /home/wyx/程序/wyx/doushicaiji/libAim/src/base_aim.h
+
+/home/wyx/程序/wyx/doushicaiji/libAim/src/kalman_filter_by_opencv.cpp
+kalman_filter_by_opencv.h
+/home/wyx/程序/wyx/doushicaiji/libAim/src/kalman_filter_by_opencv.h
 

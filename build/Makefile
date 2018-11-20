@@ -202,30 +202,17 @@ BaseAim/fast:
 .PHONY : BaseAim/fast
 
 #=============================================================================
-# Target rules for targets named AutoAim
+# Target rules for targets named InfantryAutoAim
 
 # Build rule for target.
-AutoAim: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 AutoAim
-.PHONY : AutoAim
+InfantryAutoAim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 InfantryAutoAim
+.PHONY : InfantryAutoAim
 
 # fast build rule for target.
-AutoAim/fast:
-	$(MAKE) -f libAim/autoAim/CMakeFiles/AutoAim.dir/build.make libAim/autoAim/CMakeFiles/AutoAim.dir/build
-.PHONY : AutoAim/fast
-
-#=============================================================================
-# Target rules for targets named MarkAim
-
-# Build rule for target.
-MarkAim: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 MarkAim
-.PHONY : MarkAim
-
-# fast build rule for target.
-MarkAim/fast:
-	$(MAKE) -f libAim/markAim/CMakeFiles/MarkAim.dir/build.make libAim/markAim/CMakeFiles/MarkAim.dir/build
-.PHONY : MarkAim/fast
+InfantryAutoAim/fast:
+	$(MAKE) -f libAim/infantryAutoAim/CMakeFiles/InfantryAutoAim.dir/build.make libAim/infantryAutoAim/CMakeFiles/InfantryAutoAim.dir/build
+.PHONY : InfantryAutoAim/fast
 
 src/control_model.o: src/control_model.cpp.o
 
@@ -350,8 +337,7 @@ help:
 	@echo "... UsbCapture"
 	@echo "... MindVision"
 	@echo "... BaseAim"
-	@echo "... AutoAim"
-	@echo "... MarkAim"
+	@echo "... InfantryAutoAim"
 	@echo "... src/control_model.o"
 	@echo "... src/control_model.i"
 	@echo "... src/control_model.s"
